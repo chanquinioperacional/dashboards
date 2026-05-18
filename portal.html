@@ -496,7 +496,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
     <div class="tb-r">
       <button class="tb-btn" onclick="exportPDF()">📄 Exportar PDF</button>
       <button class="tb-btn present" onclick="openPresentation()">▶ Apresentação</button>
-      <button class="tb-btn" onclick="openAdmin()" style="border-color:var(--gold);color:var(--yellow)">⚙️ Admin</button>
+      <button class="tb-btn" id="btn-admin" onclick="openAdmin()" style="display:none;border-color:var(--gold);color:var(--yellow)">⚙️ Admin</button>
       <div class="nb" onclick="toggleNotif()">🔔<div class="nb-dot" id="nbd"></div></div>
       <div class="np" id="np">
         <div class="np-h"><div class="np-ht">Notificações</div><div class="np-cl" onclick="clearN()">Limpar</div></div>
@@ -785,14 +785,15 @@ function login(){
     setTimeout(()=>{l.style.display='none';},400);
     document.getElementById('portal').style.display='block';
     document.getElementById('wm').style.display='block';
-    buildDash();buildCal();buildCartas();initCharts();animateCounters();buildCartas();initAnualCharts();
+    document.getElementById('btn-admin').style.display='none';
+    buildDash();buildCal();buildCartas();initCharts();animateCounters();initAnualCharts();
   }else if(e===CFG.email&&s===CFG.senhaAdmin){
     const l=document.getElementById('login');l.classList.remove('vis');
     setTimeout(()=>{l.style.display='none';},400);
     document.getElementById('portal').style.display='block';
     document.getElementById('wm').style.display='block';
+    document.getElementById('btn-admin').style.display='flex';
     buildDash();buildCal();buildCartas();initCharts();animateCounters();initAnualCharts();
-    setTimeout(()=>openAdmin(),800);
   }else{
     err.style.display='block';document.getElementById('lp').style.borderColor='var(--red)';
     setTimeout(()=>{err.style.display='none';document.getElementById('lp').style.borderColor='';},3000);
@@ -1031,30 +1032,82 @@ function saveAdmin(){
 
 // PDF
 function exportPDF(){
-  try{
+  function gerarPDF(){
     const{jsPDF}=window.jspdf;
     const doc=new jsPDF();
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(20);doc.setTextColor(28,43,74);
-    doc.text('Portal Financeiro — Quinca Producoes',20,25);
-    doc.setFontSize(11);doc.setFont('helvetica','normal');doc.setTextColor(138,128,112);
-    doc.text('Chanquini Estrategias Financeiras | Fechamento Abril 2026',20,35);
-    doc.setDrawColor(123,47,190);doc.setLineWidth(0.5);doc.line(20,40,190,40);
-    doc.setFontSize(14);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
-    doc.text('Resumo Executivo',20,52);
-    const dados=[['Faturamento Abril 2026','R$ 79.419,00'],['Despesas Abril 2026','R$ 116.125,00'],['Resultado do Mes','R$ -36.706,00'],['Faturamento Acumulado','R$ 528.302,00'],['Meta Anual (28% exec.)','R$ 1.684.603,20'],['Margem Liquida','61%']];
-    let y=62;
+    // Header roxo
+    doc.setFillColor(123,47,190);doc.rect(0,0,210,28,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(255,255,255);
+    doc.text('CHANQUINI ESTRATEGIAS FINANCEIRAS',14,12);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(220,200,255);
+    doc.text('Portal Financeiro Privado | Quinca Producoes',14,20);
+    // Titulo
+    doc.setFontSize(15);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
+    doc.text('Relatorio de Fechamento — Abril 2026',14,38);
+    doc.setDrawColor(123,47,190);doc.setLineWidth(0.4);doc.line(14,42,196,42);
+    // Seção 1 — Resumo
+    doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
+    doc.text('RESUMO DO MES',14,52);
+    const dados=[
+      ['Faturamento Bruto','R$ 79.419,00'],
+      ['Despesas Totais','R$ 116.125,00'],
+      ['Resultado do Mes','R$ -36.706,00'],
+      ['Margem Liquida','61%'],
+      ['% da Meta Mensal','56,6%'],
+    ];
+    let y=60;
     dados.forEach(([l,v],i)=>{
-      if(i%2===0)doc.setFillColor(245,238,255);else doc.setFillColor(255,255,255);
-      doc.rect(20,y-5,170,9,i%2===0?'F':'');
+      const bg=i%2===0?[245,238,255]:[255,255,255];
+      doc.setFillColor(...bg);doc.rect(14,y-5,182,9,'F');
       doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(61,79,114);
-      doc.text(l,24,y);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
-      doc.text(v,150,y);y+=11;
+      doc.text(l,18,y);
+      doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
+      doc.text(v,160,y);y+=11;
     });
-    doc.setFontSize(10);doc.setFont('helvetica','italic');doc.setTextColor(138,128,112);
-    doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' | Chanquini Estrategias Financeiras | Portal v4.0',20,285);
-    doc.save('Relatorio_Financeiro_Quinca_Abril2026.pdf');
-  }catch(e){alert('Erro ao gerar PDF. Tente novamente.');}
+    // Seção 2 — Acumulado
+    y+=4;
+    doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
+    doc.text('ACUMULADO 2026 (Jan-Abr)',14,y);y+=10;
+    const acum=[
+      ['Faturamento Acumulado','R$ 528.302,00'],
+      ['Despesas Acumuladas','R$ 397.285,00'],
+      ['Resultado Acumulado','R$ 131.017,00'],
+      ['Meta Anual','R$ 1.684.603,20'],
+      ['Execucao da Meta','28%'],
+    ];
+    acum.forEach(([l,v],i)=>{
+      const bg=i%2===0?[240,253,244]:[255,255,255];
+      doc.setFillColor(...bg);doc.rect(14,y-5,182,9,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(61,79,114);
+      doc.text(l,18,y);
+      doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
+      doc.text(v,160,y);y+=11;
+    });
+    // Carta
+    y+=4;
+    doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
+    doc.text('CARTA DO CONSULTOR',14,y);y+=8;
+    doc.setFillColor(245,238,255);doc.rect(14,y-4,182,30,'F');
+    doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(61,79,114);
+    const carta=document.getElementById('carta-texto-home')?.textContent||'"Carta do consultor"';
+    const linhas=doc.splitTextToSize(carta,170);
+    doc.text(linhas,18,y+2);
+    // Footer
+    doc.setFillColor(28,43,74);doc.rect(0,282,210,15,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(180,180,200);
+    doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' | Chanquini Estrategias Financeiras | Portal v4.0 | Uso Confidencial',14,291);
+    doc.save('Relatorio_Quinca_Abril2026.pdf');
+  }
+
+  if(window.jspdf){
+    gerarPDF();
+  }else{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    s.onload=gerarPDF;
+    s.onerror=()=>alert('Erro ao carregar biblioteca de PDF. Verifique sua conexão.');
+    document.head.appendChild(s);
+  }
 }
 </script>
 </body>
