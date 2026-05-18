@@ -4,1484 +4,634 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Portal Financeiro — Quinca Produções</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --quinca: #7B2FBE;
-  --quinca-light: #9B4FDE;
-  --quinca-bg: #F3EAFF;
-  --navy: #1C2B4A;
-  --navy2: #243356;
-  --bg: #F7F8FA;
-  --card: #FFFFFF;
-  --border: #E8ECF2;
-  --text: #1C2B4A;
-  --muted: #6B7A99;
-  --green: #16A34A;
-  --green-bg: #DCFCE7;
-  --red: #DC2626;
-  --red-bg: #FEE2E2;
-  --yellow: #D97706;
-  --yellow-bg: #FEF3C7;
-  --blue: #2563EB;
-  --blue-bg: #DBEAFE;
-  --sidebar-w: 220px;
+:root{
+  --q:#7B2FBE;--q2:#9B4FDE;--qbg:#F3EAFF;--qdark:#5A1F9A;
+  --navy:#1C2B4A;--navy2:#243356;--navy3:#0E1828;
+  --bg:#F4F6FA;--card:#FFF;--border:#E4E8F0;
+  --text:#1C2B4A;--muted:#7A8AAA;--muted2:#B0BAD0;
+  --green:#16A34A;--gbg:#DCFCE7;
+  --red:#DC2626;--rbg:#FEE2E2;
+  --yellow:#D97706;--ybg:#FEF3C7;
+  --blue:#2563EB;--bbg:#DBEAFE;
+  --sw:240px;--r:14px;
+  --sh:0 2px 12px rgba(28,43,74,.08);
+  --sh2:0 8px 32px rgba(28,43,74,.14);
+  --tr:all .22s cubic-bezier(.4,0,.2,1);
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
+[data-theme=dark]{
+  --bg:#0F1520;--card:#1A2235;--border:#243050;
+  --text:#E8EDF5;--muted:#7A8AAA;--muted2:#3A4560;
+  --sh:0 2px 12px rgba(0,0,0,.3);--sh2:0 8px 32px rgba(0,0,0,.4);
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
 
-/* ── LOGIN ─────────────────────────────────────────────────────────── */
-#login-screen {
-  min-height: 100vh;
-  background: linear-gradient(135deg, var(--navy) 0%, #2D1B69 50%, var(--quinca) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-}
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:2000;background:linear-gradient(135deg,var(--navy3),#2D1B69 50%,var(--q));display:flex;flex-direction:column;align-items:center;justify-content:center;animation:splashOut .5s ease 2.4s forwards}
+@keyframes splashOut{to{opacity:0;pointer-events:none}}
+.sp-logos{display:flex;align-items:center;gap:20px;animation:up .7s ease .2s both}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.sp-q{width:64px;height:64px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.sp-qi{width:48px;height:48px;background:var(--q);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff}
+.sp-div{width:1px;height:48px;background:rgba(255,255,255,.3)}
+.sp-ch{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:2px;line-height:1.2}
+.sp-ch span{display:block;font-size:11px;font-weight:400;letter-spacing:3px;opacity:.6}
+.sp-sub{margin-top:18px;font-size:13px;color:rgba(255,255,255,.5);letter-spacing:1px;animation:up .7s ease .5s both}
+.sp-bar{width:160px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;margin-top:24px;overflow:hidden;animation:up .5s ease .7s both}
+.sp-fill{height:3px;background:#fff;border-radius:2px;animation:spLoad 2s ease .7s forwards;width:0}
+@keyframes spLoad{to{width:100%}}
 
-.login-card {
-  background: white;
-  border-radius: 20px;
-  padding: 48px 40px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-  animation: fadeUp 0.5s ease;
-}
+/* LOGIN */
+#login{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,var(--navy3),#2D1B69 50%,var(--q));display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}
+#login.vis{display:flex;opacity:1}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.o1{width:400px;height:400px;background:rgba(123,47,190,.3);top:-100px;right:-100px}
+.o2{width:300px;height:300px;background:rgba(28,43,74,.5);bottom:-80px;left:-80px}
+.lc{background:rgba(255,255,255,.97);border-radius:24px;padding:48px 44px;width:100%;max-width:420px;position:relative;z-index:1;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:lcIn .5s cubic-bezier(.4,0,.2,1) both}
+@keyframes lcIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.ll{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:32px}
+.ll-q{width:52px;height:52px;background:var(--q);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;box-shadow:0 4px 14px rgba(123,47,190,.4)}
+.ll-s{width:1px;height:40px;background:#E4E8F0}
+.ll-c{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--navy);letter-spacing:1px;line-height:1.5}
+.ll-c span{font-family:'DM Sans',sans-serif;font-weight:400;font-size:10px;color:var(--muted);letter-spacing:.5px}
+.lh{text-align:center;margin-bottom:28px}
+.lh h1{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:5px}
+.lh p{font-size:13px;color:var(--muted)}
+.lf{margin-bottom:18px}
+.lf label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:7px}
+.lf input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:var(--tr);background:var(--bg)}
+.lf input:focus{border-color:var(--q);background:#fff;box-shadow:0 0 0 3px rgba(123,47,190,.1)}
+.lb{width:100%;padding:14px;background:var(--q);color:#fff;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:var(--tr);margin-top:6px;letter-spacing:.3px;box-shadow:0 4px 14px rgba(123,47,190,.35)}
+.lb:hover{background:var(--q2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(123,47,190,.4)}
+.le{color:var(--red);font-size:12px;text-align:center;margin-top:10px;display:none;padding:8px;background:var(--rbg);border-radius:8px}
+.ln{text-align:center;font-size:11px;color:var(--muted2);margin-top:20px}
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.login-logos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.logo-q {
-  width: 48px; height: 48px;
-  background: var(--quinca);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: 800; color: white;
-}
-
-.logo-sep { width: 1px; height: 36px; background: var(--border); }
-
-.logo-ch-text {
-  font-size: 11px; font-weight: 700; color: var(--navy);
-  letter-spacing: 0.5px; line-height: 1.5;
-}
-.logo-ch-text span { font-weight: 400; font-size: 9px; color: var(--muted); }
-
-.login-title {
-  text-align: center;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 6px;
-}
-
-.login-sub {
-  text-align: center;
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 28px;
-}
-
-.login-field {
-  margin-bottom: 16px;
-}
-
-.login-field label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.login-field input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.login-field input:focus { border-color: var(--quinca); }
-
-.login-btn {
-  width: 100%;
-  padding: 13px;
-  background: var(--quinca);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  margin-top: 8px;
-}
-
-.login-btn:hover { background: var(--quinca-light); }
-.login-btn:active { transform: scale(0.98); }
-
-.login-error {
-  color: var(--red);
-  font-size: 12px;
-  text-align: center;
-  margin-top: 10px;
-  display: none;
-}
-
-/* ── PORTAL ────────────────────────────────────────────────────────── */
-#portal {
-  display: none;
-  min-height: 100vh;
-}
+/* PORTAL */
+#portal{display:none;min-height:100vh}
 
 /* SIDEBAR */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: var(--sidebar-w);
-  background: var(--navy);
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  overflow-y: auto;
-}
-
-.sidebar-brand {
-  padding: 20px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.sb-logo-q {
-  width: 36px; height: 36px;
-  background: var(--quinca);
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; font-weight: 800; color: white; flex-shrink: 0;
-}
-
-.sb-brand-text { font-size: 13px; font-weight: 700; color: white; line-height: 1.3; }
-.sb-brand-text span { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.5); }
-
-.sidebar-nav { padding: 16px 10px; flex: 1; }
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 9px;
-  cursor: pointer;
-  color: rgba(255,255,255,0.55);
-  font-size: 13.5px;
-  font-weight: 500;
-  margin-bottom: 3px;
-  transition: all 0.18s;
-  position: relative;
-  text-decoration: none;
-}
-
-.nav-item:hover { background: rgba(255,255,255,0.07); color: white; }
-.nav-item.active { background: var(--quinca); color: white; }
-
-.nav-icon { font-size: 16px; flex-shrink: 0; width: 20px; text-align: center; }
-
-.nav-badge {
-  margin-left: auto;
-  background: var(--quinca-light);
-  color: white;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 8px;
-  letter-spacing: 0.3px;
-}
-
-.nav-item.active .nav-badge { background: rgba(255,255,255,0.25); }
-
-.sidebar-footer {
-  padding: 14px 16px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 10px;
-  color: rgba(255,255,255,0.3);
-  line-height: 1.5;
-}
+.sb{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--navy3);display:flex;flex-direction:column;z-index:100;border-right:1px solid rgba(255,255,255,.04)}
+.sb::after{content:'';position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(123,47,190,.4),transparent)}
+.sb-brand{padding:22px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-q{width:38px;height:38px;background:var(--q);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(123,47,190,.4)}
+.sb-t .sb-n{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:#fff}
+.sb-t .sb-s{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.sb-nav{padding:14px 10px;flex:1;overflow-y:auto}
+.sb-sec{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.25);padding:10px 10px 6px;margin-top:6px}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;margin-bottom:2px;transition:var(--tr);position:relative;text-decoration:none}
+.ni:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.ni.active{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;box-shadow:0 3px 12px rgba(123,47,190,.35)}
+.ni-ico{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.ni-badge{margin-left:auto;background:rgba(123,47,190,.7);color:#fff;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:8px;letter-spacing:.3px}
+.ni.active .ni-badge{background:rgba(255,255,255,.2)}
+.ni-dot{margin-left:auto;width:7px;height:7px;background:#FF4D4D;border-radius:50%;box-shadow:0 0 6px rgba(255,77,77,.7)}
+.sb-ft{padding:14px 18px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-ft p{font-size:10px;color:rgba(255,255,255,.25);line-height:1.6}
+.th-btn{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.05);cursor:pointer;font-size:11px;color:rgba(255,255,255,.4);border:none;font-family:'DM Sans',sans-serif;transition:var(--tr);width:100%}
+.th-btn:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
 
 /* TOPBAR */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: var(--sidebar-w);
-  right: 0;
-  height: 56px;
-  background: white;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  z-index: 90;
-}
+.tb{position:fixed;top:0;left:var(--sw);right:0;height:58px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 26px;z-index:90;transition:background .3s}
+.tb-l{display:flex;align-items:center;gap:10px}
+.tb-pg{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy)}
+.tb-dt{font-size:12px;color:var(--muted);padding:3px 10px;background:var(--bg);border-radius:20px;border:1px solid var(--border)}
+.tb-r{display:flex;align-items:center;gap:12px;position:relative}
+.nb{position:relative;width:36px;height:36px;border-radius:9px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:var(--tr)}
+.nb:hover{background:var(--qbg);border-color:var(--q)}
+.nb-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--card)}
+.uc{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 6px;background:var(--bg);border:1px solid var(--border);border-radius:20px}
+.uca{width:26px;height:26px;background:var(--q);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.ucn{font-size:12px;font-weight:600;color:var(--text)}
+.lo{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;background:none;border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--tr)}
+.lo:hover{background:var(--rbg);border-color:var(--red);color:var(--red)}
 
-.topbar-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.topbar-user {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.topbar-logout {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: all 0.18s;
-  border: none;
-  background: none;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.topbar-logout:hover { background: var(--red-bg); color: var(--red); }
+/* NOTIF PANEL */
+.np{position:absolute;top:52px;right:0;width:320px;background:var(--card);border-radius:14px;border:1px solid var(--border);box-shadow:var(--sh2);z-index:200;display:none;overflow:hidden}
+.np.open{display:block;animation:pageIn .2s ease}
+.np-h{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.np-ht{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text)}
+.np-cl{font-size:11px;color:var(--q);cursor:pointer;font-weight:600}
+.np-item{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;transition:var(--tr)}
+.np-item:hover{background:var(--bg)}
+.np-item:last-child{border-bottom:none}
+.ni2{font-size:18px;flex-shrink:0}
+.np-txt{font-size:12px;color:var(--text);line-height:1.5}
+.np-time{font-size:10px;color:var(--muted);margin-top:2px}
 
 /* MAIN */
-.main-content {
-  margin-left: var(--sidebar-w);
-  margin-top: 56px;
-  padding: 28px 28px;
-  min-height: calc(100vh - 56px);
-}
-
-/* PAGES */
-.page { display: none; }
-.page.active { display: block; animation: fadeIn 0.25s ease; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── COMPONENTS ─────────────────────────────────────────────────────── */
-
-/* Cards */
-.card {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 20px;
-  border: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-
-.card-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* KPI Grid */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.kpi-card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-.kpi-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.kpi-value {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--navy);
-}
-
-.kpi-sub {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 3px;
-}
-
-.kpi-arrow {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.up { color: var(--green); }
-.down { color: var(--green); }
-.down-bad { color: var(--red); }
-
-/* Termômetro */
-.termometro {
-  background: var(--card);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.term-icon { font-size: 26px; }
-
-.term-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-right: 10px;
-}
-
-.term-badge.verde { background: var(--green-bg); color: var(--green); }
-.term-badge.amarelo { background: var(--yellow-bg); color: var(--yellow); }
-.term-badge.vermelho { background: var(--red-bg); color: var(--red); }
-
-.term-text { font-size: 16px; font-weight: 600; color: var(--navy); }
-
-/* Barra de progresso */
-.progress-wrap {
-  background: var(--card);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 20px 22px;
-  margin-bottom: 16px;
-}
-
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.progress-title { font-size: 14px; font-weight: 700; color: var(--navy); }
-.progress-pct { font-size: 14px; font-weight: 700; color: var(--quinca); }
-
-.progress-bar-bg {
-  background: #EEF0F5;
-  border-radius: 20px;
-  height: 10px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.progress-bar-fill {
-  height: 10px;
-  border-radius: 20px;
-  background: var(--quinca);
-  transition: width 0.8s ease;
-}
-
-.progress-sub {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-/* Avisos */
-.avisos-card {
-  background: var(--navy);
-  border-radius: 14px;
-  padding: 20px 22px;
-  margin-bottom: 16px;
-  color: white;
-}
-
-.avisos-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: white;
-}
-
-.avisos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-.aviso-item {
-  background: rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12.5px;
-  color: rgba(255,255,255,0.85);
-}
-
-.aviso-icon { font-size: 16px; flex-shrink: 0; }
-
-/* Linha do tempo */
-.timeline-months {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
-.month-pill {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: default;
-}
-
-.month-pill.active { background: var(--quinca); color: white; }
-.month-pill.done { background: var(--quinca-bg); color: var(--quinca); }
-.month-pill.future { background: var(--border); color: var(--muted); }
-
-/* Placar de metas */
-.placar-meta {
-  margin-bottom: 10px;
-}
-
-.placar-meta-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--text);
-  margin-bottom: 5px;
-}
-
-.placar-meta-pcts { font-size: 12px; color: var(--muted); }
-
-.placar-bar-bg {
-  background: #EEF0F5;
-  border-radius: 20px;
-  height: 8px;
-  overflow: hidden;
-}
-
-.placar-bar-fill {
-  height: 8px;
-  border-radius: 20px;
-}
-
-/* Dashboard cards */
-.dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
-
-.dash-card {
-  background: var(--card);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 22px;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-
-.dash-card.available { cursor: pointer; }
-.dash-card.available:hover { box-shadow: 0 4px 20px rgba(123,47,190,0.15); transform: translateY(-2px); }
-.dash-card.locked { opacity: 0.65; }
-
-.dash-card-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  margin-bottom: 14px;
-}
-
-.dash-card.available .dash-card-icon { background: var(--quinca-bg); }
-.dash-card.locked .dash-card-icon { background: #F0F2F7; }
-
-.dash-card-month { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
-.dash-card.locked .dash-card-month { color: var(--muted); }
-
-.btn-dash {
-  width: 100%;
-  padding: 11px;
-  border-radius: 9px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.18s;
-}
-
-.btn-dash.active {
-  background: var(--quinca);
-  color: white;
-}
-
-.btn-dash.active:hover { background: var(--quinca-light); }
-
-.btn-dash.disabled {
-  background: #EEF0F5;
-  color: var(--muted);
-  cursor: default;
-}
-
-.dash-delivery {
-  font-size: 11px;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 8px;
-}
-
-/* Insights */
-.insights-list { display: flex; flex-direction: column; gap: 10px; }
-
-.insight-item {
-  background: rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: rgba(255,255,255,0.9);
-  font-size: 13px;
-}
-
-.insight-num {
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
-  width: 24px; height: 24px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-/* Calendário */
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-top: 10px;
-}
-
-.cal-day-header {
-  text-align: center;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--muted);
-  padding: 6px 0;
-  text-transform: uppercase;
-}
-
-.cal-day {
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text);
-  position: relative;
-}
-
-.cal-day.empty { background: transparent; }
-.cal-day.normal { background: #F7F8FA; }
-.cal-day.highlight-quinca { background: var(--quinca); color: white; font-weight: 700; }
-.cal-day.highlight-navy { background: var(--navy); color: white; font-weight: 700; }
-.cal-day.highlight-gray { background: #DDE1EB; color: var(--navy); }
-
-.cal-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
-.cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
-.cal-dot { width: 10px; height: 10px; border-radius: 3px; }
-
-/* Placar metas detalhado */
-.metas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-
-.meta-card {
-  background: var(--card);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  padding: 18px;
-}
-
-.meta-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; }
-.meta-card-value { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 2px; }
-.meta-card-sub { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
-
-/* Documentos */
-.docs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-
-.doc-card {
-  background: var(--card);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 20px;
-}
-
-.doc-cat-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 14px;
-}
-
-.doc-cat-icon { font-size: 20px; }
-
-.doc-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-top: 1px solid var(--border);
-  gap: 8px;
-}
-
-.doc-item-name { font-size: 11.5px; color: var(--text); flex: 1; line-height: 1.4; }
-.doc-item-status { font-size: 10px; color: var(--muted); white-space: nowrap; }
-
-.btn-doc {
-  padding: 5px 12px;
-  border-radius: 7px;
-  font-size: 11px;
-  font-weight: 600;
-  border: none;
-  background: #EEF0F5;
-  color: var(--muted);
-  cursor: default;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.docs-note {
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-/* Perfil */
-.perfil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-
-.perfil-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
-
-.perfil-row:last-child { border-bottom: none; }
-.perfil-label { color: var(--muted); }
-.perfil-value { font-weight: 600; color: var(--navy); }
-
-.margem-destaque {
-  background: var(--quinca);
-  border-radius: 14px;
-  padding: 24px;
-  color: white;
-  margin-bottom: 16px;
-}
-
-.margem-destaque .md-icon { font-size: 22px; margin-bottom: 8px; }
-.margem-destaque .md-label { font-size: 12px; font-weight: 600; opacity: 0.8; margin-bottom: 6px; }
-.margem-destaque .md-value { font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
-.margem-destaque .md-sub { font-size: 12px; opacity: 0.7; }
-
-.indicadores-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.ind-tag {
-  padding: 6px 14px;
-  background: var(--quinca-bg);
-  color: var(--quinca);
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-/* Contato */
-.contato-card {
-  background: var(--card);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  padding: 40px;
-  text-align: center;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.contato-logos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 24px;
-}
-
-.ct-logo-q {
-  width: 44px; height: 44px;
-  background: var(--quinca);
-  border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; font-weight: 800; color: white;
-}
-
-.ct-logo-ch {
-  font-size: 16px; font-weight: 800; color: var(--navy); letter-spacing: 1px;
-}
-.ct-logo-ch span { font-size: 10px; font-weight: 400; display: block; color: var(--muted); letter-spacing: 0.5px; }
-
-.contato-sep { width: 1px; height: 32px; background: var(--border); }
-
-.contato-text {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 28px;
-  line-height: 1.6;
-}
-
-.contato-btns { display: flex; gap: 12px; justify-content: center; }
-
-.btn-whatsapp {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  background: #25D366;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-decoration: none;
-}
-
-.btn-whatsapp:hover { background: #20BB5B; }
-
-.btn-email {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  background: var(--navy);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
-  text-decoration: none;
-}
-
-.btn-email:hover { background: var(--navy2); }
-
-/* Page header */
-.page-header { margin-bottom: 22px; }
-.page-header h1 { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
-.page-header p { font-size: 13px; color: var(--muted); }
-
-/* Footer */
-.portal-footer {
-  margin-left: var(--sidebar-w);
-  text-align: center;
-  padding: 16px;
-  font-size: 11px;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  background: white;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .dash-grid, .docs-grid, .metas-grid { grid-template-columns: 1fr 1fr; }
-  .avisos-grid { grid-template-columns: 1fr; }
-  .kpi-grid { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 600px) {
-  :root { --sidebar-w: 0px; }
-  .sidebar { transform: translateX(-220px); }
-  .dash-grid, .docs-grid, .metas-grid, .kpi-grid { grid-template-columns: 1fr; }
-  .perfil-grid { grid-template-columns: 1fr; }
-  .contato-btns { flex-direction: column; }
-}
+.mc{margin-left:var(--sw);margin-top:58px;padding:28px;min-height:calc(100vh - 58px)}
+.page{display:none}
+.page.active{display:block;animation:pageIn .28s cubic-bezier(.4,0,.2,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* CARD BASE */
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;margin-bottom:16px;box-shadow:var(--sh);transition:background .3s,border .3s}
+.ct{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* GREETING BANNER */
+.gb{background:linear-gradient(135deg,var(--navy),var(--qdark));border-radius:var(--r);padding:24px 26px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh2);overflow:hidden;position:relative}
+.gbo{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none}
+.gb1{width:180px;height:180px;background:rgba(123,47,190,.4);top:-60px;right:80px}
+.gb2{width:100px;height:100px;background:rgba(255,255,255,.04);bottom:-30px;right:240px}
+.gb-l{position:relative;z-index:1}
+.gb-g{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:3px;letter-spacing:.3px}
+.gb-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
+.gb-s{font-size:12px;color:rgba(255,255,255,.5)}
+.gb-r{position:relative;z-index:1;text-align:right}
+.gb-t{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px}
+.gb-ds{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* TERMÔMETRO */
+.term{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:16px;box-shadow:var(--sh)}
+.term-iw{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.term-iw.v{background:var(--gbg)}.term-iw.a{background:var(--ybg)}.term-iw.r{background:var(--rbg)}
+.term-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px}
+.term-row{display:flex;align-items:center;gap:10px}
+.tbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.tbadge.v{background:var(--gbg);color:var(--green)}.tbadge.a{background:var(--ybg);color:var(--yellow)}.tbadge.r{background:var(--rbg);color:var(--red)}
+.term-txt{font-size:15px;font-weight:700;color:var(--text)}
+
+/* PROGRESS */
+.prog{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px 22px;margin-bottom:16px;box-shadow:var(--sh)}
+.prog-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-ttl{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text)}
+.prog-pct{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--q)}
+.prog-trk{background:var(--bg);border-radius:20px;height:8px;overflow:hidden;border:1px solid var(--border)}
+.prog-fill{height:8px;border-radius:20px;background:linear-gradient(90deg,var(--q),var(--q2));transition:width 1s ease}
+.prog-sub{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:7px}
+
+/* KPI ROW */
+.krow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.kcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--tr)}
+.kcard:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0}
+.kcard.gk::before{background:linear-gradient(90deg,var(--green),#4ADE80)}
+.kcard.yk::before{background:linear-gradient(90deg,var(--yellow),#FCD34D)}
+.k-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:8px}
+.k-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;margin-bottom:4px}
+.k-val.g{color:var(--green)}.k-val.r{color:var(--red)}.k-val.y{color:var(--yellow)}
+.k-sub{font-size:11px;color:var(--muted)}
+
+/* AVISOS */
+.avisos{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:22px;margin-bottom:16px;box-shadow:var(--sh2)}
+.av-t{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.av-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.av-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:13px 15px;display:flex;align-items:flex-start;gap:10px;transition:var(--tr)}
+.av-item:hover{background:rgba(255,255,255,.1)}
+.av-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.av-txt{font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.5}
+
+/* CARTA */
+.carta{background:linear-gradient(135deg,var(--qdark),var(--q));border-radius:var(--r);padding:24px;margin-bottom:16px;box-shadow:var(--sh2);position:relative;overflow:hidden}
+.carta-orb{position:absolute;border-radius:50%;filter:blur(50px);pointer-events:none;opacity:.3;width:200px;height:200px;background:#fff;top:-80px;right:-60px}
+.carta-hd{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1}
+.carta-ico{font-size:22px}
+.carta-ttl{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.carta-per{font-size:11px;color:rgba(255,255,255,.6);margin-left:auto}
+.carta-txt{font-size:13.5px;color:rgba(255,255,255,.9);line-height:1.8;position:relative;z-index:1;font-style:italic}
+.carta-ass{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.carta-av{width:34px;height:34px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.carta-an{font-weight:700;color:#fff;font-size:13px}
+.carta-as{font-size:12px;color:rgba(255,255,255,.7)}
+
+/* TIMELINE */
+.tl-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px 22px;margin-bottom:16px;box-shadow:var(--sh)}
+.tl-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tp{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:default;transition:var(--tr)}
+.tp.done{background:var(--qbg);color:var(--q);border:1px solid rgba(123,47,190,.2)}
+.tp.cur{background:var(--q);color:#fff;box-shadow:0 2px 8px rgba(123,47,190,.35)}
+.tp.fut{background:var(--bg);color:var(--muted2);border:1px solid var(--border)}
+
+/* PLACAR */
+.pl-item{margin-bottom:14px}
+.pl-item:last-child{margin-bottom:0}
+.pl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pl-lbl{font-size:13px;color:var(--text);font-weight:500}
+.pl-pcts{font-size:12px;color:var(--muted)}
+.pl-trk{background:var(--bg);border-radius:20px;height:7px;overflow:hidden;border:1px solid var(--border)}
+.pl-fill{height:7px;border-radius:20px;transition:width .8s ease}
+
+/* DASH CARDS */
+.dg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.dc{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;box-shadow:var(--sh);transition:var(--tr)}
+.dc.av{cursor:pointer}
+.dc.av:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(123,47,190,.18);border-color:rgba(123,47,190,.3)}
+.dc.lk{opacity:.6}
+.dc-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+.dc.av .dc-ico{background:var(--qbg)}.dc.lk .dc-ico{background:var(--bg)}
+.dc-m{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px}
+.dc.lk .dc-m{color:var(--muted)}
+.bd{width:100%;padding:11px;border-radius:9px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:var(--tr);letter-spacing:.2px}
+.bd.on{background:var(--q);color:#fff;box-shadow:0 3px 10px rgba(123,47,190,.3)}
+.bd.on:hover{background:var(--q2)}
+.bd.off{background:var(--bg);color:var(--muted2);cursor:default;border:1px solid var(--border)}
+.dc-del{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+
+/* METAS GRID */
+.mg{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+.mc2{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px;box-shadow:var(--sh)}
+.mc2-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}
+.mc2-v{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:3px}
+.mc2-s{font-size:11px;color:var(--muted);margin-bottom:10px}
+
+/* DOCS */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;box-shadow:var(--sh)}
+.dh{display:flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px}
+.di{padding:11px 0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dn{font-size:11.5px;color:var(--text);flex:1;line-height:1.4}
+.ds{font-size:10px;color:var(--muted)}
+.bdo{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:default;font-family:'DM Sans',sans-serif}
+.dn2{text-align:center;font-size:12px;color:var(--muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* PERFIL */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.pr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px}
+.pr:last-child{border-bottom:none}
+.pl{color:var(--muted)}.pv{font-weight:600;color:var(--text);text-align:right}
+.mh{background:linear-gradient(135deg,var(--q),var(--q2));border-radius:var(--r);padding:28px;margin-bottom:16px;box-shadow:var(--sh2)}
+.mhl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.6);margin-bottom:6px}
+.mhv{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.mhs{font-size:12px;color:rgba(255,255,255,.6)}
+.ind{display:flex;flex-wrap:wrap;gap:8px}
+.it{padding:6px 14px;background:var(--qbg);color:var(--q);border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(123,47,190,.15)}
+
+/* CONTATO */
+.cw{max-width:540px;margin:0 auto}
+.ccard{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:44px;text-align:center;box-shadow:var(--sh2)}
+.ctl{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:24px}
+.ct-q{width:50px;height:50px;background:var(--q);border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;box-shadow:0 4px 14px rgba(123,47,190,.35)}
+.cts{width:1px;height:36px;background:var(--border)}
+.ctc{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy);letter-spacing:1px}
+.ctc span{display:block;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:400;color:var(--muted);letter-spacing:.5px;margin-top:2px}
+.ctt{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.7}
+.ctbs{display:flex;gap:12px;justify-content:center}
+.bw{display:flex;align-items:center;gap:8px;padding:13px 26px;background:#25D366;color:#fff;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);text-decoration:none;box-shadow:0 3px 12px rgba(37,211,102,.3)}
+.bw:hover{background:#1EB857;transform:translateY(-1px)}
+.be{display:flex;align-items:center;gap:8px;padding:13px 26px;background:var(--navy);color:#fff;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);text-decoration:none;box-shadow:0 3px 12px rgba(28,43,74,.25)}
+.be:hover{background:var(--navy2);transform:translateY(-1px)}
+
+/* CALENDAR */
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.cdh{text-align:center;font-size:9.5px;font-weight:700;color:var(--muted);padding:6px 0;text-transform:uppercase;letter-spacing:.5px}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:12px;font-weight:500;color:var(--text)}
+.cd.e{background:transparent}.cd.n{background:var(--bg);border:1px solid var(--border)}
+.cd.hq{background:var(--q);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(123,47,190,.35)}
+.cd.hn{background:var(--navy);color:#fff;font-weight:700}
+.cd.hg{background:#DDE1EB;color:var(--navy);font-weight:600}
+.cl{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.cl-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.cl-d{width:10px;height:10px;border-radius:3px}
+
+/* PAGE HEADER */
+.ph{margin-bottom:24px}
+.ph h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);margin-bottom:4px}
+.ph p{font-size:13px;color:var(--muted)}
+
+/* FOOTER */
+.pf{margin-left:var(--sw);padding:14px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--card);transition:background .3s}
+.pfl{font-size:11px;color:var(--muted)}
+.pfr{font-size:11px;color:var(--muted2)}
+
+/* WATERMARK */
+.wm{position:fixed;bottom:16px;right:20px;font-size:10px;color:var(--muted2);letter-spacing:.5px;pointer-events:none;z-index:50;display:none}
+
+@media(max-width:960px){.dg,.mg,.docs{grid-template-columns:1fr 1fr}.av-g,.krow{grid-template-columns:1fr 1fr}.pg{grid-template-columns:1fr}}
+@media(max-width:660px){:root{--sw:0px}.sb{transform:translateX(-240px)}.dg,.docs,.mg,.krow{grid-template-columns:1fr}.ctbs{flex-direction:column}}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     LOGIN
-══════════════════════════════════════════════════════════════════ -->
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-logos">
-      <div class="logo-q">Q</div>
-      <div class="logo-sep"></div>
-      <div class="logo-ch-text">CHANQUINI<br><span>ESTRATÉGIAS FINANCEIRAS</span></div>
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-logos">
+    <div class="sp-q"><div class="sp-qi">Q</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-ch">CHANQUINI<span>ESTRATÉGIAS FINANCEIRAS</span></div>
+  </div>
+  <div class="sp-sub">Portal Financeiro Privado</div>
+  <div class="sp-bar"><div class="sp-fill"></div></div>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="lc">
+    <div class="ll">
+      <div class="ll-q">Q</div>
+      <div class="ll-s"></div>
+      <div class="ll-c">CHANQUINI<br><span>ESTRATÉGIAS FINANCEIRAS</span></div>
     </div>
-    <div class="login-title">Portal Financeiro</div>
-    <div class="login-sub">Quinca Produções — Acesso Restrito</div>
-    <div class="login-field">
-      <label>E-mail</label>
-      <input type="email" id="login-email" placeholder="seu@email.com" />
+    <div class="lh">
+      <h1>Portal Financeiro</h1>
+      <p>Quinca Produções · Acesso Restrito</p>
     </div>
-    <div class="login-field">
-      <label>Senha</label>
-      <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-    </div>
-    <button class="login-btn" onclick="doLogin()">Entrar no Portal</button>
-    <div class="login-error" id="login-error">E-mail ou senha incorretos.</div>
+    <div class="lf"><label>E-mail</label><input type="email" id="le" placeholder="seu@email.com"/></div>
+    <div class="lf"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/></div>
+    <button class="lb" onclick="login()">Entrar no Portal →</button>
+    <div class="le" id="lerr">E-mail ou senha incorretos.</div>
+    <div class="ln">🔒 Acesso seguro · Chanquini Estratégias Financeiras</div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     PORTAL
-══════════════════════════════════════════════════════════════════ -->
+<!-- PORTAL -->
 <div id="portal">
 
-  <!-- SIDEBAR -->
-  <nav class="sidebar">
-    <div class="sidebar-brand">
-      <div class="sb-logo-q">Q</div>
-      <div class="sb-brand-text">Quinca<br><span>Produções</span></div>
+  <nav class="sb">
+    <div class="sb-brand">
+      <div class="sb-q">Q</div>
+      <div class="sb-t"><div class="sb-n">Quinca</div><div class="sb-s">Produções</div></div>
     </div>
-    <div class="sidebar-nav">
-      <a class="nav-item active" onclick="showPage('inicio',this)">
-        <span class="nav-icon">🏠</span> Início
-      </a>
-      <a class="nav-item" onclick="showPage('dashboards',this)">
-        <span class="nav-icon">📊</span> Dashboards
-      </a>
-      <a class="nav-item" onclick="showPage('estrategia',this)">
-        <span class="nav-icon">🎯</span> Estratégia
-        <span class="nav-badge">NOVO</span>
-      </a>
-      <a class="nav-item" onclick="showPage('documentos',this)">
-        <span class="nav-icon">📁</span> Documentos
-        <span class="nav-badge">NOVO</span>
-      </a>
-      <a class="nav-item" onclick="showPage('perfil',this)">
-        <span class="nav-icon">🏢</span> Perfil da Empresa
-      </a>
-      <a class="nav-item" onclick="showPage('contato',this)">
-        <span class="nav-icon">📞</span> Contato Chanquini
-      </a>
+    <div class="sb-nav">
+      <div class="sb-sec">Menu Principal</div>
+      <a class="ni active" onclick="nav('inicio',this)"><span class="ni-ico">🏠</span>Início<span class="ni-dot" id="nd"></span></a>
+      <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">📊</span>Dashboards</a>
+      <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">🎯</span>Estratégia<span class="ni-badge">NOVO</span></a>
+      <div class="sb-sec">Gestão</div>
+      <a class="ni" onclick="nav('documentos',this)"><span class="ni-ico">📁</span>Documentos<span class="ni-badge">NOVO</span></a>
+      <a class="ni" onclick="nav('perfil',this)"><span class="ni-ico">🏢</span>Perfil da Empresa</a>
+      <div class="sb-sec">Suporte</div>
+      <a class="ni" onclick="nav('contato',this)"><span class="ni-ico">📞</span>Contato Chanquini</a>
     </div>
-    <div class="sidebar-footer">
-      Chanquini Estratégias<br>Financeiras © 2026
+    <div class="sb-ft">
+      <button class="th-btn" onclick="toggleTheme()"><span id="th-i">🌙</span><span id="th-l">Modo escuro</span></button>
+      <p>Chanquini Estratégias<br>Financeiras © 2026</p>
     </div>
   </nav>
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="topbar-title">Portal Financeiro</div>
-    <div class="topbar-right">
-      <span class="topbar-user">Quinca Produções</span>
-      <button class="topbar-logout" onclick="doLogout()">↪ Sair</button>
+  <header class="tb">
+    <div class="tb-l">
+      <div class="tb-pg" id="tbpg">Início</div>
+      <div class="tb-dt" id="tbdt"></div>
+    </div>
+    <div class="tb-r">
+      <div class="nb" onclick="toggleNotif()">🔔<div class="nb-dot" id="nbd"></div></div>
+      <div class="np" id="np">
+        <div class="np-h"><div class="np-ht">Notificações</div><div class="np-cl" onclick="clearN()">Limpar tudo</div></div>
+        <div class="np-item"><div class="ni2">📊</div><div><div class="np-txt">Dashboard de Abril 2026 disponível</div><div class="np-time">Entregue em 05/05/2026</div></div></div>
+        <div class="np-item"><div class="ni2">🔔</div><div><div class="np-txt">Entrega dos documentos até dia 03/06</div><div class="np-time">Prazo se aproximando</div></div></div>
+        <div class="np-item"><div class="ni2">✅</div><div><div class="np-txt">Fechamento de Abril concluído com sucesso</div><div class="np-time">Chanquini · 05/05/2026</div></div></div>
+      </div>
+      <div class="uc"><div class="uca">Q</div><div class="ucn">Quinca Produções</div></div>
+      <button class="lo" onclick="logout()">↪ Sair</button>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="main-content">
+  <main class="mc">
 
-    <!-- ── INÍCIO ──────────────────────────────────────────────── -->
+    <!-- INÍCIO -->
     <div id="page-inicio" class="page active">
+      <div class="gb">
+        <div class="gbo gb1"></div><div class="gbo gb2"></div>
+        <div class="gb-l">
+          <div class="gb-g" id="gbg">Bom dia,</div>
+          <div class="gb-n">Quinca Produções 👋</div>
+          <div class="gb-s">Seu portal financeiro está atualizado.</div>
+        </div>
+        <div class="gb-r">
+          <div class="gb-t" id="gbt">--:--</div>
+          <div class="gb-ds" id="gbds"></div>
+        </div>
+      </div>
 
-      <div class="termometro">
-        <div class="term-icon">🌡️</div>
+      <div class="term">
+        <div class="term-iw v">🌡️</div>
         <div>
-          <div style="margin-bottom:4px">
-            <span class="term-badge verde">● Verde</span>
-            <span class="term-text">Maio 2026 — No caminho certo</span>
+          <div class="term-lbl">Termômetro do Mês</div>
+          <div class="term-row">
+            <span class="tbadge v">● Verde</span>
+            <span class="term-txt">Maio 2026 — No caminho certo</span>
           </div>
-          <div style="font-size:11px;color:var(--muted)">Termômetro do Mês — atualizado em 05/05/2026</div>
         </div>
       </div>
 
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <div class="progress-title">Meta Anual 2026</div>
-          <div class="progress-pct">28%</div>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width:28%"></div>
-        </div>
-        <div class="progress-sub">R$ 471.234,00 de R$ 1.684.603,20 atingidos</div>
+      <div class="prog">
+        <div class="prog-h"><div class="prog-ttl">Meta Anual 2026</div><div class="prog-pct">28%</div></div>
+        <div class="prog-trk"><div class="prog-fill" style="width:28%"></div></div>
+        <div class="prog-sub"><span>R$ 471.234,00 atingidos</span><span>Meta: R$ 1.684.603,20</span></div>
       </div>
 
       <div class="card">
-        <div class="card-title">📈 Comparativo do Mês</div>
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-label">Faturamento</div>
-            <div class="kpi-value up"><span class="kpi-arrow">↑</span> +12%</div>
-            <div class="kpi-sub">vs mês anterior</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Despesas</div>
-            <div class="kpi-value down"><span class="kpi-arrow">↓</span> -3%</div>
-            <div class="kpi-sub">vs mês anterior</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Margem</div>
-            <div class="kpi-value up"><span class="kpi-arrow">↑</span> +2pp</div>
-            <div class="kpi-sub">vs mês anterior</div>
-          </div>
+        <div class="ct">📈 Comparativo do Mês</div>
+        <div class="krow">
+          <div class="kcard gk"><div class="k-lbl">Faturamento</div><div class="k-val g">↑ +12%</div><div class="k-sub">vs mês anterior</div></div>
+          <div class="kcard gk"><div class="k-lbl">Despesas</div><div class="k-val g">↓ -3%</div><div class="k-sub">vs mês anterior</div></div>
+          <div class="kcard gk"><div class="k-lbl">Margem</div><div class="k-val g">↑ +2pp</div><div class="k-sub">vs mês anterior</div></div>
         </div>
       </div>
 
-      <div class="avisos-card">
-        <div class="avisos-title">🔔 Avisos da Chanquini</div>
-        <div class="avisos-grid">
-          <div class="aviso-item">
-            <div class="aviso-icon">🔔</div>
-            <div>Próximo fechamento: entrega dos documentos até dia 03/06</div>
-          </div>
-          <div class="aviso-item">
-            <div class="aviso-icon">✅</div>
-            <div>Fechamento de Abril 2026 disponível no menu Dashboards</div>
-          </div>
+      <div class="carta">
+        <div class="carta-orb"></div>
+        <div class="carta-hd"><span class="carta-ico">✍️</span><span class="carta-ttl">Carta do Consultor</span><span class="carta-per">Abril 2026</span></div>
+        <div class="carta-txt">"Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de maio. Estamos no caminho certo para retomar o ritmo de crescimento no segundo semestre."</div>
+        <div class="carta-ass">
+          <div class="carta-av">👩‍💼</div>
+          <div><div class="carta-an">Equipe Chanquini</div><div class="carta-as">Estratégias Financeiras · 05/05/2026</div></div>
         </div>
       </div>
 
+      <div class="avisos">
+        <div class="av-t">🔔 Avisos da Chanquini</div>
+        <div class="av-g">
+          <div class="av-item"><div class="av-ico">🔔</div><div class="av-txt">Próximo fechamento: entrega dos documentos até dia 03/06</div></div>
+          <div class="av-item"><div class="av-ico">✅</div><div class="av-txt">Fechamento de Abril 2026 disponível no menu Dashboards</div></div>
+        </div>
+      </div>
     </div>
 
-    <!-- ── DASHBOARDS ──────────────────────────────────────────── -->
+    <!-- DASHBOARDS -->
     <div id="page-dashboards" class="page">
-
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-title">📅 Linha do Tempo 2026</div>
-        <div class="timeline-months">
-          <span class="month-pill done">Jan</span>
-          <span class="month-pill done">Fev</span>
-          <span class="month-pill done">Mar</span>
-          <span class="month-pill active">Abr</span>
-          <span class="month-pill future">Mai</span>
-          <span class="month-pill future">Jun</span>
-          <span class="month-pill future">Jul</span>
-          <span class="month-pill future">Ago</span>
-          <span class="month-pill future">Set</span>
-          <span class="month-pill future">Out</span>
-          <span class="month-pill future">Nov</span>
-          <span class="month-pill future">Dez</span>
+      <div class="ph"><h1>Dashboards</h1><p>Relatórios mensais da Quinca Produções</p></div>
+      <div class="tl-card">
+        <div class="ct">📅 Linha do Tempo 2026</div>
+        <div class="tl-pills">
+          <span class="tp done">Jan</span><span class="tp done">Fev</span><span class="tp done">Mar</span>
+          <span class="tp cur">Abr</span><span class="tp fut">Mai</span><span class="tp fut">Jun</span>
+          <span class="tp fut">Jul</span><span class="tp fut">Ago</span><span class="tp fut">Set</span>
+          <span class="tp fut">Out</span><span class="tp fut">Nov</span><span class="tp fut">Dez</span>
         </div>
       </div>
-
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-title">🏆 Placar de Metas 2026</div>
-        <div class="placar-meta">
-          <div class="placar-meta-label">
-            <span>Faturamento Anual</span>
-            <span class="placar-meta-pcts">28% · 28%</span>
-          </div>
-          <div class="placar-bar-bg">
-            <div class="placar-bar-fill" style="width:28%;background:var(--quinca)"></div>
-          </div>
-        </div>
-        <div style="margin-top:12px" class="placar-meta">
-          <div class="placar-meta-label">
-            <span>Margem Líquida (meta 65%)</span>
-            <span class="placar-meta-pcts">61% · 94%</span>
-          </div>
-          <div class="placar-bar-bg">
-            <div class="placar-bar-fill" style="width:94%;background:var(--yellow)"></div>
-          </div>
-        </div>
-        <div style="margin-top:12px" class="placar-meta">
-          <div class="placar-meta-label">
-            <span>Redução de Custos (meta 5%)</span>
-            <span class="placar-meta-pcts">2% · 40%</span>
-          </div>
-          <div class="placar-bar-bg">
-            <div class="placar-bar-fill" style="width:40%;background:var(--green)"></div>
-          </div>
-        </div>
+      <div class="card">
+        <div class="ct">🏆 Placar de Metas 2026</div>
+        <div class="pl-item"><div class="pl-row"><span class="pl-lbl">Faturamento Anual</span><span class="pl-pcts">28% executado</span></div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:var(--q)"></div></div></div>
+        <div class="pl-item" style="margin-top:12px"><div class="pl-row"><span class="pl-lbl">Margem Líquida (meta 65%)</span><span class="pl-pcts">61% · 94% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:var(--yellow)"></div></div></div>
+        <div class="pl-item" style="margin-top:12px"><div class="pl-row"><span class="pl-lbl">Redução de Custos (meta 5%)</span><span class="pl-pcts">2% · 40% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:var(--green)"></div></div></div>
       </div>
-
-      <div class="dash-grid" id="dash-grid">
-
-        <div class="dash-card available" onclick="openDash(this)">
-          <div class="dash-card-icon">📊</div>
-          <div class="dash-card-month">Abril 2026</div>
-          <button class="btn-dash active">Ver Dashboard</button>
-          <div class="dash-delivery">Entregue em 05/05/2026</div>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Maio 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Junho 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Julho 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Agosto 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Setembro 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Outubro 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Novembro 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-        <div class="dash-card locked">
-          <div class="dash-card-icon">🔒</div>
-          <div class="dash-card-month">Dezembro 2026</div>
-          <button class="btn-dash disabled">Em breve</button>
-        </div>
-
-      </div>
+      <div class="dg" id="dg"></div>
     </div>
 
-    <!-- ── ESTRATÉGIA ──────────────────────────────────────────── -->
+    <!-- ESTRATÉGIA -->
     <div id="page-estrategia" class="page">
-
-      <div style="background:var(--navy);border-radius:14px;padding:22px;margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <span style="font-size:20px">💡</span>
-          <span style="font-size:15px;font-weight:700;color:white">Insights do Consultor — Abril 2026</span>
-        </div>
-        <div class="insights-list">
-          <div class="insight-item">
-            <div class="insight-num">1</div>
-            Inadimplência estável em 0% — excelente controle de recebimentos
-          </div>
-          <div class="insight-item">
-            <div class="insight-num">2</div>
-            Despesas operacionais dentro do limite — margem protegida
-          </div>
-          <div class="insight-item">
-            <div class="insight-num">3</div>
-            Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa
-          </div>
+      <div class="ph"><h1>Estratégia</h1><p>Insights, calendário e placar de metas</p></div>
+      <div class="carta">
+        <div class="carta-orb"></div>
+        <div class="carta-hd"><span class="carta-ico">💡</span><span class="carta-ttl">Insights do Consultor — Abril 2026</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:12px"><div style="background:rgba(255,255,255,.2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">1</div><div style="font-size:13px;color:rgba(255,255,255,.9)">Inadimplência estável em 0% — excelente controle de recebimentos</div></div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:12px"><div style="background:rgba(255,255,255,.2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">2</div><div style="font-size:13px;color:rgba(255,255,255,.9)">Despesas operacionais dentro do limite — margem protegida</div></div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:12px"><div style="background:rgba(255,255,255,.2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">3</div><div style="font-size:13px;color:rgba(255,255,255,.9)">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="card-title">📅 Calendário Financeiro — Maio 2026</div>
-        <div class="cal-grid">
-          <div class="cal-day-header">D</div>
-          <div class="cal-day-header">S</div>
-          <div class="cal-day-header">T</div>
-          <div class="cal-day-header">Q</div>
-          <div class="cal-day-header">Q</div>
-          <div class="cal-day-header">S</div>
-          <div class="cal-day-header">S</div>
-          <!-- week 1 -->
-          <div class="cal-day empty"></div>
-          <div class="cal-day empty"></div>
-          <div class="cal-day empty"></div>
-          <div class="cal-day empty"></div>
-          <div class="cal-day normal">1</div>
-          <div class="cal-day normal">2</div>
-          <div class="cal-day normal">3</div>
-          <!-- wait, May 2026 starts on Friday -->
-          <!-- week 1 correct -->
-        </div>
-        <!-- Rebuild calendar properly -->
-        <div id="cal-maio"></div>
-        <div class="cal-legend">
-          <div class="cal-legend-item"><div class="cal-dot" style="background:var(--quinca)"></div> Entrega dos documentos (dia 03)</div>
-          <div class="cal-legend-item"><div class="cal-dot" style="background:var(--navy)"></div> Fechamento disponível (dia 05)</div>
-          <div class="cal-legend-item"><div class="cal-dot" style="background:#DDE1EB"></div> Reunião de alinhamento (dia 10)</div>
-        </div>
+      <div class="card"><div class="ct">📅 Calendário Financeiro — Maio 2026</div><div id="cal"></div><div class="cl"><div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Entrega dos documentos (dia 03)</div><div class="cl-i"><div class="cl-d" style="background:var(--navy)"></div>Fechamento disponível (dia 05)</div><div class="cl-i"><div class="cl-d" style="background:#DDE1EB"></div>Reunião de alinhamento (dia 10)</div></div></div>
+      <div class="mg">
+        <div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:var(--yellow)"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:var(--q)"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:var(--green)"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:var(--blue)"></div></div></div>
       </div>
-
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-title">🏆 Placar de Metas Detalhado</div>
-        <div class="metas-grid">
-          <div class="meta-card">
-            <div class="meta-card-title">Meta Faturamento Mensal</div>
-            <div class="meta-card-value" style="color:var(--yellow)">84%</div>
-            <div class="meta-card-sub">R$ 117.892 de R$ 140.383,60</div>
-            <div class="placar-bar-bg">
-              <div class="placar-bar-fill" style="width:84%;background:var(--yellow)"></div>
-            </div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-card-title">Meta Faturamento Anual</div>
-            <div class="meta-card-value" style="color:var(--quinca)">28%</div>
-            <div class="meta-card-sub">R$ 471.234 de R$ 1.684.603,20</div>
-            <div class="placar-bar-bg">
-              <div class="placar-bar-fill" style="width:28%;background:var(--quinca)"></div>
-            </div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-card-title">Margem Líquida</div>
-            <div class="meta-card-value" style="color:var(--green)">94%</div>
-            <div class="meta-card-sub">61% atual · meta 65%</div>
-            <div class="placar-bar-bg">
-              <div class="placar-bar-fill" style="width:94%;background:var(--green)"></div>
-            </div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-card-title">Redução de Custos</div>
-            <div class="meta-card-value" style="color:var(--blue)">40%</div>
-            <div class="meta-card-sub">2% atual · meta 5%</div>
-            <div class="placar-bar-bg">
-              <div class="placar-bar-fill" style="width:40%;background:var(--blue)"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- ── DOCUMENTOS ──────────────────────────────────────────── -->
+    <!-- DOCUMENTOS -->
     <div id="page-documentos" class="page">
-      <div class="page-header">
-        <h1>Documentos Importantes</h1>
-        <p>Arquivos e contratos da Quinca Produções</p>
+      <div class="ph"><h1>Documentos Importantes</h1><p>Arquivos e contratos da Quinca Produções</p></div>
+      <div class="docs">
+        <div class="dcard"><div class="dh"><span style="color:var(--q);font-size:20px">📁</span>Contratos</div><div class="di"><div><div class="dn">Contrato de Prestação de Serviços — Chanquini x Quinca — 2026.pdf</div><div class="ds">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
+        <div class="dcard"><div class="dh"><span style="color:var(--navy);font-size:20px">📁</span>Relatórios Especiais</div><div class="di"><div><div class="dn">Diagnóstico Financeiro Inicial — Março 2026.pdf</div><div class="ds">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
+        <div class="dcard"><div class="dh"><span style="color:var(--green);font-size:20px">📁</span>Propostas</div><div class="di"><div><div class="dn">Proposta Comercial Chanquini — Janeiro 2026.pdf</div><div class="ds">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
       </div>
-
-      <div class="docs-grid">
-        <div class="doc-card">
-          <div class="doc-cat-header">
-            <span class="doc-cat-icon" style="color:var(--quinca)">📁</span>
-            Contratos
-          </div>
-          <div class="doc-item">
-            <div>
-              <div class="doc-item-name">Contrato de Prestação de Serviços — Chanquini x Quinca — 2026.pdf</div>
-              <div class="doc-item-status">Em breve</div>
-            </div>
-            <button class="btn-doc">Visualizar</button>
-          </div>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-cat-header">
-            <span class="doc-cat-icon" style="color:var(--navy)">📁</span>
-            Relatórios Especiais
-          </div>
-          <div class="doc-item">
-            <div>
-              <div class="doc-item-name">Diagnóstico Financeiro Inicial — Março 2026.pdf</div>
-              <div class="doc-item-status">Em breve</div>
-            </div>
-            <button class="btn-doc">Visualizar</button>
-          </div>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-cat-header">
-            <span class="doc-cat-icon" style="color:var(--green)">📁</span>
-            Propostas
-          </div>
-          <div class="doc-item">
-            <div>
-              <div class="doc-item-name">Proposta Comercial Chanquini — Janeiro 2026.pdf</div>
-              <div class="doc-item-status">Em breve</div>
-            </div>
-            <button class="btn-doc">Visualizar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="docs-note">
-        Para adicionar documentos, entre em contato com a equipe Chanquini.
-      </div>
+      <div class="dn2">Para adicionar documentos, entre em contato com a equipe Chanquini.</div>
     </div>
 
-    <!-- ── PERFIL ──────────────────────────────────────────────── -->
+    <!-- PERFIL -->
     <div id="page-perfil" class="page">
-      <div class="page-header">
-        <h1>Perfil da Empresa</h1>
-        <p>Informações estratégicas e indicadores acompanhados.</p>
+      <div class="ph"><h1>Perfil da Empresa</h1><p>Informações estratégicas e indicadores acompanhados.</p></div>
+      <div class="pg">
+        <div class="card"><div class="ct">🏢 Identificação</div><div class="pr"><span class="pl">Nome</span><span class="pv">Quinca Produções</span></div><div class="pr"><span class="pl">Segmento</span><span class="pv" style="max-width:200px">Produção Audiovisual, Eventos e Projetos Criativos</span></div><div class="pr"><span class="pl">Regime Tributário</span><span class="pv">Simples Nacional</span></div><div class="pr"><span class="pl">BPO Financeiro</span><span class="pv">Chanquini</span></div></div>
+        <div class="card"><div class="ct">🎯 Metas Financeiras</div><div class="pr"><span class="pl">Faturamento Mensal</span><span class="pv">R$ 140.383,60</span></div><div class="pr"><span class="pl">Faturamento Anual</span><span class="pv">R$ 1.684.603,20</span></div><div class="pr"><span class="pl">Margem Líquida Desejada</span><span class="pv">65%</span></div><div class="pr"><span class="pl">Redução de Custos</span><span class="pv">5%</span></div></div>
       </div>
-
-      <div class="perfil-grid">
-        <div class="card">
-          <div class="card-title">🏢 Identificação</div>
-          <div class="perfil-row">
-            <span class="perfil-label">Nome</span>
-            <span class="perfil-value">Quinca Produções</span>
-          </div>
-          <div class="perfil-row">
-            <span class="perfil-label">Segmento</span>
-            <span class="perfil-value" style="text-align:right;max-width:200px">Produção Audiovisual, Eventos e Projetos Criativos</span>
-          </div>
-          <div class="perfil-row">
-            <span class="perfil-label">Regime Tributário</span>
-            <span class="perfil-value">Simples Nacional</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🎯 Metas Financeiras</div>
-          <div class="perfil-row">
-            <span class="perfil-label">Faturamento Mensal</span>
-            <span class="perfil-value">R$ 140.383,60</span>
-          </div>
-          <div class="perfil-row">
-            <span class="perfil-label">Faturamento Anual</span>
-            <span class="perfil-value">R$ 1.684.603,20</span>
-          </div>
-          <div class="perfil-row">
-            <span class="perfil-label">Margem Líquida Desejada</span>
-            <span class="perfil-value">65%</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="margem-destaque">
-        <div class="md-icon">📈</div>
-        <div class="md-label">Margem Líquida Desejada</div>
-        <div class="md-value">65%</div>
-        <div class="md-sub">Sobre o faturamento líquido projetado</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">📋 Indicadores Acompanhados</div>
-        <div class="indicadores-grid">
-          <span class="ind-tag">Faturamento Bruto</span>
-          <span class="ind-tag">Receita Líquida</span>
-          <span class="ind-tag">Margem Bruta</span>
-          <span class="ind-tag">Margem Líquida</span>
-          <span class="ind-tag">EBITDA</span>
-          <span class="ind-tag">Ticket Médio</span>
-          <span class="ind-tag">CMV</span>
-          <span class="ind-tag">Inadimplência</span>
-          <span class="ind-tag">Fluxo de Caixa</span>
-          <span class="ind-tag">Contas a Pagar/Receber</span>
-          <span class="ind-tag">Capital de Giro</span>
-        </div>
-      </div>
+      <div class="mh"><div class="mhl">📈 Margem Líquida Desejada</div><div class="mhv">65%</div><div class="mhs">Sobre o faturamento líquido projetado</div></div>
+      <div class="card"><div class="ct">📋 Indicadores Acompanhados</div><div class="ind"><span class="it">Faturamento Bruto</span><span class="it">Receita Líquida</span><span class="it">Margem Bruta</span><span class="it">Margem Líquida</span><span class="it">EBITDA</span><span class="it">Ticket Médio</span><span class="it">CMV</span><span class="it">Inadimplência</span><span class="it">Fluxo de Caixa</span><span class="it">Contas a Pagar/Receber</span><span class="it">Capital de Giro</span></div></div>
     </div>
 
-    <!-- ── CONTATO ─────────────────────────────────────────────── -->
+    <!-- CONTATO -->
     <div id="page-contato" class="page">
-      <div class="page-header">
-        <h1>Contato Chanquini</h1>
-        <p>Estamos prontos para apoiar suas decisões financeiras.</p>
-      </div>
-
-      <div class="contato-card">
-        <div class="contato-logos">
-          <div class="ct-logo-q">Q</div>
-          <div class="contato-sep"></div>
-          <div class="ct-logo-ch">CHANQUINI<span>ESTRATÉGIAS FINANCEIRAS</span></div>
-        </div>
-        <div class="contato-text">
-          Dúvidas ou precisando de suporte?<br>Fale com sua equipe.
-        </div>
-        <div class="contato-btns">
-          <a class="btn-whatsapp" href="https://wa.me/5500000000000" target="_blank">
-            💬 Falar no WhatsApp
-          </a>
-          <a class="btn-email" href="mailto:contato@chanquini.com.br">
-            ✉️ Enviar E-mail
-          </a>
-        </div>
-      </div>
+      <div class="ph"><h1>Contato Chanquini</h1><p>Estamos prontos para apoiar suas decisões financeiras.</p></div>
+      <div class="cw"><div class="ccard">
+        <div class="ctl"><div class="ct-q">Q</div><div class="cts"></div><div class="ctc">CHANQUINI<span>ESTRATÉGIAS FINANCEIRAS</span></div></div>
+        <div class="ctt">Dúvidas ou precisando de suporte?<br>Fale com sua equipe.</div>
+        <div class="ctbs"><a class="bw" href="https://wa.me/5500000000000" target="_blank">💬 Falar no WhatsApp</a><a class="be" href="mailto:contato@chanquini.com.br">✉️ Enviar E-mail</a></div>
+      </div></div>
     </div>
 
   </main>
 
-  <footer class="portal-footer">
-    Chanquini Estratégias Financeiras © 2026
+  <footer class="pf">
+    <div class="pfl">Chanquini Estratégias Financeiras © 2026</div>
+    <div class="pfr">Portal Financeiro Quinca Produções · v2.0</div>
   </footer>
-
 </div>
 
+<div class="wm" id="wm">Chanquini · Portal Privado</div>
+
 <script>
-// ── CONFIGURAÇÕES — EDITE AQUI TODO MÊS ──────────────────────────
-const CONFIG = {
-  email: "quinca@quinca.com.br",
-  senha: "quinca2026",
-  dashboards: {
-    // Formato: "Nome do Mês": { url: "LINK", entrega: "DD/MM/AAAA" }
-    "Abril 2026": {
-      url: "https://brenoestudant.github.io/dashboards/dashboard_04_2026_1778965664.html",
-      entrega: "05/05/2026"
-    }
-    // Para adicionar novo mês, copie a linha acima e cole aqui:
-    // "Maio 2026": { url: "LINK_AQUI", entrega: "05/06/2026" },
+// ══ CONFIG — EDITE AQUI TODO MÊS ════════════════════════════════
+const CFG = {
+  email:"quinca@quinca.com.br",
+  senha:"quinca2026",
+  dashboards:{
+    "Abril 2026":{url:"https://brenoestudant.github.io/dashboards/dashboard_04_2026_1778965664.html",entrega:"05/05/2026"}
+    // Próximo mês: "Maio 2026":{url:"LINK",entrega:"05/06/2026"},
   }
 };
-// ─────────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+
+// SPLASH
+setTimeout(()=>{
+  document.getElementById('splash').style.display='none';
+  const l=document.getElementById('login');l.style.display='flex';
+  setTimeout(()=>l.classList.add('vis'),10);
+},2800);
+
+// CLOCK
+function tick(){
+  const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');
+  const hr=n.getHours(),grt=hr<12?'Bom dia,':hr<18?'Boa tarde,':'Boa noite,';
+  const ds=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const msl=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const id=x=>document.getElementById(x);
+  if(id('gbt'))id('gbt').textContent=`${h}:${m}`;
+  if(id('gbg'))id('gbg').textContent=grt;
+  if(id('gbds'))id('gbds').textContent=`${ds[n.getDay()]}, ${n.getDate()} ${ms[n.getMonth()]}`;
+  if(id('tbdt'))id('tbdt').textContent=`${ds[n.getDay()]}, ${n.getDate()} de ${msl[n.getMonth()]}`;
+}
+setInterval(tick,1000);tick();
 
 // LOGIN
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const senha = document.getElementById('login-pass').value;
-  if (email === CONFIG.email && senha === CONFIG.senha) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('portal').style.display = 'block';
-    buildDashCards();
-    buildCalendar();
-  } else {
-    document.getElementById('login-error').style.display = 'block';
+function login(){
+  const e=document.getElementById('le').value.trim(),s=document.getElementById('lp').value,err=document.getElementById('lerr');
+  if(e===CFG.email&&s===CFG.senha){
+    const l=document.getElementById('login');l.classList.remove('vis');
+    setTimeout(()=>{l.style.display='none';},400);
+    document.getElementById('portal').style.display='block';
+    document.getElementById('wm').style.display='block';
+    buildDash();buildCal();
+  }else{
+    err.style.display='block';document.getElementById('lp').style.borderColor='var(--red)';
+    setTimeout(()=>{err.style.display='none';document.getElementById('lp').style.borderColor='';},3000);
   }
 }
 
-function doLogout() {
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('portal').style.display = 'none';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-pass').value = '';
-  document.getElementById('login-error').style.display = 'none';
+function logout(){
+  document.getElementById('portal').style.display='none';
+  document.getElementById('wm').style.display='none';
+  document.getElementById('le').value='';document.getElementById('lp').value='';
+  const l=document.getElementById('login');l.style.display='flex';
+  setTimeout(()=>l.classList.add('vis'),10);
 }
 
-// NAVEGAÇÃO
-function showPage(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  if (el) el.classList.add('active');
+// NAV
+const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
+function nav(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  document.getElementById('tbpg').textContent=PNS[id]||id;
 }
 
-// DASHBOARD CARDS — gerado automaticamente pelo CONFIG
-function buildDashCards() {
-  const grid = document.getElementById('dash-grid');
-  const meses = [
-    "Abril 2026","Maio 2026","Junho 2026","Julho 2026","Agosto 2026",
-    "Setembro 2026","Outubro 2026","Novembro 2026","Dezembro 2026"
-  ];
+// NOTIF
+function toggleNotif(){document.getElementById('np').classList.toggle('open')}
+function clearN(){
+  document.getElementById('np').innerHTML='<div class="np-h"><div class="np-ht">Notificações</div></div><div style="padding:24px;text-align:center;font-size:12px;color:var(--muted)">Nenhuma notificação pendente ✅</div>';
+  document.getElementById('nbd').style.display='none';
+  document.getElementById('nd').style.display='none';
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.nb')&&!e.target.closest('.np'))document.getElementById('np')?.classList.remove('open');});
 
-  grid.innerHTML = '';
+// TEMA
+let dark=false;
+function toggleTheme(){
+  dark=!dark;document.documentElement.setAttribute('data-theme',dark?'dark':'');
+  document.getElementById('th-i').textContent=dark?'☀️':'🌙';
+  document.getElementById('th-l').textContent=dark?'Modo claro':'Modo escuro';
+}
 
-  meses.forEach(mes => {
-    const dash = CONFIG.dashboards[mes];
-    const available = !!dash;
-    const card = document.createElement('div');
-    card.className = 'dash-card ' + (available ? 'available' : 'locked');
-    if (available) {
-      card.onclick = () => window.open(dash.url, '_blank');
-    }
-    card.innerHTML = `
-      <div class="dash-card-icon">${available ? '📊' : '🔒'}</div>
-      <div class="dash-card-month">${mes}</div>
-      <button class="btn-dash ${available ? 'active' : 'disabled'}">${available ? 'Ver Dashboard' : 'Em breve'}</button>
-      ${available ? `<div class="dash-delivery">Entregue em ${dash.entrega}</div>` : ''}
-    `;
-    grid.appendChild(card);
+// DASH CARDS
+function buildDash(){
+  const meses=["Abril 2026","Maio 2026","Junho 2026","Julho 2026","Agosto 2026","Setembro 2026","Outubro 2026","Novembro 2026","Dezembro 2026"];
+  const g=document.getElementById('dg');g.innerHTML='';
+  meses.forEach(mes=>{
+    const d=CFG.dashboards[mes],av=!!d,c=document.createElement('div');
+    c.className='dc '+(av?'av':'lk');
+    if(av)c.onclick=()=>window.open(d.url,'_blank');
+    c.innerHTML=`<div class="dc-ico">${av?'📊':'🔒'}</div><div class="dc-m">${mes}</div><button class="bd ${av?'on':'off'}">${av?'Ver Dashboard':'Em breve'}</button>${av?`<div class="dc-del">Entregue em ${d.entrega}</div>`:''}`;
+    g.appendChild(c);
   });
 }
 
-function openDash(card) {
-  const mes = card.querySelector('.dash-card-month').textContent;
-  const dash = CONFIG.dashboards[mes];
-  if (dash) window.open(dash.url, '_blank');
+// CALENDÁRIO
+function buildCal(){
+  const hl={3:'hq',5:'hn',10:'hg'},sd=5,tot=31,ds=['D','S','T','Q','Q','S','S'];
+  let h='<div class="cg">';
+  ds.forEach(d=>{h+=`<div class="cdh">${d}</div>`;});
+  for(let i=0;i<sd;i++)h+='<div class="cd e"></div>';
+  for(let d=1;d<=tot;d++)h+=`<div class="cd ${hl[d]||'n'}">${d}</div>`;
+  h+='</div>';
+  const el=document.getElementById('cal');if(el)el.innerHTML=h;
 }
-
-// CALENDÁRIO MAIO 2026
-function buildCalendar() {
-  // Maio 2026: começa na sexta (dia da semana 5, domingo=0)
-  const highlights = {
-    3: 'quinca',   // Entrega documentos
-    5: 'navy',     // Fechamento disponível
-    10: 'gray'     // Reunião
-  };
-
-  const dias = ['D','S','T','Q','Q','S','S'];
-  const startDay = 5; // sexta-feira
-  const totalDays = 31;
-
-  let html = '<div class="cal-grid">';
-  dias.forEach(d => { html += `<div class="cal-day-header">${d}</div>`; });
-
-  // Espaços vazios antes do dia 1
-  for (let i = 0; i < startDay; i++) {
-    html += '<div class="cal-day empty"></div>';
-  }
-
-  for (let d = 1; d <= totalDays; d++) {
-    const tipo = highlights[d];
-    const cls = tipo ? `highlight-${tipo}` : 'normal';
-    html += `<div class="cal-day ${cls}">${d}</div>`;
-  }
-
-  html += '</div>';
-  document.getElementById('cal-maio').innerHTML = html;
-}
-
-// Reconstruir grid velho da cal (limpar o teste)
-document.querySelector('.cal-grid')?.remove();
 </script>
-
 </body>
 </html>
