@@ -5,189 +5,121 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Portal Financeiro — Quinca Produções</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
-  --q:#7B2FBE;--q2:#9B4FDE;--qdark:#5A1F9A;--qbg:#F5EEFF;--qglow:rgba(123,47,190,0.15);
+  --q:#7B2FBE;--q2:#9B4FDE;--qdark:#5A1F9A;--qbg:#F5EEFF;--qglow:rgba(123,47,190,.15);
   --navy:#1C2B4A;--navy2:#243356;
   --cream:#FAF8F5;--cream2:#F3F0EA;--cream3:#EDE9E0;
-  --card:#FFFFFF;--border:#E8E2D9;--border2:#D4CCB8;
+  --card:#FFF;--border:#E8E2D9;--border2:#D4CCB8;
   --text:#1C2B4A;--text2:#3D4F72;--muted:#8A8070;--muted2:#C4BAA8;
   --green:#15803D;--gbg:#F0FDF4;--gborder:#BBF7D0;
   --red:#B91C1C;--rbg:#FEF2F2;--rborder:#FECACA;
   --yellow:#B45309;--ybg:#FFFBEB;--yborder:#FDE68A;
   --blue:#1D4ED8;--bbg:#EFF6FF;
   --gold:#C9A84C;--gold2:#E8C96A;
-  --sw:250px;--r:16px;--r2:12px;
+  --sw:250px;--r:16px;
   --sh:0 1px 3px rgba(28,43,74,.06),0 4px 16px rgba(28,43,74,.06);
-  --sh2:0 4px 24px rgba(28,43,74,.1),0 1px 4px rgba(28,43,74,.06);
+  --sh2:0 4px 24px rgba(28,43,74,.1);
   --sh3:0 8px 40px rgba(123,47,190,.15);
   --tr:all .2s cubic-bezier(.4,0,.2,1);
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
 
-/* ══ SPLASH ══════════════════════════════════════════════════════ */
-#splash{
-  position:fixed;inset:0;z-index:3000;
-  background:var(--cream);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
-  animation:splashFade .5s ease 2.6s forwards;
-}
-@keyframes splashFade{to{opacity:0;pointer-events:none}}
-
-.sp-ring{
-  width:80px;height:80px;border-radius:20px;
-  background:linear-gradient(135deg,var(--q),var(--q2));
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 32px rgba(123,47,190,.35);
-  animation:spIn .6s cubic-bezier(.34,1.56,.64,1) .2s both;
-  margin-bottom:24px;
-}
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:3000;background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:spFade .5s ease 2.6s forwards}
+@keyframes spFade{to{opacity:0;pointer-events:none}}
+.sp-ring{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--q),var(--q2));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(123,47,190,.35);animation:spIn .6s cubic-bezier(.34,1.56,.64,1) .2s both;margin-bottom:24px}
 @keyframes spIn{from{opacity:0;transform:scale(.5) rotate(-20deg)}to{opacity:1;transform:none}}
-.sp-q{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-1px}
+.sp-qi{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff}
 .sp-brand{text-align:center;animation:spIn .6s cubic-bezier(.34,1.56,.64,1) .4s both}
 .sp-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--navy);letter-spacing:2px;margin-bottom:4px}
 .sp-sub{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
 .sp-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--border2),transparent);margin:20px auto;animation:spIn .4s ease .6s both}
-.sp-loading{display:flex;align-items:center;gap:6px;animation:spIn .4s ease .8s both}
-.sp-dot{width:6px;height:6px;border-radius:50%;background:var(--q);animation:spDot 1.2s ease infinite}
-.sp-dot:nth-child(2){animation-delay:.2s;background:var(--q2)}
-.sp-dot:nth-child(3){animation-delay:.4s;background:var(--gold)}
-@keyframes spDot{0%,80%,100%{transform:scale(0.4);opacity:.3}40%{transform:scale(1);opacity:1}}
+.sp-dots{display:flex;align-items:center;gap:6px;animation:spIn .4s ease .8s both}
+.sp-d{width:6px;height:6px;border-radius:50%;background:var(--q);animation:spD 1.2s ease infinite}
+.sp-d:nth-child(2){animation-delay:.2s;background:var(--q2)}
+.sp-d:nth-child(3){animation-delay:.4s;background:var(--gold)}
+@keyframes spD{0%,80%,100%{transform:scale(.4);opacity:.3}40%{transform:scale(1);opacity:1}}
 
-/* ══ LOGIN ═══════════════════════════════════════════════════════ */
-#login{
-  position:fixed;inset:0;z-index:2000;
-  background:var(--cream);
-  display:none;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .4s;
-}
+/* LOGIN */
+#login{position:fixed;inset:0;z-index:2000;background:var(--cream);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}
 #login.vis{display:flex;opacity:1}
-
-.login-wrap{
-  display:grid;grid-template-columns:1fr 1fr;
-  width:100%;max-width:900px;min-height:520px;
-  border-radius:24px;overflow:hidden;
-  box-shadow:0 20px 80px rgba(28,43,74,.15);
-}
-
-.login-left{
-  background:linear-gradient(145deg,var(--navy) 0%,var(--qdark) 60%,var(--q) 100%);
-  padding:52px 44px;display:flex;flex-direction:column;justify-content:space-between;
-  position:relative;overflow:hidden;
-}
-.ll-orb1{position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(123,47,190,.2);filter:blur(60px);top:-80px;right:-80px;pointer-events:none}
-.ll-orb2{position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(201,168,76,.1);filter:blur(50px);bottom:-40px;left:-40px;pointer-events:none}
+.lw{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:900px;min-height:520px;border-radius:24px;overflow:hidden;box-shadow:0 20px 80px rgba(28,43,74,.15)}
+.ll{background:linear-gradient(145deg,var(--navy),var(--qdark) 60%,var(--q));padding:52px 44px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.ll-o1{position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(123,47,190,.2);filter:blur(60px);top:-80px;right:-80px;pointer-events:none}
+.ll-o2{position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(201,168,76,.1);filter:blur(50px);bottom:-40px;left:-40px;pointer-events:none}
 .ll-top{position:relative;z-index:1}
 .ll-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.5px;margin-bottom:28px}
-.ll-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-0.5px}
-.ll-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
-.ll-bottom{position:relative;z-index:1}
-.ll-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ll-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.5px}
+.ll-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7}
+.ll-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1}
 .ll-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px}
-.ll-stat-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:2px}
-.ll-stat-lbl{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase}
-
-.login-right{
-  background:var(--card);padding:52px 44px;
-  display:flex;flex-direction:column;justify-content:center;
-}
+.ll-sv{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:2px}
+.ll-sl{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase}
+.lr{background:var(--card);padding:52px 44px;display:flex;flex-direction:column;justify-content:center}
 .lr-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px}
 .lr-q{width:40px;height:40px;background:linear-gradient(135deg,var(--q),var(--q2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff}
 .lr-ch{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--navy);line-height:1.4}
 .lr-ch span{font-weight:400;font-size:10px;color:var(--muted);letter-spacing:.5px}
 .lr-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--navy);margin-bottom:6px;letter-spacing:-.3px}
 .lr-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
-
-.lfield{margin-bottom:18px}
-.lfield label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.lfield input{
-  width:100%;padding:13px 16px;
-  border:1.5px solid var(--border);border-radius:10px;
-  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);
-  background:var(--cream);outline:none;transition:var(--tr);
-}
-.lfield input:focus{border-color:var(--q);background:#fff;box-shadow:0 0 0 3px var(--qglow)}
-.lbtn{
-  width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--q),var(--q2));
-  color:#fff;border:none;border-radius:10px;
-  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:var(--tr);margin-top:4px;
-  box-shadow:0 4px 16px rgba(123,47,190,.3);letter-spacing:.2px;
-}
+.lf{margin-bottom:18px}
+.lf label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.lf input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;transition:var(--tr)}
+.lf input:focus{border-color:var(--q);background:#fff;box-shadow:0 0 0 3px var(--qglow)}
+.lbtn{width:100%;padding:14px;background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);margin-top:4px;box-shadow:0 4px 16px rgba(123,47,190,.3)}
 .lbtn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(123,47,190,.4)}
-.lbtn:active{transform:none}
 .lerr{font-size:12px;color:var(--red);text-align:center;margin-top:10px;display:none;padding:9px;background:var(--rbg);border-radius:8px;border:1px solid var(--rborder)}
-.lnote{text-align:center;font-size:11px;color:var(--muted2);margin-top:20px;display:flex;align-items:center;justify-content:center;gap:5px}
+.lnote{text-align:center;font-size:11px;color:var(--muted2);margin-top:20px}
 
-/* ══ PORTAL ══════════════════════════════════════════════════════ */
+/* PORTAL */
 #portal{display:none;min-height:100vh}
 
 /* SIDEBAR */
-.sb{
-  position:fixed;top:0;left:0;bottom:0;width:var(--sw);
-  background:var(--navy);
-  display:flex;flex-direction:column;z-index:100;
-  border-right:1px solid rgba(255,255,255,.04);
-}
+.sb{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--navy);display:flex;flex-direction:column;z-index:100;border-right:1px solid rgba(255,255,255,.04)}
 .sb::after{content:'';position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(123,47,190,.5),transparent)}
-
 .sb-brand{padding:24px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
 .sbq{width:40px;height:40px;background:linear-gradient(135deg,var(--q),var(--q2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(123,47,190,.4)}
-.sb-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#fff;letter-spacing:.3px}
-.sb-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;letter-spacing:.3px}
-
+.sb-nm{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#fff;letter-spacing:.3px}
+.sb-sm{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;letter-spacing:.3px}
 .sb-nav{padding:16px 12px;flex:1;overflow-y:auto}
-.sb-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.2);padding:12px 8px 6px;margin-top:4px}
-
-.ni{
-  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
-  cursor:pointer;color:rgba(255,255,255,.45);font-size:13px;font-weight:500;
-  margin-bottom:2px;transition:var(--tr);text-decoration:none;
-}
+.sb-sec{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.2);padding:12px 8px 6px;margin-top:4px}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.45);font-size:13px;font-weight:500;margin-bottom:2px;transition:var(--tr);text-decoration:none}
 .ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
-.ni.active{
-  background:rgba(123,47,190,.2);color:#fff;
-  border:1px solid rgba(123,47,190,.3);
-  box-shadow:inset 0 0 20px rgba(123,47,190,.1);
-}
+.ni.active{background:rgba(123,47,190,.2);color:#fff;border:1px solid rgba(123,47,190,.3);box-shadow:inset 0 0 20px rgba(123,47,190,.1)}
 .ni-ico{font-size:15px;width:20px;text-align:center;flex-shrink:0}
 .ni-badge{margin-left:auto;background:rgba(201,168,76,.2);color:var(--gold2);font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:6px;letter-spacing:.3px;border:1px solid rgba(201,168,76,.2)}
-.ni.active .ni-badge{background:rgba(201,168,76,.25);color:var(--gold2)}
+.ni.active .ni-badge{background:rgba(201,168,76,.25)}
 .ni-dot{margin-left:auto;width:6px;height:6px;background:#FF6B6B;border-radius:50%;box-shadow:0 0 6px rgba(255,107,107,.7)}
-
 .sb-ft{padding:16px 20px;border-top:1px solid rgba(255,255,255,.05)}
 .sb-ft p{font-size:10px;color:rgba(255,255,255,.2);line-height:1.7;font-style:italic}
 .th-btn{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.04);cursor:pointer;font-size:11px;color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.06);font-family:'Plus Jakarta Sans',sans-serif;transition:var(--tr);width:100%}
 .th-btn:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)}
 
 /* TOPBAR */
-.tb{
-  position:fixed;top:0;left:var(--sw);right:0;height:60px;
-  background:rgba(250,248,245,.95);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;z-index:90;
-}
+.tb{position:fixed;top:0;left:var(--sw);right:0;height:60px;background:rgba(250,248,245,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:90}
 .tb-l{display:flex;align-items:center;gap:12px}
 .tb-pg{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--navy);letter-spacing:-.2px}
 .tb-sep{width:1px;height:16px;background:var(--border2)}
 .tb-dt{font-size:11.5px;color:var(--muted);font-weight:500}
 .tb-r{display:flex;align-items:center;gap:10px;position:relative}
-
 .nb{position:relative;width:36px;height:36px;border-radius:9px;background:var(--cream2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:var(--tr)}
 .nb:hover{background:var(--qbg);border-color:var(--q)}
 .nb-dot{position:absolute;top:7px;right:7px;width:6px;height:6px;background:var(--red);border-radius:50%;border:1.5px solid var(--cream)}
-
 .uc{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 6px;background:var(--cream2);border:1px solid var(--border);border-radius:20px}
 .uca{width:26px;height:26px;background:linear-gradient(135deg,var(--q),var(--q2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .ucn{font-size:12px;font-weight:600;color:var(--text)}
-
 .lo{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;background:none;border:1px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--tr)}
 .lo:hover{background:var(--rbg);border-color:var(--rborder);color:var(--red)}
+
+/* TOPBAR EXTRA BUTTONS */
+.tb-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;border:1px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--tr);background:var(--cream2)}
+.tb-btn:hover{background:var(--qbg);border-color:var(--q);color:var(--q)}
+.tb-btn.present{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(123,47,190,.25)}
+.tb-btn.present:hover{box-shadow:0 4px 14px rgba(123,47,190,.4);transform:translateY(-1px)}
 
 /* NOTIF */
 .np{position:absolute;top:52px;right:0;width:320px;background:var(--card);border-radius:14px;border:1px solid var(--border);box-shadow:var(--sh2);z-index:200;display:none;overflow:hidden}
@@ -208,8 +140,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .page.active{display:block;animation:pgIn .28s cubic-bezier(.4,0,.2,1)}
 @keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ══ COMPONENTS ══════════════════════════════════════════════════ */
-
 /* CARD */
 .card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;margin-bottom:16px;box-shadow:var(--sh)}
 .ct{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
@@ -220,16 +150,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .ph p{font-size:13px;color:var(--muted)}
 
 /* GREETING */
-.gb{
-  background:linear-gradient(145deg,var(--navy) 0%,var(--qdark) 55%,var(--q) 100%);
-  border-radius:var(--r);padding:28px 30px;margin-bottom:16px;
-  display:flex;align-items:center;justify-content:space-between;
-  box-shadow:var(--sh3);overflow:hidden;position:relative;
-}
-.gb-orb1{position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(123,47,190,.25);filter:blur(50px);top:-60px;right:100px;pointer-events:none}
-.gb-orb2{position:absolute;width:140px;height:140px;border-radius:50%;background:rgba(201,168,76,.1);filter:blur(40px);bottom:-40px;right:280px;pointer-events:none}
+.gb{background:linear-gradient(145deg,var(--navy),var(--qdark) 55%,var(--q));border-radius:var(--r);padding:28px 30px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh3);overflow:hidden;position:relative}
+.gbo1{position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(123,47,190,.25);filter:blur(50px);top:-60px;right:100px;pointer-events:none}
+.gbo2{position:absolute;width:140px;height:140px;border-radius:50%;background:rgba(201,168,76,.1);filter:blur(40px);bottom:-40px;right:280px;pointer-events:none}
 .gb-l{position:relative;z-index:1}
-.gb-g{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:4px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:15px}
+.gb-g{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:4px}
 .gb-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
 .gb-s{font-size:12px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px}
 .gb-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2)}
@@ -237,74 +162,69 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .gb-t{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:#fff;line-height:1;letter-spacing:-2px}
 .gb-ds{font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;font-style:italic}
 
-/* TERMÔMETRO */
+/* MINI DASHBOARD */
+.mini-dash{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.md-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--tr)}
+.md-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.md-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.md-card.c1::before{background:linear-gradient(90deg,var(--green),#4ADE80)}
+.md-card.c2::before{background:linear-gradient(90deg,var(--red),#F87171)}
+.md-card.c3::before{background:linear-gradient(90deg,var(--q),var(--q2))}
+.md-card.c4::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.md-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+.md-val{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;letter-spacing:-1px;margin-bottom:3px}
+.md-val.g{color:var(--green)}.md-val.r{color:var(--red)}.md-val.p{color:var(--q)}.md-val.y{color:var(--yellow)}
+.md-sub{font-size:11px;color:var(--muted)}
+.md-ico{position:absolute;bottom:12px;right:14px;font-size:26px;opacity:.07}
+
+/* KPI ROW */
+.krow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+.kcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--tr)}
+.kcard:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:rgba(123,47,190,.2)}
+.kcard-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.kcard-accent.g{background:linear-gradient(90deg,var(--green),#4ADE80)}
+.kcard-accent.y{background:linear-gradient(90deg,var(--yellow),#FCD34D)}
+.k-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px}
+.k-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1;margin-bottom:4px;letter-spacing:-1px}
+.k-val.g{color:var(--green)}.k-val.r{color:var(--red)}.k-val.y{color:var(--yellow)}
+.k-sub{font-size:11px;color:var(--muted)}
+.k-icon{position:absolute;bottom:14px;right:16px;font-size:28px;opacity:.07}
+
+/* TERM */
 .term{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:16px;box-shadow:var(--sh)}
 .term-iw{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .term-iw.v{background:var(--gbg);border:1px solid var(--gborder)}
-.term-iw.a{background:var(--ybg);border:1px solid var(--yborder)}
-.term-iw.r{background:var(--rbg);border:1px solid var(--rborder)}
 .term-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:5px}
 .term-row{display:flex;align-items:center;gap:10px}
 .tbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
 .tbadge.v{background:var(--gbg);color:var(--green);border:1px solid var(--gborder)}
-.tbadge.a{background:var(--ybg);color:var(--yellow);border:1px solid var(--yborder)}
-.tbadge.r{background:var(--rbg);color:var(--red);border:1px solid var(--rborder)}
-.term-txt{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text);letter-spacing:-.2px}
+.term-txt{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text)}
 
 /* PROGRESS */
 .prog{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;margin-bottom:16px;box-shadow:var(--sh)}
 .prog-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-.prog-ttl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);letter-spacing:-.2px}
+.prog-ttl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy)}
 .prog-pct{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--q);letter-spacing:-1px}
 .prog-trk{background:var(--cream2);border-radius:20px;height:6px;overflow:hidden;border:1px solid var(--border)}
 .prog-fill{height:6px;border-radius:20px;background:linear-gradient(90deg,var(--qdark),var(--q),var(--q2));transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .prog-sub{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
 .prog-sub strong{color:var(--q);font-weight:600}
 
-/* KPI ROW */
-.krow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
-.kcard{
-  background:var(--card);border-radius:var(--r);border:1px solid var(--border);
-  padding:20px;box-shadow:var(--sh);position:relative;overflow:hidden;
-  transition:var(--tr);
-}
-.kcard:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--q)}
-.kcard-accent{position:absolute;top:0;left:0;right:0;height:2px}
-.kcard-accent.g{background:linear-gradient(90deg,var(--green),#4ADE80)}
-.kcard-accent.y{background:linear-gradient(90deg,var(--yellow),#FCD34D)}
-.kcard-accent.r{background:linear-gradient(90deg,var(--red),#F87171)}
-.k-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px}
-.k-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1;margin-bottom:4px;letter-spacing:-1px}
-.k-val.g{color:var(--green)}.k-val.r{color:var(--red)}.k-val.y{color:var(--yellow)}
-.k-sub{font-size:11px;color:var(--muted)}
-.k-icon{position:absolute;bottom:14px;right:16px;font-size:28px;opacity:.08}
-
 /* AVISOS */
-.avisos{
-  background:linear-gradient(145deg,var(--navy),var(--navy2));
-  border-radius:var(--r);padding:24px;margin-bottom:16px;box-shadow:var(--sh2);
-}
-.av-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
+.avisos{background:linear-gradient(145deg,var(--navy),var(--navy2));border-radius:var(--r);padding:24px;margin-bottom:16px;box-shadow:var(--sh2)}
+.av-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .av-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.av-item{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:10px;
-  transition:var(--tr);
-}
-.av-item:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)}
+.av-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:10px;transition:var(--tr)}
+.av-item:hover{background:rgba(255,255,255,.09)}
 .av-ico{font-size:18px;flex-shrink:0;margin-top:1px}
 .av-txt{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5}
 
 /* CARTA */
-.carta{
-  background:var(--card);border-radius:var(--r);border:1px solid var(--border);
-  padding:26px;margin-bottom:16px;box-shadow:var(--sh);
-  position:relative;overflow:hidden;
-}
+.carta{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:26px;margin-bottom:16px;box-shadow:var(--sh);position:relative;overflow:hidden}
 .carta::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold),var(--q))}
 .carta-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .carta-ico{font-size:20px}
-.carta-ttl{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--navy);letter-spacing:-.2px}
+.carta-ttl{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--navy)}
 .carta-per{font-size:11px;color:var(--muted);margin-left:auto;background:var(--cream2);padding:3px 10px;border-radius:20px;border:1px solid var(--border)}
 .carta-txt{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text2);line-height:1.9;font-style:italic;margin-bottom:18px}
 .carta-ass{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border)}
@@ -331,17 +251,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 
 /* DASH CARDS */
 .dg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
-.dc{
-  background:var(--card);border-radius:var(--r);border:1px solid var(--border);
-  padding:24px;box-shadow:var(--sh);transition:var(--tr);
-}
+.dc{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:24px;box-shadow:var(--sh);transition:var(--tr)}
 .dc.av{cursor:pointer}
 .dc.av:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(123,47,190,.15);border-color:rgba(123,47,190,.25)}
 .dc.lk{opacity:.55}
 .dc-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;border:1px solid var(--border)}
 .dc.av .dc-ico{background:var(--qbg);border-color:rgba(123,47,190,.2)}
 .dc.lk .dc-ico{background:var(--cream2)}
-.dc-m{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:16px;letter-spacing:-.2px}
+.dc-m{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:16px}
 .dc.lk .dc-m{color:var(--muted)}
 .bd{width:100%;padding:11px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:var(--tr);letter-spacing:.2px}
 .bd.on{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;box-shadow:0 3px 12px rgba(123,47,190,.25)}
@@ -358,11 +275,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 
 /* INSIGHTS */
 .ins-list{display:flex;flex-direction:column;gap:10px}
-.ins-item{
-  background:var(--cream);border:1px solid var(--border);border-radius:12px;
-  padding:14px 16px;display:flex;align-items:center;gap:12px;
-  transition:var(--tr);
-}
+.ins-item{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:var(--tr)}
 .ins-item:hover{background:var(--qbg);border-color:rgba(123,47,190,.2)}
 .ins-n{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--q),var(--q2));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
 .ins-txt{font-size:13px;color:var(--text2);line-height:1.5}
@@ -371,8 +284,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
 .cdh{text-align:center;font-size:9.5px;font-weight:700;color:var(--muted);padding:6px 0;text-transform:uppercase;letter-spacing:.5px}
 .cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:12px;font-weight:500;color:var(--text)}
-.cd.e{background:transparent}
-.cd.n{background:var(--cream2);border:1px solid var(--border)}
+.cd.e{background:transparent}.cd.n{background:var(--cream2);border:1px solid var(--border)}
 .cd.hq{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(123,47,190,.3)}
 .cd.hn{background:var(--navy);color:#fff;font-weight:700}
 .cd.hg{background:var(--cream3);color:var(--navy);font-weight:600;border:1px solid var(--border2)}
@@ -383,7 +295,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 /* DOCS */
 .docs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .dcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;box-shadow:var(--sh)}
-.dh{display:flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:16px;letter-spacing:-.2px}
+.dh{display:flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:16px}
 .di{padding:12px 0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
 .dn{font-size:12px;color:var(--text2);flex:1;line-height:1.4}
 .ds2{font-size:10px;color:var(--muted);font-style:italic}
@@ -395,11 +307,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .pr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:13px}
 .pr:last-child{border-bottom:none}
 .pl2{color:var(--muted)}.pv{font-weight:600;color:var(--text);text-align:right}
-.mh{
-  background:linear-gradient(145deg,var(--navy),var(--qdark) 60%,var(--q));
-  border-radius:var(--r);padding:30px;margin-bottom:16px;box-shadow:var(--sh3);
-  position:relative;overflow:hidden;
-}
+.mh{background:linear-gradient(145deg,var(--navy),var(--qdark) 60%,var(--q));border-radius:var(--r);padding:30px;margin-bottom:16px;box-shadow:var(--sh3);position:relative;overflow:hidden}
 .mh-orb{position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(201,168,76,.1);filter:blur(40px);bottom:-60px;right:-40px;pointer-events:none}
 .mhl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:8px;position:relative;z-index:1}
 .mhv{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px;letter-spacing:-2px;position:relative;z-index:1}
@@ -419,11 +327,90 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 .ctbs{display:flex;gap:12px;justify-content:center}
 .bw{display:flex;align-items:center;gap:8px;padding:14px 28px;background:#25D366;color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);text-decoration:none;box-shadow:0 3px 12px rgba(37,211,102,.25)}
 .bw:hover{background:#1EB857;transform:translateY(-1px)}
-.be{display:flex;align-items:center;gap:8px;padding:14px 28px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);text-decoration:none;box-shadow:0 3px 12px rgba(28,43,74,.2)}
+.be{display:flex;align-items:center;gap:8px;padding:14px 28px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);text-decoration:none}
 .be:hover{background:var(--navy2);transform:translateY(-1px)}
 
-/* DIVIDER */
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:4px 0 16px}
+/* CARTAS HISTÓRICO */
+.cartas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ch-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:22px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--tr);cursor:pointer}
+.ch-card:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:rgba(123,47,190,.2)}
+.ch-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold),var(--q))}
+.ch-mes{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}
+.ch-titulo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.ch-preview{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--text2);line-height:1.7;font-style:italic}
+.ch-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.ch-autor{font-size:11px;color:var(--muted)}
+.ch-ler{font-size:11px;color:var(--q);font-weight:600}
+
+/* MODAL CARTA */
+.modal-overlay{position:fixed;inset:0;background:rgba(28,43,74,.5);backdrop-filter:blur(4px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex;animation:pgIn .2s ease}
+.modal-box{background:var(--card);border-radius:20px;padding:40px;max-width:620px;width:100%;box-shadow:0 20px 60px rgba(28,43,74,.2);position:relative;max-height:80vh;overflow-y:auto}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;background:var(--cream2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:var(--tr)}
+.modal-close:hover{background:var(--rbg);color:var(--red)}
+.modal-mes{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);margin-bottom:20px;letter-spacing:-.3px}
+.modal-txt{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text2);line-height:2;font-style:italic}
+.modal-ass{display:flex;align-items:center;gap:10px;margin-top:24px;padding-top:18px;border-top:1px solid var(--border)}
+.modal-av{width:36px;height:36px;background:linear-gradient(135deg,var(--q),var(--q2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.modal-an{font-weight:700;color:var(--navy);font-size:13px}
+.modal-as{font-size:11px;color:var(--muted)}
+
+/* RELATÓRIO ANUAL */
+.ra-hero{background:linear-gradient(145deg,var(--navy),var(--qdark) 55%,var(--q));border-radius:var(--r);padding:30px;margin-bottom:16px;box-shadow:var(--sh3);color:#fff}
+.ra-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;margin-bottom:6px;letter-spacing:-1px}
+.ra-sub{font-size:13px;color:rgba(255,255,255,.5);font-style:italic;margin-bottom:20px}
+.ra-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ra-kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px}
+.ra-kv{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#fff;margin-bottom:3px;letter-spacing:-.5px}
+.ra-kl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px}
+
+/* APRESENTAÇÃO */
+#presentation{position:fixed;inset:0;z-index:5000;background:var(--navy);display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px}
+#presentation.open{display:flex}
+.pres-slide{width:100%;max-width:900px;text-align:center;animation:pgIn .4s ease}
+.pres-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px}
+.pres-title{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:#fff;margin-bottom:12px;letter-spacing:-2px;line-height:1.1}
+.pres-sub{font-size:16px;color:rgba(255,255,255,.5);font-style:italic;margin-bottom:40px}
+.pres-data{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.pres-kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+.pres-kv{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;margin-bottom:4px;letter-spacing:-1px}
+.pres-kl{font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
+.pres-nav{display:flex;align-items:center;gap:16px;justify-content:center}
+.pres-btn{padding:10px 24px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
+.pres-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.pres-close{position:absolute;top:20px;right:24px;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:var(--tr)}
+.pres-close:hover{background:rgba(255,255,255,.1);color:#fff}
+.pres-counter{font-size:12px;color:rgba(255,255,255,.3);padding:6px 14px;background:rgba(255,255,255,.05);border-radius:20px}
+
+/* ADMIN PANEL */
+#admin-panel{position:fixed;inset:0;z-index:4000;background:rgba(28,43,74,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+#admin-panel.open{display:flex;animation:pgIn .25s ease}
+.ap-box{background:var(--card);border-radius:20px;padding:36px;width:100%;max-width:680px;box-shadow:0 20px 60px rgba(28,43,74,.25);max-height:85vh;overflow-y:auto;position:relative}
+.ap-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.ap-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--navy)}
+.ap-close{width:32px;height:32px;border-radius:8px;background:var(--cream2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:var(--tr)}
+.ap-close:hover{background:var(--rbg);color:var(--red)}
+.ap-section{margin-bottom:24px}
+.ap-sec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ap-field{margin-bottom:14px}
+.ap-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.ap-field input,.ap-field textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none;transition:var(--tr)}
+.ap-field input:focus,.ap-field textarea:focus{border-color:var(--q);background:#fff;box-shadow:0 0 0 3px var(--qglow)}
+.ap-field textarea{min-height:100px;resize:vertical;font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.7;font-style:italic}
+.ap-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ap-btn{padding:11px 24px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);border:none}
+.ap-btn.save{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;box-shadow:0 3px 12px rgba(123,47,190,.25);width:100%}
+.ap-btn.save:hover{box-shadow:0 4px 16px rgba(123,47,190,.4);transform:translateY(-1px)}
+.ap-success{display:none;background:var(--gbg);border:1px solid var(--gborder);color:var(--green);padding:10px 14px;border-radius:9px;font-size:12px;font-weight:600;text-align:center;margin-top:10px}
+
+/* PDF BTN */
+.pdf-btn{display:flex;align-items:center;gap:8px;padding:11px 20px;border-radius:9px;background:var(--cream2);border:1px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:var(--tr);margin-bottom:16px}
+.pdf-btn:hover{background:var(--qbg);border-color:var(--q);color:var(--q)}
+
+/* CHART containers */
+.ch-wrap{position:relative;height:220px;margin-top:8px}
+.ch-wrap-lg{position:relative;height:280px;margin-top:8px}
 
 /* FOOTER */
 .pf{margin-left:var(--sw);padding:16px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--card)}
@@ -433,55 +420,43 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 /* WATERMARK */
 .wm{position:fixed;bottom:16px;right:20px;font-size:10px;color:var(--muted2);letter-spacing:.5px;pointer-events:none;z-index:50;display:none;font-style:italic}
 
-@media(max-width:960px){.dg,.mg,.docs{grid-template-columns:1fr 1fr}.av-g,.krow{grid-template-columns:1fr 1fr}.pg{grid-template-columns:1fr}.login-wrap{grid-template-columns:1fr}.login-left{display:none}}
-@media(max-width:660px){:root{--sw:0px}.sb{transform:translateX(-250px)}.dg,.docs,.mg,.krow{grid-template-columns:1fr}.ctbs{flex-direction:column}}
+@media(max-width:960px){.mini-dash{grid-template-columns:1fr 1fr}.dg,.mg,.docs,.cartas-grid{grid-template-columns:1fr 1fr}.av-g,.krow,.ra-kpis{grid-template-columns:1fr 1fr}.pg{grid-template-columns:1fr}.pres-data{grid-template-columns:1fr 1fr}}
+@media(max-width:660px){:root{--sw:0px}.sb{transform:translateX(-250px)}.dg,.docs,.mg,.krow,.mini-dash,.cartas-grid{grid-template-columns:1fr}.ctbs,.pres-data,.ra-kpis{grid-template-columns:1fr 1fr}.lw{grid-template-columns:1fr}.ll{display:none}}
 </style>
 </head>
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="sp-ring"><div class="sp-q">Q</div></div>
-  <div class="sp-brand">
-    <div class="sp-name">Chanquini</div>
-    <div class="sp-sub">Estratégias Financeiras</div>
-  </div>
+  <div class="sp-ring"><div class="sp-qi">Q</div></div>
+  <div class="sp-brand"><div class="sp-name">Chanquini</div><div class="sp-sub">Estratégias Financeiras</div></div>
   <div class="sp-line"></div>
-  <div class="sp-loading">
-    <div class="sp-dot"></div>
-    <div class="sp-dot"></div>
-    <div class="sp-dot"></div>
-  </div>
+  <div class="sp-dots"><div class="sp-d"></div><div class="sp-d"></div><div class="sp-d"></div></div>
 </div>
 
 <!-- LOGIN -->
 <div id="login">
-  <div class="login-wrap">
-    <div class="login-left">
-      <div class="ll-orb1"></div><div class="ll-orb2"></div>
+  <div class="lw">
+    <div class="ll">
+      <div class="ll-o1"></div><div class="ll-o2"></div>
       <div class="ll-top">
         <div class="ll-badge">🔒 Portal Privado</div>
         <div class="ll-title">Portal<br>Financeiro</div>
         <div class="ll-sub">Gestão financeira estratégica para empresas que buscam crescimento sustentável e clareza nos números.</div>
       </div>
-      <div class="ll-bottom">
-        <div class="ll-stats">
-          <div class="ll-stat"><div class="ll-stat-val">65%</div><div class="ll-stat-lbl">Margem Desejada</div></div>
-          <div class="ll-stat"><div class="ll-stat-val">R$ 1,6M</div><div class="ll-stat-lbl">Meta Anual</div></div>
-          <div class="ll-stat"><div class="ll-stat-val">28%</div><div class="ll-stat-lbl">Executado 2026</div></div>
-          <div class="ll-stat"><div class="ll-stat-val">Abr</div><div class="ll-stat-lbl">Último Fechamento</div></div>
-        </div>
+      <div class="ll-stats">
+        <div class="ll-stat"><div class="ll-sv">65%</div><div class="ll-sl">Margem Desejada</div></div>
+        <div class="ll-stat"><div class="ll-sv">R$ 1,6M</div><div class="ll-sl">Meta Anual</div></div>
+        <div class="ll-stat"><div class="ll-sv">28%</div><div class="ll-sl">Executado 2026</div></div>
+        <div class="ll-stat"><div class="ll-sv">Abr</div><div class="ll-sl">Último Fechamento</div></div>
       </div>
     </div>
-    <div class="login-right">
-      <div class="lr-logo">
-        <div class="lr-q">Q</div>
-        <div class="lr-ch">Chanquini<br><span>Estratégias Financeiras</span></div>
-      </div>
+    <div class="lr">
+      <div class="lr-logo"><div class="lr-q">Q</div><div class="lr-ch">Chanquini<br><span>Estratégias Financeiras</span></div></div>
       <div class="lr-title">Bem-vindo</div>
       <div class="lr-sub">Quinca Produções · Acesso Restrito</div>
-      <div class="lfield"><label>E-mail</label><input type="email" id="le" placeholder="seu@email.com"/></div>
-      <div class="lfield"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/></div>
+      <div class="lf"><label>E-mail</label><input type="email" id="le" placeholder="seu@email.com"/></div>
+      <div class="lf"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/></div>
       <button class="lbtn" onclick="login()">Acessar Portal →</button>
       <div class="lerr" id="lerr">E-mail ou senha incorretos.</div>
       <div class="lnote">🔒 Conexão segura · Chanquini © 2026</div>
@@ -492,19 +467,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
 <!-- PORTAL -->
 <div id="portal">
   <nav class="sb">
-    <div class="sb-brand">
-      <div class="sbq">Q</div>
-      <div><div class="sb-name">Quinca</div><div class="sb-sub">Produções</div></div>
-    </div>
+    <div class="sb-brand"><div class="sbq">Q</div><div><div class="sb-nm">Quinca</div><div class="sb-sm">Produções</div></div></div>
     <div class="sb-nav">
-      <div class="sb-section">Principal</div>
+      <div class="sb-sec">Principal</div>
       <a class="ni active" onclick="nav('inicio',this)"><span class="ni-ico">🏠</span>Início<span class="ni-dot" id="nd"></span></a>
       <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">📊</span>Dashboards</a>
       <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">🎯</span>Estratégia<span class="ni-badge">NOVO</span></a>
-      <div class="sb-section">Gestão</div>
-      <a class="ni" onclick="nav('documentos',this)"><span class="ni-ico">📁</span>Documentos<span class="ni-badge">NOVO</span></a>
+      <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✍️</span>Cartas do Consultor<span class="ni-badge">NOVO</span></a>
+      <a class="ni" onclick="nav('relatorio',this)"><span class="ni-ico">📈</span>Relatório Anual<span class="ni-badge">NOVO</span></a>
+      <div class="sb-sec">Gestão</div>
+      <a class="ni" onclick="nav('documentos',this)"><span class="ni-ico">📁</span>Documentos</a>
       <a class="ni" onclick="nav('perfil',this)"><span class="ni-ico">🏢</span>Perfil da Empresa</a>
-      <div class="sb-section">Suporte</div>
+      <div class="sb-sec">Suporte</div>
       <a class="ni" onclick="nav('contato',this)"><span class="ni-ico">📞</span>Contato Chanquini</a>
     </div>
     <div class="sb-ft">
@@ -520,82 +494,87 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
       <div class="tb-dt" id="tbdt"></div>
     </div>
     <div class="tb-r">
+      <button class="tb-btn" onclick="exportPDF()">📄 Exportar PDF</button>
+      <button class="tb-btn present" onclick="openPresentation()">▶ Apresentação</button>
+      <button class="tb-btn" onclick="openAdmin()" style="border-color:var(--gold);color:var(--yellow)">⚙️ Admin</button>
       <div class="nb" onclick="toggleNotif()">🔔<div class="nb-dot" id="nbd"></div></div>
       <div class="np" id="np">
         <div class="np-h"><div class="np-ht">Notificações</div><div class="np-cl" onclick="clearN()">Limpar</div></div>
-        <div class="np-i"><div class="ni2">📊</div><div><div class="np-txt">Dashboard de Abril 2026 disponível</div><div class="np-time">Entregue em 05/05/2026</div></div></div>
-        <div class="np-i"><div class="ni2">🔔</div><div><div class="np-txt">Entrega dos documentos até dia 03/06</div><div class="np-time">Prazo se aproximando</div></div></div>
-        <div class="np-i"><div class="ni2">✅</div><div><div class="np-txt">Fechamento de Abril concluído com sucesso</div><div class="np-time">Chanquini · 05/05/2026</div></div></div>
+        <div id="notif-list">
+          <div class="np-i"><div class="ni2">📊</div><div><div class="np-txt">Dashboard de Abril 2026 disponível</div><div class="np-time">Entregue em 05/05/2026</div></div></div>
+          <div class="np-i"><div class="ni2">🔔</div><div><div class="np-txt">Entrega dos documentos até dia 03/06</div><div class="np-time">Prazo se aproximando</div></div></div>
+          <div class="np-i"><div class="ni2">✅</div><div><div class="np-txt">Fechamento de Abril concluído com sucesso</div><div class="np-time">Chanquini · 05/05/2026</div></div></div>
+        </div>
       </div>
       <div class="uc"><div class="uca">Q</div><div class="ucn">Quinca Produções</div></div>
       <button class="lo" onclick="logout()">↪ Sair</button>
     </div>
   </header>
 
-  <main class="mc">
+  <main class="mc" id="main-content">
 
     <!-- INÍCIO -->
     <div id="page-inicio" class="page active">
       <div class="gb">
-        <div class="gb-orb1"></div><div class="gb-orb2"></div>
+        <div class="gbo1"></div><div class="gbo2"></div>
         <div class="gb-l">
           <div class="gb-g" id="gbg">Bom dia,</div>
           <div class="gb-n">Quinca Produções 👋</div>
-          <div class="gb-s"><div class="gb-dot"></div><span>Seu portal financeiro está atualizado</span></div>
+          <div class="gb-s"><div class="gb-dot"></div><span id="gb-status">Seu portal financeiro está atualizado</span></div>
         </div>
-        <div class="gb-r">
-          <div class="gb-t" id="gbt">--:--</div>
-          <div class="gb-ds" id="gbds"></div>
-        </div>
+        <div class="gb-r"><div class="gb-t" id="gbt">--:--</div><div class="gb-ds" id="gbds"></div></div>
+      </div>
+
+      <!-- MINI DASHBOARD -->
+      <div class="mini-dash">
+        <div class="md-card c1"><div class="md-lbl">Faturamento Abril</div><div class="md-val g counter" data-val="79418">R$ 0</div><div class="md-sub">↓ vs meta</div><div class="md-ico">💰</div></div>
+        <div class="md-card c2"><div class="md-lbl">Despesas Abril</div><div class="md-val r counter" data-val="116124">R$ 0</div><div class="md-sub">Saídas realizadas</div><div class="md-ico">📤</div></div>
+        <div class="md-card c3"><div class="md-lbl">Saldo Atual</div><div class="md-val p counter" data-val="131302">R$ 0</div><div class="md-sub">Posição atual</div><div class="md-ico">🏦</div></div>
+        <div class="md-card c4"><div class="md-lbl">Meta Anual</div><div class="md-val y" id="meta-pct">28%</div><div class="md-sub">R$ 471.234 executados</div><div class="md-ico">🎯</div></div>
       </div>
 
       <div class="term">
         <div class="term-iw v">🌡️</div>
         <div>
           <div class="term-lbl">Termômetro do Mês</div>
-          <div class="term-row">
-            <span class="tbadge v">● Verde</span>
-            <span class="term-txt">Maio 2026 — No caminho certo</span>
-          </div>
+          <div class="term-row"><span class="tbadge v" id="term-badge">● Verde</span><span class="term-txt" id="term-txt">Maio 2026 — No caminho certo</span></div>
         </div>
       </div>
 
       <div class="prog">
-        <div class="prog-h">
-          <div class="prog-ttl">Meta Anual 2026</div>
-          <div class="prog-pct">28%</div>
-        </div>
+        <div class="prog-h"><div class="prog-ttl">Meta Anual 2026</div><div class="prog-pct">28%</div></div>
         <div class="prog-trk"><div class="prog-fill" style="width:28%"></div></div>
         <div class="prog-sub"><span>R$ 471.234,00 atingidos</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
       </div>
 
-      <div class="card">
-        <div class="ct">📈 Comparativo do Mês</div>
-        <div class="krow">
-          <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Faturamento</div><div class="k-val g">↑ +12%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">💰</div></div>
-          <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Despesas</div><div class="k-val g">↓ -3%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">📉</div></div>
-          <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Margem</div><div class="k-val g">↑ +2pp</div><div class="k-sub">vs mês anterior</div><div class="k-icon">📊</div></div>
-        </div>
+      <!-- GRÁFICOS INTERATIVOS -->
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px">
+        <div class="card"><div class="ct">📊 Evolução do Faturamento 2026</div><div class="ch-wrap"><canvas id="cFat"></canvas></div></div>
+        <div class="card"><div class="ct">🍩 Distribuição</div><div class="ch-wrap"><canvas id="cDist"></canvas></div></div>
       </div>
 
-      <div class="carta">
-        <div class="carta-hd">
-          <span class="carta-ico">✍️</span>
-          <span class="carta-ttl">Carta do Consultor</span>
-          <span class="carta-per">Abril 2026</span>
-        </div>
-        <div class="carta-txt">"Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de maio. Estamos no caminho certo para retomar o ritmo de crescimento no segundo semestre."</div>
-        <div class="carta-ass">
-          <div class="carta-av">👩‍💼</div>
-          <div><div class="carta-an">Equipe Chanquini</div><div class="carta-as">Estratégias Financeiras · 05/05/2026</div></div>
-        </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="ct">📈 Receitas vs Despesas vs Resultado</div>
+        <div class="ch-wrap-lg"><canvas id="cEvol"></canvas></div>
+      </div>
+
+      <div class="krow">
+        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Faturamento</div><div class="k-val g counter-k" data-val="+12">↑ 0%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">💰</div></div>
+        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Despesas</div><div class="k-val g">↓ -3%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">📉</div></div>
+        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Margem</div><div class="k-val g">↑ +2pp</div><div class="k-sub">vs mês anterior</div><div class="k-icon">📊</div></div>
+      </div>
+
+      <div class="carta" id="carta-home">
+        <div class="carta-hd"><span class="carta-ico">✍️</span><span class="carta-ttl">Carta do Consultor</span><span class="carta-per" id="carta-periodo-home">Abril 2026</span></div>
+        <div class="carta-txt" id="carta-texto-home">"Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de maio. Estamos no caminho certo para retomar o ritmo de crescimento no segundo semestre."</div>
+        <div class="carta-ass"><div class="carta-av">👩‍💼</div><div><div class="carta-an" id="carta-autor-home">Equipe Chanquini</div><div class="carta-as" id="carta-data-home">Estratégias Financeiras · 05/05/2026</div></div></div>
       </div>
 
       <div class="avisos">
         <div class="av-t">🔔 Avisos da Chanquini</div>
         <div class="av-g">
-          <div class="av-item"><div class="av-ico">🔔</div><div class="av-txt">Próximo fechamento: entrega dos documentos até dia 03/06</div></div>
-          <div class="av-item"><div class="av-ico">✅</div><div class="av-txt">Fechamento de Abril 2026 disponível no menu Dashboards</div></div>
+          <div class="av-item"><div class="av-ico">🔔</div><div class="av-txt" id="aviso1">Próximo fechamento: entrega dos documentos até dia 03/06</div></div>
+          <div class="av-item"><div class="av-ico">✅</div><div class="av-txt" id="aviso2">Fechamento de Abril 2026 disponível no menu Dashboards</div></div>
         </div>
       </div>
     </div>
@@ -605,12 +584,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
       <div class="ph"><h1>Dashboards</h1><p>Relatórios mensais da Quinca Produções</p></div>
       <div class="tl-card">
         <div class="ct">📅 Linha do Tempo 2026</div>
-        <div class="tl-pills">
-          <span class="tp done">Jan</span><span class="tp done">Fev</span><span class="tp done">Mar</span>
-          <span class="tp cur">Abr</span><span class="tp fut">Mai</span><span class="tp fut">Jun</span>
-          <span class="tp fut">Jul</span><span class="tp fut">Ago</span><span class="tp fut">Set</span>
-          <span class="tp fut">Out</span><span class="tp fut">Nov</span><span class="tp fut">Dez</span>
-        </div>
+        <div class="tl-pills"><span class="tp done">Jan</span><span class="tp done">Fev</span><span class="tp done">Mar</span><span class="tp cur">Abr</span><span class="tp fut">Mai</span><span class="tp fut">Jun</span><span class="tp fut">Jul</span><span class="tp fut">Ago</span><span class="tp fut">Set</span><span class="tp fut">Out</span><span class="tp fut">Nov</span><span class="tp fut">Dez</span></div>
       </div>
       <div class="card">
         <div class="ct">🏆 Placar de Metas 2026</div>
@@ -624,49 +598,52 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
     <!-- ESTRATÉGIA -->
     <div id="page-estrategia" class="page">
       <div class="ph"><h1>Estratégia</h1><p>Insights, calendário e placar de metas</p></div>
-      <div class="card">
-        <div class="ct">💡 Insights do Consultor — Abril 2026</div>
-        <div class="ins-list">
-          <div class="ins-item"><div class="ins-n">1</div><div class="ins-txt">Inadimplência estável em 0% — excelente controle de recebimentos</div></div>
-          <div class="ins-item"><div class="ins-n">2</div><div class="ins-txt">Despesas operacionais dentro do limite — margem protegida</div></div>
-          <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div>
+      <div class="card"><div class="ct">💡 Insights do Consultor — Abril 2026</div><div class="ins-list"><div class="ins-item"><div class="ins-n">1</div><div class="ins-txt">Inadimplência estável em 0% — excelente controle de recebimentos</div></div><div class="ins-item"><div class="ins-n">2</div><div class="ins-txt">Despesas operacionais dentro do limite — margem protegida</div></div><div class="ins-item"><div class="ins-n">3</div><div class="ins-txt">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div></div></div>
+      <div class="card"><div class="ct">📅 Calendário Financeiro — Maio 2026</div><div id="cal"></div><div class="cl"><div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Entrega dos documentos (dia 03)</div><div class="cl-i"><div class="cl-d" style="background:var(--navy)"></div>Fechamento disponível (dia 05)</div><div class="cl-i"><div class="cl-d" style="background:var(--cream3);border:1px solid var(--border2)"></div>Reunião de alinhamento (dia 10)</div></div></div>
+      <div class="mg"><div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:linear-gradient(90deg,var(--yellow),#FCD34D)"></div></div></div><div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div><div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div><div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div></div>
+    </div>
+
+    <!-- CARTAS DO CONSULTOR -->
+    <div id="page-cartas" class="page">
+      <div class="ph"><h1>Cartas do Consultor</h1><p>Histórico de análises mensais da Chanquini</p></div>
+      <div class="cartas-grid" id="cartas-grid"></div>
+    </div>
+
+    <!-- RELATÓRIO ANUAL -->
+    <div id="page-relatorio" class="page">
+      <div class="ra-hero">
+        <div class="ra-title">Relatório Anual 2026</div>
+        <div class="ra-sub">Visão consolidada do desempenho financeiro da Quinca Produções</div>
+        <div class="ra-kpis">
+          <div class="ra-kpi"><div class="ra-kv">R$ 528K</div><div class="ra-kl">Faturamento Acumulado</div></div>
+          <div class="ra-kpi"><div class="ra-kv">R$ 397K</div><div class="ra-kl">Despesas Acumuladas</div></div>
+          <div class="ra-kpi"><div class="ra-kv">R$ 131K</div><div class="ra-kl">Resultado Acumulado</div></div>
+          <div class="ra-kpi"><div class="ra-kv">28%</div><div class="ra-kl">Meta Anual Executada</div></div>
         </div>
       </div>
-      <div class="card">
-        <div class="ct">📅 Calendário Financeiro — Maio 2026</div>
-        <div id="cal"></div>
-        <div class="cl">
-          <div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Entrega dos documentos (dia 03)</div>
-          <div class="cl-i"><div class="cl-d" style="background:var(--navy)"></div>Fechamento disponível (dia 05)</div>
-          <div class="cl-i"><div class="cl-d" style="background:var(--cream3);border:1px solid var(--border2)"></div>Reunião de alinhamento (dia 10)</div>
-        </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div class="card"><div class="ct">📊 Faturamento Mensal</div><div class="ch-wrap-lg"><canvas id="cAnualFat"></canvas></div></div>
+        <div class="card"><div class="ct">📈 Resultado Mensal</div><div class="ch-wrap-lg"><canvas id="cAnualRes"></canvas></div></div>
       </div>
-      <div class="mg">
-        <div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:linear-gradient(90deg,var(--yellow),#FCD34D)"></div></div></div>
-        <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
-        <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
-        <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div>
+      <div class="card">
+        <div class="ct">🎯 Progresso das Metas Anuais</div>
+        <div class="pl-item"><div class="pl-row"><span class="pl-lbl">Faturamento Anual — R$ 471.234 de R$ 1.684.603,20</span><span class="pl-pcts" style="color:var(--q);font-weight:700">28%</span></div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
+        <div class="pl-item" style="margin-top:16px"><div class="pl-row"><span class="pl-lbl">Margem Líquida — 61% atual vs meta 65%</span><span class="pl-pcts" style="color:var(--yellow);font-weight:700">94% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--yellow),#FCD34D)"></div></div></div>
+        <div class="pl-item" style="margin-top:16px"><div class="pl-row"><span class="pl-lbl">Redução de Custos — 2% atual vs meta 5%</span><span class="pl-pcts" style="color:var(--green);font-weight:700">40% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
       </div>
     </div>
 
     <!-- DOCUMENTOS -->
     <div id="page-documentos" class="page">
       <div class="ph"><h1>Documentos Importantes</h1><p>Arquivos e contratos da Quinca Produções</p></div>
-      <div class="docs">
-        <div class="dcard"><div class="dh"><span style="color:var(--q)">📁</span>Contratos</div><div class="di"><div><div class="dn">Contrato de Prestação de Serviços — Chanquini x Quinca — 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
-        <div class="dcard"><div class="dh"><span style="color:var(--navy)">📁</span>Relatórios Especiais</div><div class="di"><div><div class="dn">Diagnóstico Financeiro Inicial — Março 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
-        <div class="dcard"><div class="dh"><span style="color:var(--green)">📁</span>Propostas</div><div class="di"><div><div class="dn">Proposta Comercial Chanquini — Janeiro 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div>
-      </div>
+      <div class="docs"><div class="dcard"><div class="dh"><span style="color:var(--q)">📁</span>Contratos</div><div class="di"><div><div class="dn">Contrato de Prestação de Serviços — Chanquini x Quinca — 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div><div class="dcard"><div class="dh"><span style="color:var(--navy)">📁</span>Relatórios Especiais</div><div class="di"><div><div class="dn">Diagnóstico Financeiro Inicial — Março 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div><div class="dcard"><div class="dh"><span style="color:var(--green)">📁</span>Propostas</div><div class="di"><div><div class="dn">Proposta Comercial Chanquini — Janeiro 2026.pdf</div><div class="ds2">Em breve</div></div><button class="bdo">Visualizar</button></div></div></div>
       <div class="dn2">Para adicionar documentos, entre em contato com a equipe Chanquini.</div>
     </div>
 
     <!-- PERFIL -->
     <div id="page-perfil" class="page">
       <div class="ph"><h1>Perfil da Empresa</h1><p>Informações estratégicas e indicadores acompanhados.</p></div>
-      <div class="pg">
-        <div class="card"><div class="ct">🏢 Identificação</div><div class="pr"><span class="pl2">Nome</span><span class="pv">Quinca Produções</span></div><div class="pr"><span class="pl2">Segmento</span><span class="pv" style="max-width:200px">Produção Audiovisual, Eventos e Projetos Criativos</span></div><div class="pr"><span class="pl2">Regime Tributário</span><span class="pv">Simples Nacional</span></div><div class="pr"><span class="pl2">BPO Financeiro</span><span class="pv">Chanquini</span></div></div>
-        <div class="card"><div class="ct">🎯 Metas Financeiras</div><div class="pr"><span class="pl2">Faturamento Mensal</span><span class="pv">R$ 140.383,60</span></div><div class="pr"><span class="pl2">Faturamento Anual</span><span class="pv">R$ 1.684.603,20</span></div><div class="pr"><span class="pl2">Margem Líquida Desejada</span><span class="pv">65%</span></div><div class="pr"><span class="pl2">Redução de Custos</span><span class="pv">5%</span></div></div>
-      </div>
+      <div class="pg"><div class="card"><div class="ct">🏢 Identificação</div><div class="pr"><span class="pl2">Nome</span><span class="pv">Quinca Produções</span></div><div class="pr"><span class="pl2">Segmento</span><span class="pv" style="max-width:200px">Produção Audiovisual, Eventos e Projetos Criativos</span></div><div class="pr"><span class="pl2">Regime Tributário</span><span class="pv">Simples Nacional</span></div><div class="pr"><span class="pl2">BPO Financeiro</span><span class="pv">Chanquini</span></div></div><div class="card"><div class="ct">🎯 Metas Financeiras</div><div class="pr"><span class="pl2">Faturamento Mensal</span><span class="pv">R$ 140.383,60</span></div><div class="pr"><span class="pl2">Faturamento Anual</span><span class="pv">R$ 1.684.603,20</span></div><div class="pr"><span class="pl2">Margem Líquida Desejada</span><span class="pv">65%</span></div><div class="pr"><span class="pl2">Redução de Custos</span><span class="pv">5%</span></div></div></div>
       <div class="mh"><div class="mh-orb"></div><div class="mhl">📈 Margem Líquida Desejada</div><div class="mhv">65%</div><div class="mhs">Sobre o faturamento líquido projetado</div></div>
       <div class="card"><div class="ct">📋 Indicadores Acompanhados</div><div class="ind"><span class="it">Faturamento Bruto</span><span class="it">Receita Líquida</span><span class="it">Margem Bruta</span><span class="it">Margem Líquida</span><span class="it">EBITDA</span><span class="it">Ticket Médio</span><span class="it">CMV</span><span class="it">Inadimplência</span><span class="it">Fluxo de Caixa</span><span class="it">Contas a Pagar/Receber</span><span class="it">Capital de Giro</span></div></div>
     </div>
@@ -674,52 +651,123 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:va
     <!-- CONTATO -->
     <div id="page-contato" class="page">
       <div class="ph"><h1>Contato Chanquini</h1><p>Estamos prontos para apoiar suas decisões financeiras.</p></div>
-      <div class="cw"><div class="ccard">
-        <div class="ctl"><div class="ct-q">Q</div><div class="cts"></div><div class="ctc">CHANQUINI<span>ESTRATÉGIAS FINANCEIRAS</span></div></div>
-        <div class="ctt">"Dúvidas ou precisando de suporte?<br>Fale com sua equipe."</div>
-        <div class="ctbs">
-          <a class="bw" href="https://wa.me/5500000000000" target="_blank">💬 Falar no WhatsApp</a>
-          <a class="be" href="mailto:contato@chanquini.com.br">✉️ Enviar E-mail</a>
-        </div>
-      </div></div>
+      <div class="cw"><div class="ccard"><div class="ctl"><div class="ct-q">Q</div><div class="cts"></div><div class="ctc">CHANQUINI<span>ESTRATÉGIAS FINANCEIRAS</span></div></div><div class="ctt">"Dúvidas ou precisando de suporte?<br>Fale com sua equipe."</div><div class="ctbs"><a class="bw" href="https://wa.me/5500000000000" target="_blank">💬 Falar no WhatsApp</a><a class="be" href="mailto:contato@chanquini.com.br">✉️ Enviar E-mail</a></div></div></div>
     </div>
 
   </main>
 
   <footer class="pf">
     <div class="pfl">Chanquini Estratégias Financeiras © 2026</div>
-    <div class="pfr">Portal Financeiro Quinca Produções · v3.0</div>
+    <div class="pfr">Portal Financeiro Quinca Produções · v4.0</div>
   </footer>
+</div>
+
+<!-- MODAL CARTA -->
+<div class="modal-overlay" id="modal-carta">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeModal()">✕</div>
+    <div class="modal-mes" id="modal-mes"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-txt" id="modal-txt"></div>
+    <div class="modal-ass"><div class="modal-av">👩‍💼</div><div><div class="modal-an">Equipe Chanquini</div><div class="modal-as">Estratégias Financeiras</div></div></div>
+  </div>
+</div>
+
+<!-- APRESENTAÇÃO -->
+<div id="presentation">
+  <div class="pres-close" onclick="closePresentation()">✕</div>
+  <div class="pres-slide" id="pres-slide"></div>
+  <div class="pres-nav">
+    <button class="pres-btn" onclick="presNav(-1)">← Anterior</button>
+    <div class="pres-counter" id="pres-counter">1 / 4</div>
+    <button class="pres-btn" onclick="presNav(1)">Próximo →</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="ap-box">
+    <div class="ap-header">
+      <div class="ap-title">⚙️ Painel Admin</div>
+      <div class="ap-close" onclick="closeAdmin()">✕</div>
+    </div>
+
+    <div class="ap-section">
+      <div class="ap-sec-title">✍️ Carta do Consultor</div>
+      <div class="ap-row">
+        <div class="ap-field"><label>Período</label><input type="text" id="ap-carta-periodo" placeholder="Ex: Maio 2026"/></div>
+        <div class="ap-field"><label>Autor</label><input type="text" id="ap-carta-autor" placeholder="Ex: Equipe Chanquini"/></div>
+      </div>
+      <div class="ap-field"><label>Data</label><input type="text" id="ap-carta-data" placeholder="Ex: Estratégias Financeiras · 05/06/2026"/></div>
+      <div class="ap-field"><label>Texto da Carta</label><textarea id="ap-carta-txt" placeholder="Digite o texto da carta aqui..."></textarea></div>
+    </div>
+
+    <div class="ap-section">
+      <div class="ap-sec-title">🔔 Avisos</div>
+      <div class="ap-field"><label>Aviso 1</label><input type="text" id="ap-aviso1" placeholder="Texto do aviso 1"/></div>
+      <div class="ap-field"><label>Aviso 2</label><input type="text" id="ap-aviso2" placeholder="Texto do aviso 2"/></div>
+    </div>
+
+    <div class="ap-section">
+      <div class="ap-sec-title">🌡️ Termômetro</div>
+      <div class="ap-row">
+        <div class="ap-field"><label>Status</label>
+          <select id="ap-term-status" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);background:var(--cream);outline:none">
+            <option value="Verde">🟢 Verde — No caminho certo</option>
+            <option value="Amarelo">🟡 Amarelo — Atenção necessária</option>
+            <option value="Vermelho">🔴 Vermelho — Requer ação imediata</option>
+          </select>
+        </div>
+        <div class="ap-field"><label>Texto do Mês</label><input type="text" id="ap-term-txt" placeholder="Ex: Maio 2026 — No caminho certo"/></div>
+      </div>
+    </div>
+
+    <button class="ap-btn save" onclick="saveAdmin()">💾 Salvar Alterações</button>
+    <div class="ap-success" id="ap-success">✅ Alterações salvas com sucesso!</div>
+  </div>
 </div>
 
 <div class="wm" id="wm">Chanquini · Portal Privado</div>
 
 <script>
 // ══ CONFIG — EDITE AQUI TODO MÊS ════════════════════════════════
-const CFG={
+const CFG = {
   email:"quinca@quinca.com.br",
   senha:"quinca2026",
+  senhaAdmin:"admin2026",
   dashboards:{
     "Abril 2026":{url:"https://chanquinioperacional.github.io/dashboards/dashboard_04_2026_1778965664.html",entrega:"05/05/2026"}
     // "Maio 2026":{url:"LINK",entrega:"05/06/2026"},
-  }
+  },
+  cartas:[
+    {mes:"Abril 2026",titulo:"Análise de Abril 2026",texto:'"Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de maio. Estamos no caminho certo para retomar o ritmo de crescimento no segundo semestre."',data:"05/05/2026"},
+    {mes:"Março 2026",titulo:"Análise de Março 2026",texto:'"Março foi o mês de melhor desempenho do ano até agora, com faturamento de R$ 214.707 — 53% acima da meta mensal. O resultado positivo de R$ 122.502 reflete a sazonalidade favorável do primeiro trimestre. Recomendamos reservar parte deste resultado para suportar os meses de menor faturamento que se aproximam."',data:"05/04/2026"},
+    {mes:"Fevereiro 2026",titulo:"Análise de Fevereiro 2026",texto:'"Fevereiro apresentou resultado negativo de R$ -10.491, com despesas superando receitas. Este resultado, embora preocupante isoladamente, reflete a sazonalidade do período. O importante é que o saldo acumulado ainda se mantém positivo. Atenção redobrada às despesas nos próximos meses."',data:"05/03/2026"},
+    {mes:"Janeiro 2026",titulo:"Análise de Janeiro 2026",texto:'"Janeiro abriu o ano com resultado positivo de R$ 55.712, estabelecendo uma base sólida para o exercício de 2026. O faturamento de R$ 134.565 ficou próximo da meta mensal. Momento favorável para estruturar controles financeiros mais robustos para o restante do ano."',data:"05/02/2026"},
+  ]
 };
 // ════════════════════════════════════════════════════════════════
+
+// DADOS DOS GRÁFICOS
+const dadosMensais={
+  labels:['Jan','Fev','Mar','Abr'],
+  fat:[134565,99611,214707,79419],
+  desp:[78853,110102,92205,116125],
+  res:[55712,-10491,122502,-36706]
+};
 
 // SPLASH
 setTimeout(()=>{
   document.getElementById('splash').style.display='none';
-  const l=document.getElementById('login');
-  l.style.display='flex';setTimeout(()=>l.classList.add('vis'),10);
+  const l=document.getElementById('login');l.style.display='flex';
+  setTimeout(()=>l.classList.add('vis'),10);
 },2800);
 
 // CLOCK
 function tick(){
   const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');
   const hr=n.getHours(),g=hr<12?'Bom dia,':hr<18?'Boa tarde,':'Boa noite,';
-  const ds=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-  const ml=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const ds=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],ml=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const id=x=>document.getElementById(x);
   if(id('gbt'))id('gbt').textContent=`${h}:${m}`;
   if(id('gbg'))id('gbg').textContent=g;
@@ -730,13 +778,21 @@ setInterval(tick,1000);tick();
 
 // LOGIN
 function login(){
-  const e=document.getElementById('le').value.trim(),s=document.getElementById('lp').value,err=document.getElementById('lerr');
+  const e=document.getElementById('le').value.trim(),s=document.getElementById('lp').value;
+  const err=document.getElementById('lerr');
   if(e===CFG.email&&s===CFG.senha){
     const l=document.getElementById('login');l.classList.remove('vis');
     setTimeout(()=>{l.style.display='none';},400);
     document.getElementById('portal').style.display='block';
     document.getElementById('wm').style.display='block';
-    buildDash();buildCal();
+    buildDash();buildCal();buildCartas();initCharts();animateCounters();buildCartas();initAnualCharts();
+  }else if(e===CFG.email&&s===CFG.senhaAdmin){
+    const l=document.getElementById('login');l.classList.remove('vis');
+    setTimeout(()=>{l.style.display='none';},400);
+    document.getElementById('portal').style.display='block';
+    document.getElementById('wm').style.display='block';
+    buildDash();buildCal();buildCartas();initCharts();animateCounters();initAnualCharts();
+    setTimeout(()=>openAdmin(),800);
   }else{
     err.style.display='block';document.getElementById('lp').style.borderColor='var(--red)';
     setTimeout(()=>{err.style.display='none';document.getElementById('lp').style.borderColor='';},3000);
@@ -752,7 +808,7 @@ function logout(){
 }
 
 // NAV
-const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
+const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
@@ -765,8 +821,7 @@ function nav(id,el){
 function toggleNotif(){document.getElementById('np').classList.toggle('open')}
 function clearN(){
   document.getElementById('np').innerHTML='<div class="np-h"><div class="np-ht">Notificações</div></div><div style="padding:24px;text-align:center;font-size:12px;color:var(--muted);font-style:italic">Nenhuma notificação pendente ✅</div>';
-  document.getElementById('nbd').style.display='none';
-  document.getElementById('nd').style.display='none';
+  document.getElementById('nbd').style.display='none';document.getElementById('nd').style.display='none';
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.nb')&&!e.target.closest('.np'))document.getElementById('np')?.classList.remove('open');});
 
@@ -774,13 +829,31 @@ document.addEventListener('click',e=>{if(!e.target.closest('.nb')&&!e.target.clo
 let dark=false;
 function toggleTheme(){
   dark=!dark;
-  document.body.style.background=dark?'#0F1520':'';
-  document.body.style.color=dark?'#E8EDF5':'';
+  document.documentElement.style.setProperty('--cream',dark?'#0F1520':'#FAF8F5');
+  document.documentElement.style.setProperty('--cream2',dark?'#1A2235':'#F3F0EA');
+  document.documentElement.style.setProperty('--card',dark?'#1E2940':'#FFF');
+  document.documentElement.style.setProperty('--border',dark?'#243050':'#E8E2D9');
+  document.documentElement.style.setProperty('--text',dark?'#E8EDF5':'#1C2B4A');
+  document.documentElement.style.setProperty('--text2',dark?'#A8B8D8':'#3D4F72');
+  document.documentElement.style.setProperty('--muted',dark?'#6A7A9A':'#8A8070');
   document.getElementById('thi').textContent=dark?'☀️':'🌙';
   document.getElementById('thl').textContent=dark?'Modo claro':'Modo escuro';
 }
 
-// DASH
+// ANIMAÇÃO DE CONTADORES
+function animateCounters(){
+  document.querySelectorAll('.counter').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-val'));
+    let current=0;const steps=60;const inc=target/steps;
+    const timer=setInterval(()=>{
+      current+=inc;
+      if(current>=target){current=target;clearInterval(timer);}
+      el.textContent='R$ '+Math.floor(current).toLocaleString('pt-BR');
+    },20);
+  });
+}
+
+// DASH CARDS
 function buildDash(){
   const meses=["Abril 2026","Maio 2026","Junho 2026","Julho 2026","Agosto 2026","Setembro 2026","Outubro 2026","Novembro 2026","Dezembro 2026"];
   const g=document.getElementById('dg');g.innerHTML='';
@@ -802,6 +875,186 @@ function buildCal(){
   for(let d=1;d<=tot;d++)h+=`<div class="cd ${hl[d]||'n'}">${d}</div>`;
   h+='</div>';
   const el=document.getElementById('cal');if(el)el.innerHTML=h;
+}
+
+// CARTAS
+function buildCartas(){
+  const g=document.getElementById('cartas-grid');if(!g)return;g.innerHTML='';
+  CFG.cartas.forEach((c,i)=>{
+    const div=document.createElement('div');div.className='ch-card';
+    div.innerHTML=`<div class="ch-mes">${c.mes}</div><div class="ch-titulo">${c.titulo}</div><div class="ch-preview">${c.texto.substring(0,120)}...</div><div class="ch-footer"><span class="ch-autor">Chanquini · ${c.data}</span><span class="ch-ler">Ler completo →</span></div>`;
+    div.onclick=()=>openModal(i);
+    g.appendChild(div);
+  });
+}
+
+function openModal(i){
+  const c=CFG.cartas[i];
+  document.getElementById('modal-mes').textContent=c.mes;
+  document.getElementById('modal-title').textContent=c.titulo;
+  document.getElementById('modal-txt').textContent=c.texto;
+  document.getElementById('modal-carta').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal-carta').classList.remove('open')}
+
+// GRÁFICOS
+let charts={};
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+
+function initCharts(){
+  const colors={q:'rgba(123,47,190,.8)',q2:'rgba(155,79,222,.5)',green:'rgba(21,128,61,.8)',red:'rgba(185,28,28,.8)',gold:'rgba(201,168,76,.8)'};
+  const gridColor='rgba(28,43,74,.06)';
+  const font={family:'Plus Jakarta Sans',size:10};
+
+  // Faturamento
+  destroyChart('cFat');
+  charts['cFat']=new Chart(document.getElementById('cFat'),{
+    type:'line',
+    data:{labels:dadosMensais.labels,datasets:[{label:'Faturamento',data:dadosMensais.fat,borderColor:'rgba(123,47,190,1)',backgroundColor:'rgba(123,47,190,.08)',fill:true,tension:.4,pointRadius:5,pointBackgroundColor:'rgba(123,47,190,1)',borderWidth:2},{label:'Meta Mensal',data:[140383,140383,140383,140383],borderColor:'rgba(201,168,76,.6)',borderDash:[6,4],fill:false,tension:0,pointRadius:0,borderWidth:1.5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:10,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+  });
+
+  // Distribuição
+  destroyChart('cDist');
+  charts['cDist']=new Chart(document.getElementById('cDist'),{
+    type:'doughnut',
+    data:{labels:['Receitas','Despesas','Resultado'],datasets:[{data:[528302,397285,131017],backgroundColor:['rgba(21,128,61,.8)','rgba(185,28,28,.8)','rgba(123,47,190,.8)'],borderWidth:0,hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font,boxWidth:10,padding:10}}}}
+  });
+
+  // Evolução
+  destroyChart('cEvol');
+  charts['cEvol']=new Chart(document.getElementById('cEvol'),{
+    type:'bar',
+    data:{labels:dadosMensais.labels,datasets:[
+      {label:'Receitas',data:dadosMensais.fat,backgroundColor:'rgba(21,128,61,.75)',borderRadius:6,borderSkipped:false},
+      {label:'Despesas',data:dadosMensais.desp,backgroundColor:'rgba(185,28,28,.75)',borderRadius:6,borderSkipped:false},
+      {label:'Resultado',data:dadosMensais.res,backgroundColor:dadosMensais.res.map(v=>v>=0?'rgba(123,47,190,.75)':'rgba(185,28,28,.4)'),borderRadius:6,borderSkipped:false,type:'bar'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:10,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+  });
+}
+
+function initAnualCharts(){
+  const gridColor='rgba(28,43,74,.06)';const font={family:'Plus Jakarta Sans',size:10};
+  destroyChart('cAnualFat');
+  charts['cAnualFat']=new Chart(document.getElementById('cAnualFat'),{
+    type:'bar',
+    data:{labels:dadosMensais.labels,datasets:[{label:'Faturamento',data:dadosMensais.fat,backgroundColor:'rgba(123,47,190,.75)',borderRadius:8,borderSkipped:false},{label:'Meta',data:[140383,140383,140383,140383],backgroundColor:'rgba(201,168,76,.3)',borderRadius:8,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:10,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+  });
+  destroyChart('cAnualRes');
+  charts['cAnualRes']=new Chart(document.getElementById('cAnualRes'),{
+    type:'bar',
+    data:{labels:dadosMensais.labels,datasets:[{label:'Resultado',data:dadosMensais.res,backgroundColor:dadosMensais.res.map(v=>v>=0?'rgba(21,128,61,.75)':'rgba(185,28,28,.75)'),borderRadius:8,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:10,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+  });
+}
+
+// APRESENTAÇÃO
+const presSlides=[
+  {label:'Visão Geral',title:'Quinca Produções',sub:'Fechamento Financeiro — Abril 2026',kpis:[{v:'R$ 79.419',l:'Faturamento Abril'},{v:'R$ 116.125',l:'Despesas Abril'},{v:'28%',l:'Meta Anual'},{v:'61%',l:'Margem Líquida'}]},
+  {label:'Acumulado 2026',title:'Resultado Acumulado',sub:'Janeiro a Abril de 2026',kpis:[{v:'R$ 528K',l:'Faturamento Total'},{v:'R$ 397K',l:'Despesas Total'},{v:'R$ 131K',l:'Resultado'},{v:'4 meses',l:'Período'}]},
+  {label:'Metas',title:'Progresso das Metas',sub:'Execução vs Planejado 2026',kpis:[{v:'28%',l:'Meta Anual Fat.'},{v:'94%',l:'Meta Margem'},{v:'40%',l:'Red. Custos'},{v:'R$1,6M',l:'Meta Anual'}]},
+  {label:'Próximos Passos',title:'Estratégia Maio 2026',sub:'Recomendações da Chanquini',kpis:[{v:'03/06',l:'Entrega Docs'},{v:'05/06',l:'Fechamento'},{v:'R$140K',l:'Meta Mensal'},{v:'65%',l:'Margem Meta'}]},
+];
+let presIdx=0;
+
+function openPresentation(){
+  document.getElementById('presentation').classList.add('open');
+  presIdx=0;renderSlide();
+}
+function closePresentation(){document.getElementById('presentation').classList.remove('open')}
+function presNav(d){presIdx=Math.max(0,Math.min(presSlides.length-1,presIdx+d));renderSlide();}
+function renderSlide(){
+  const s=presSlides[presIdx];
+  document.getElementById('pres-slide').innerHTML=`
+    <div class="pres-label">${s.label}</div>
+    <div class="pres-title">${s.title}</div>
+    <div class="pres-sub">${s.sub}</div>
+    <div class="pres-data">${s.kpis.map(k=>`<div class="pres-kpi"><div class="pres-kv">${k.v}</div><div class="pres-kl">${k.l}</div></div>`).join('')}</div>`;
+  document.getElementById('pres-counter').textContent=`${presIdx+1} / ${presSlides.length}`;
+}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('presentation').classList.contains('open')){
+    if(e.key==='ArrowRight')presNav(1);
+    if(e.key==='ArrowLeft')presNav(-1);
+    if(e.key==='Escape')closePresentation();
+  }
+  if(document.getElementById('modal-carta').classList.contains('open')&&e.key==='Escape')closeModal();
+  if(document.getElementById('admin-panel').classList.contains('open')&&e.key==='Escape')closeAdmin();
+});
+
+// ADMIN
+function openAdmin(){
+  // preencher campos com valores atuais
+  const c=CFG.cartas[0];
+  document.getElementById('ap-carta-periodo').value=c.mes;
+  document.getElementById('ap-carta-autor').value='Equipe Chanquini';
+  document.getElementById('ap-carta-data').value=`Estratégias Financeiras · ${c.data}`;
+  document.getElementById('ap-carta-txt').value=c.texto.replace(/"/g,'');
+  document.getElementById('ap-aviso1').value=document.getElementById('aviso1')?.textContent||'';
+  document.getElementById('ap-aviso2').value=document.getElementById('aviso2')?.textContent||'';
+  document.getElementById('admin-panel').classList.add('open');
+}
+function closeAdmin(){document.getElementById('admin-panel').classList.remove('open')}
+function saveAdmin(){
+  // Atualiza carta
+  const periodo=document.getElementById('ap-carta-periodo').value;
+  const autor=document.getElementById('ap-carta-autor').value;
+  const data=document.getElementById('ap-carta-data').value;
+  const txt='"'+document.getElementById('ap-carta-txt').value+'"';
+  document.getElementById('carta-periodo-home').textContent=periodo;
+  document.getElementById('carta-texto-home').textContent=txt;
+  document.getElementById('carta-autor-home').textContent=autor;
+  document.getElementById('carta-data-home').textContent=data;
+  // Atualiza avisos
+  const a1=document.getElementById('ap-aviso1').value;
+  const a2=document.getElementById('ap-aviso2').value;
+  if(document.getElementById('aviso1'))document.getElementById('aviso1').textContent=a1;
+  if(document.getElementById('aviso2'))document.getElementById('aviso2').textContent=a2;
+  // Atualiza notificações
+  const nl=document.getElementById('notif-list');
+  if(nl)nl.innerHTML=`<div class="np-i"><div class="ni2">🔔</div><div><div class="np-txt">${a1}</div><div class="np-time">Atualizado agora</div></div></div><div class="np-i"><div class="ni2">✅</div><div><div class="np-txt">${a2}</div><div class="np-time">Atualizado agora</div></div></div>`;
+  // Atualiza termômetro
+  const ts=document.getElementById('ap-term-status').value;
+  const tt=document.getElementById('ap-term-txt').value;
+  const badge=document.getElementById('term-badge');
+  const ttxt=document.getElementById('term-txt');
+  if(badge){badge.className='tbadge '+ts.toLowerCase().charAt(0);badge.textContent='● '+ts;}
+  if(ttxt&&tt)ttxt.textContent=tt;
+  // Sucesso
+  const s=document.getElementById('ap-success');s.style.display='block';
+  setTimeout(()=>{s.style.display='none';closeAdmin();},1800);
+}
+
+// PDF
+function exportPDF(){
+  try{
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF();
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(20);doc.setTextColor(28,43,74);
+    doc.text('Portal Financeiro — Quinca Producoes',20,25);
+    doc.setFontSize(11);doc.setFont('helvetica','normal');doc.setTextColor(138,128,112);
+    doc.text('Chanquini Estrategias Financeiras | Fechamento Abril 2026',20,35);
+    doc.setDrawColor(123,47,190);doc.setLineWidth(0.5);doc.line(20,40,190,40);
+    doc.setFontSize(14);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
+    doc.text('Resumo Executivo',20,52);
+    const dados=[['Faturamento Abril 2026','R$ 79.419,00'],['Despesas Abril 2026','R$ 116.125,00'],['Resultado do Mes','R$ -36.706,00'],['Faturamento Acumulado','R$ 528.302,00'],['Meta Anual (28% exec.)','R$ 1.684.603,20'],['Margem Liquida','61%']];
+    let y=62;
+    dados.forEach(([l,v],i)=>{
+      if(i%2===0)doc.setFillColor(245,238,255);else doc.setFillColor(255,255,255);
+      doc.rect(20,y-5,170,9,i%2===0?'F':'');
+      doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(61,79,114);
+      doc.text(l,24,y);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
+      doc.text(v,150,y);y+=11;
+    });
+    doc.setFontSize(10);doc.setFont('helvetica','italic');doc.setTextColor(138,128,112);
+    doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' | Chanquini Estrategias Financeiras | Portal v4.0',20,285);
+    doc.save('Relatorio_Financeiro_Quinca_Abril2026.pdf');
+  }catch(e){alert('Erro ao gerar PDF. Tente novamente.');}
 }
 </script>
 </body>
