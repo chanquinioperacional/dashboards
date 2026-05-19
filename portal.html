@@ -184,14 +184,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 .lbtn{
   width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--q),var(--q2));
-  color:#fff;border:none;border-radius:10px;
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
+  background:linear-gradient(135deg,#b8966e,#C7B7AA);
+  color:#0e1a3a;border:none;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
   cursor:pointer;transition:var(--tr);margin-top:4px;
-  box-shadow:0 4px 20px rgba(123,47,190,.35);
+  box-shadow:0 4px 20px rgba(184,150,110,.3);
   letter-spacing:.3px
 }
-.lbtn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(123,47,190,.5)}
+.lbtn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(184,150,110,.45);filter:brightness(1.05)}
 
 .lerr{
   font-size:12px;color:var(--red);text-align:center;margin-top:10px;
@@ -1285,7 +1285,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           <div class="ll-desc">Gestão financeira de alta precisão para empresas que buscam clareza nos números e crescimento sustentável.</div>
         </div>
       </div>
-      <div class="ll-stats">
+      <div class="ll-stats" style="display:none">
         <div class="ll-stat"><div class="ll-sv">65%</div><div class="ll-sl">Margem Alvo</div></div>
         <div class="ll-stat"><div class="ll-sv">R$ 1,6M</div><div class="ll-sl">Meta Anual</div></div>
         <div class="ll-stat"><div class="ll-sv">28%</div><div class="ll-sl">Executado 2026</div></div>
@@ -1409,51 +1409,51 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
       </div>
 
-      <!-- KPIs DE PERÍODO — informação real, não genérica -->
+      <!-- KPIs DE PERÍODO — dados reais extraídos das planilhas 18/05/2026 -->
       <div class="period-grid">
         <div class="period-card fat">
           <div class="pc-label">Faturamento</div>
-          <div class="pc-ref" id="pc-ref-fat">Acumulado até 15/Mai</div>
-          <div class="pc-val fat" id="pc-val-fat">R$ 38.240</div>
+          <div class="pc-ref" id="pc-ref-fat">Realizado até 18/Mai</div>
+          <div class="pc-val fat" id="pc-val-fat">R$ 6.143</div>
           <span class="pc-delta neutral" id="pc-delta-fat">◈ Em andamento</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">27%</span></div>
-            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-fat" style="width:27%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div>
+            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">4%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-fat" style="width:4%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div>
           </div>
-          <div class="pc-sub">Meta mensal: R$ 140.383,60</div>
+          <div class="pc-sub">Meta mensal: R$ 140.383,60 · R$ 33.513 atrasados</div>
         </div>
         <div class="period-card desp">
           <div class="pc-label">Despesas</div>
-          <div class="pc-ref" id="pc-ref-desp">Previsão até fim de Maio</div>
-          <div class="pc-val desp" id="pc-val-desp">R$ 112.000</div>
+          <div class="pc-ref" id="pc-ref-desp">Pagas até 18/Mai</div>
+          <div class="pc-val desp" id="pc-val-desp">R$ 39.592</div>
           <span class="pc-delta down" id="pc-delta-desp">↑ Atenção ao limite</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>% do faturamento esperado</span><span id="pc-pct-desp">80%</span></div>
-            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-desp" style="width:80%;background:linear-gradient(90deg,var(--red),#F87171)"></div></div>
+            <div class="pc-bar-lbl"><span>% do faturamento esperado</span><span id="pc-pct-desp">28%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-desp" style="width:28%;background:linear-gradient(90deg,var(--red),#F87171)"></div></div>
           </div>
-          <div class="pc-sub">Limite saudável: 65% do faturamento</div>
+          <div class="pc-sub">A pagar ainda em Maio: R$ 14.976</div>
         </div>
         <div class="period-card res">
           <div class="pc-label">Resultado Acumulado 2026</div>
-          <div class="pc-ref">Jan → Abr · 4 meses</div>
+          <div class="pc-ref">Jan → Abr · 4 meses fechados</div>
           <div class="pc-val res-pos">R$ 131.017</div>
           <span class="pc-delta up">↑ Positivo</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>Execução meta anual</span><span>28%</span></div>
-            <div class="pc-bar"><div class="pc-bar-fill" style="width:28%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
+            <div class="pc-bar-lbl"><span>Execução meta anual</span><span>31,4%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" style="width:31%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
           </div>
           <div class="pc-sub">Meta anual: R$ 1.684.603,20</div>
         </div>
         <div class="period-card prev">
-          <div class="pc-label">Projeção Maio</div>
-          <div class="pc-ref">Estimativa fim do mês</div>
-          <div class="pc-val prev">R$ 130.000</div>
-          <span class="pc-delta neutral">◎ Abaixo da meta</span>
+          <div class="pc-label">A Receber em aberto</div>
+          <div class="pc-ref">Vencimento Jun/26 · 5 contratos</div>
+          <div class="pc-val prev">R$ 46.344</div>
+          <span class="pc-delta neutral">◎ Vence em Junho</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>vs meta mensal</span><span>93%</span></div>
-            <div class="pc-bar"><div class="pc-bar-fill" style="width:93%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
+            <div class="pc-bar-lbl"><span>Clientes: Wellhub, Reinvente, Sind.</span><span></span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" style="width:33%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
           </div>
-          <div class="pc-sub">Sazonalidade esperada — acompanhe</div>
+          <div class="pc-sub">Saldo atual em conta: R$ 126.670</div>
         </div>
       </div>
 
@@ -1461,10 +1461,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="prog">
         <div class="prog-h">
           <div class="prog-ttl">Meta Anual 2026</div>
-          <div class="prog-pct">28%</div>
+          <div class="prog-pct">31,4%</div>
         </div>
-        <div class="prog-trk"><div class="prog-fill" style="width:28%"></div></div>
-        <div class="prog-sub"><span>R$ 471.234,00 atingidos</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
+        <div class="prog-trk"><div class="prog-fill" style="width:31.4%"></div></div>
+        <div class="prog-sub"><span>R$ 528.302 faturados (Jan–Abr)</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
       </div>
 
       <!-- GRÁFICO DE EVOLUÇÃO (só o de barras — removido o doughnut) -->
@@ -1848,10 +1848,10 @@ const CFG = {
 // ══════════════════════════════════════════════════════════════════════
 
 const dadosMensais={
-  labels:['Jan','Fev','Mar','Abr'],
-  fat:[134565,99611,214707,79419],
-  desp:[78853,110102,92205,116125],
-  res:[55712,-10491,122502,-36706]
+  labels:['Jan','Fev','Mar','Abr','Mai*'],
+  fat:[134565,99611,214707,79419,39656],
+  desp:[78853,110102,92205,116125,56158],
+  res:[55712,-10491,122502,-36706,-16502]
 };
 
 // SPLASH → LOGIN
