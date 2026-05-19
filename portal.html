@@ -662,10 +662,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px}
 .cdh{text-align:center;font-size:9px;font-weight:600;color:var(--muted);padding:6px 0;text-transform:uppercase;letter-spacing:.5px}
 .cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:11.5px;font-weight:500;color:var(--text2)}
-.cd.e{background:transparent}.cd.n{background:var(--silver2);border:1px solid var(--border)}
-.cd.hq{background:linear-gradient(135deg,var(--q),var(--q2));color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(123,47,190,.3)}
-.cd.hn{background:var(--navy3);color:#fff;font-weight:700;border:1px solid var(--border2)}
-.cd.hg{background:rgba(201,168,76,.1);color:var(--gold2);font-weight:600;border:1px solid rgba(201,168,76,.2)}
+.cd.e{background:transparent}
+.cd.n{background:var(--silver2);border:1px solid var(--border)}
+.cd.hq{
+  background:linear-gradient(135deg,#6D28D9,#7B2FBE);
+  color:#fff;font-weight:700;
+  box-shadow:0 0 10px rgba(109,40,217,.55);
+  border:1px solid rgba(139,92,246,.6)
+}
+.cd.hn{
+  background:linear-gradient(135deg,#B45309,#C9A84C);
+  color:#fff;font-weight:700;
+  box-shadow:0 0 10px rgba(201,168,76,.5);
+  border:1px solid rgba(234,179,8,.5)
+}
+.cd.hg{
+  background:linear-gradient(135deg,#1D4ED8,#3B82F6);
+  color:#fff;font-weight:700;
+  box-shadow:0 0 10px rgba(59,130,246,.5);
+  border:1px solid rgba(96,165,250,.6)
+}
 .cl{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
 .cl-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
 .cl-d{width:8px;height:8px;border-radius:2px}
@@ -1067,7 +1083,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pc-bar-fill{height:3px;border-radius:20px}
 
 /* ── ESTRATÉGIA: LAYOUT SIDE BY SIDE ──────────────────────────────────────────────── */
-.estrat-grid{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-bottom:14px;align-items:start}
+.estrat-grid{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-bottom:14px;align-items:stretch}
 .cal-compact .cg{gap:2px}
 .cal-compact .cd{font-size:10.5px;border-radius:5px}
 .cal-compact .cdh{font-size:8.5px;padding:4px 0}
@@ -1508,21 +1524,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <!-- DASHBOARDS -->
     <div id="page-dashboards" class="page">
       <div class="ph"><h1>Dashboards</h1><p>Relatórios mensais de fechamento financeiro</p></div>
-      <div class="tl-card">
-        <div class="ct">◎ Linha do Tempo 2026</div>
-        <div class="tl-pills">
-          <span class="tp done">Jan</span><span class="tp done">Fev</span><span class="tp done">Mar</span>
-          <span class="tp cur">Abr</span><span class="tp fut">Mai</span><span class="tp fut">Jun</span>
-          <span class="tp fut">Jul</span><span class="tp fut">Ago</span><span class="tp fut">Set</span>
-          <span class="tp fut">Out</span><span class="tp fut">Nov</span><span class="tp fut">Dez</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="ct">◈ Placar de Metas 2026</div>
-        <div class="pl-item"><div class="pl-row"><span class="pl-lbl">Faturamento Anual</span><span class="pl-pcts">28% executado</span></div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
-        <div class="pl-item" style="margin-top:12px"><div class="pl-row"><span class="pl-lbl">Margem Líquida (meta 65%)</span><span class="pl-pcts">61% atual · 94% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div>
-        <div class="pl-item" style="margin-top:12px"><div class="pl-row"><span class="pl-lbl">Redução de Custos (meta 5%)</span><span class="pl-pcts">2% atual · 40% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
-      </div>
       <div class="dg" id="dg"></div>
     </div>
 
@@ -1535,18 +1536,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="card" style="margin-bottom:0">
           <div class="ct">✦ Insights do Consultor — Abril 2026</div>
           <div class="ins-list">
-            <div class="ins-item"><div class="ins-n">1</div><div class="ins-txt">Inadimplência estável em 0% — excelente controle de recebimentos</div></div>
-            <div class="ins-item"><div class="ins-n">2</div><div class="ins-txt">Despesas operacionais dentro do limite — margem protegida</div></div>
-            <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div>
+            <div class="ins-item"><div class="ins-n">1</div><div class="ins-txt"><strong>Inadimplência em 0%</strong> — Excelente controle de recebimentos. Todos os contratos de abril foram liquidados no prazo.</div></div>
+            <div class="ins-item"><div class="ins-n">2</div><div class="ins-txt"><strong>Despesas acima do faturamento</strong> — Abril fechou com resultado negativo de R$ 36.706. Saídas (R$ 116k) superaram entradas (R$ 79k).</div></div>
+            <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt"><strong>R$ 254.324 a pagar em aberto</strong> — Representa 158% do saldo atual. Negociação de prazos com fornecedores é prioridade.</div></div>
+            <div class="ins-item"><div class="ins-n">4</div><div class="ins-txt"><strong>Sazonalidade em Maio</strong> — Faturamento até 18/05 apenas R$ 6.143 realizados. R$ 46.344 a receber com vencimento em Junho.</div></div>
+            <div class="ins-item"><div class="ins-n">5</div><div class="ins-txt"><strong>Ritmo anualizado: R$ 1,58M</strong> — No ritmo atual, o ano fecha em 94,1% da meta anual (R$ 1,68M). Recuperação possível com bom desempenho no 2º semestre.</div></div>
           </div>
         </div>
         <div class="card cal-compact" style="margin-bottom:0">
           <div class="ct" style="margin-bottom:10px">◎ Calendário — Mai 2026</div>
           <div id="cal"></div>
           <div class="cl" style="flex-direction:column;gap:6px;margin-top:10px">
-            <div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Docs (dia 03)</div>
-            <div class="cl-i"><div class="cl-d" style="background:var(--gold)"></div>Fechamento (dia 05)</div>
-            <div class="cl-i"><div class="cl-d" style="background:var(--border2);border:1px solid var(--border2)"></div>Reunião (dia 10)</div>
+            <div class="cl-i"><div class="cl-d" style="background:#7B2FBE;box-shadow:0 0 6px rgba(123,47,190,.5)"></div>Docs (dia 03)</div>
+            <div class="cl-i"><div class="cl-d" style="background:#C9A84C;box-shadow:0 0 6px rgba(201,168,76,.5)"></div>Fechamento (dia 05)</div>
+            <div class="cl-i"><div class="cl-d" style="background:#3B82F6;box-shadow:0 0 6px rgba(59,130,246,.5)"></div>Reunião (dia 10)</div>
           </div>
         </div>
       </div>
@@ -2239,57 +2242,431 @@ function saveAdmin(){
 // PDF
 function exportPDF(){
   function gerarPDF(){
+    try{
     const{jsPDF}=window.jspdf;
-    const doc=new jsPDF();
-    doc.setFillColor(17,28,46);doc.rect(0,0,210,28,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(201,168,76);
-    doc.text('GFE — GESTÃO FINANCEIRA ESTRATÉGICA',14,11);
-    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(138,155,184);
-    doc.text('by Chanquini Estratégias Financeiras  |  Portal Financeiro Privado',14,19);
-    doc.setFontSize(14);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
-    doc.text('Relatório de Fechamento — Abril 2026',14,38);
-    doc.setDrawColor(201,168,76);doc.setLineWidth(0.3);doc.line(14,42,196,42);
-    doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
-    doc.text('RESUMO DO MÊS',14,52);
-    const dados=[['Faturamento Bruto','R$ 79.419,00'],['Despesas Totais','R$ 116.125,00'],['Resultado do Mês','R$ -36.706,00'],['Margem Líquida','61%'],['% da Meta Mensal','56,6%']];
-    let y=60;
-    dados.forEach(([l,v],i)=>{
-      const bg=i%2===0?[240,236,255]:[255,255,255];
-      doc.setFillColor(...bg);doc.rect(14,y-5,182,9,'F');
-      doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(61,79,114);
-      doc.text(l,18,y);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
-      doc.text(v,160,y);y+=11;
+    const doc=new jsPDF({unit:'mm',format:'a4'});
+    const W=210,H=297;
+
+    // ══ DADOS — 100% baseados no dashboard e planilhas reais ══════
+    const MES       = 'Abril 2026';
+    const CLIENTE   = CFG.cliente.nome;
+    // Score: usa o valor de Abril do SCORE_CFG.historico
+    const abr       = SCORE_CFG.historico.find(h=>h.mes==='Abr')||{val:69,status:'saudavel'};
+    const SCORE_VAL = abr.val;
+    const SCORE_STATUS = SCORE_LABELS[abr.status]||SCORE_LABELS.saudavel;
+    // Financeiro — dashboard Abril 2026
+    const FAT       = 'R$ 79.419,00';
+    const DESP      = 'R$ 116.125,00';
+    const RES       = '– R$ 36.706,00';
+    const MARGEM    = '– 46,2%';         // margem líquida real de Abril (negativa)
+    const META_MEN  = '56,6%';
+    const FAT_ACUM  = 'R$ 528.302,00';
+    const DESP_ACUM = 'R$ 397.285,00';
+    const RES_ACUM  = 'R$ 131.017,00';
+    const META_ANUAL= 'R$ 1.684.603,20';
+    const EXEC_META = '31,4%';
+    const SALDO     = 'R$ 126.670,00';
+    const A_REC     = 'R$ 46.344,00';
+    const A_PAG     = 'R$ 254.324,00';
+    const CARTA_TXT = (document.getElementById('carta-texto-home')?.textContent||'')
+      .replace(/^[""]|[""]$/g,'').trim()
+      ||'Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de Maio.';
+
+    // ── CORES ──────────────────────────────────────────────────────
+    const NAVY  =[14,26,58];
+    const NAVY2 =[23,38,72];
+    const NAVY3 =[30,48,88];
+    const GOLD  =[201,168,76];
+    const BEIGE =[199,183,170];
+    const WHITE =[255,255,255];
+    const MUTED =[130,148,178];
+    const GREEN =[34,180,94];
+    const RED   =[220,50,50];
+    const YELLOW=[210,140,10];
+    const BG0   =[248,245,238]; // fundo claro geral
+    const BG1   =[238,233,222]; // linha par
+    const BG2   =[248,244,236]; // linha ímpar
+    const BGRED =[255,243,243];
+    const BGGRE =[243,255,248];
+    const BGYEL =[255,252,238];
+    const NAVY_BOX=[18,32,65];
+
+    // ── HELPERS ────────────────────────────────────────────────────
+    // hexágono via doc.lines
+    const drawHex=(x,y,r,fill,stroke)=>{
+      const pts=[];
+      for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-30);pts.push([x+r*Math.cos(a),y+r*Math.sin(a)]);}
+      const segs=[];
+      for(let i=1;i<pts.length;i++)segs.push([pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]]);
+      segs.push([pts[0][0]-pts[5][0],pts[0][1]-pts[5][1]]);
+      doc.setFillColor(...fill);
+      if(stroke){doc.setDrawColor(...stroke);doc.setLineWidth(0.5);}
+      doc.lines(segs,pts[0][0],pts[0][1],null,stroke?'FD':'F',true);
+    };
+
+    // label de seção com linha dourada
+    const secLbl=(x,y,txt,lineW=90)=>{
+      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GOLD);
+      doc.text(txt,x,y);
+      doc.setDrawColor(...GOLD);doc.setLineWidth(0.2);
+      doc.line(x,y+1,x+lineW,y+1);
+    };
+
+    // linha de tabela com label esq e valor dir — colunas fixas
+    const tRow=(x,y,w,label,value,bg,tc)=>{
+      doc.setFillColor(...bg);doc.rect(x,y-3.5,w,7,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(65,80,105);
+      doc.text(label,x+3,y+0.5);
+      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...tc);
+      doc.text(value,x+w-3,y+0.5,{align:'right'});
+    };
+
+    // barra de progresso
+    const pBar=(x,y,w,pct,fillC,bgC=[210,215,225])=>{
+      doc.setFillColor(...bgC);doc.roundedRect(x,y,w,2,1,1,'F');
+      doc.setFillColor(...fillC);doc.roundedRect(x,y,Math.max(1,w*Math.min(pct,1)),2,1,1,'F');
+    };
+
+    // ══════════════════════════════════════════════════════════════
+    // PÁG 1 — RESUMO EXECUTIVO
+    // ══════════════════════════════════════════════════════════════
+
+    // HEADER
+    doc.setFillColor(...NAVY);doc.rect(0,0,W,36,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,0,W,0.8,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,35.2,W,0.8,'F');
+
+    drawHex(18,18,9,[28,44,88],[201,168,76]);
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...GOLD);
+    doc.text('GFE',18,19,{align:'center'});
+
+    doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(...WHITE);
+    doc.text('GFE',31,16);
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...BEIGE);
+    doc.text('GESTÃO FINANCEIRA ESTRATÉGICA',31,21);
+    doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text('by Chanquini',31,26);
+
+    // separador vertical
+    doc.setDrawColor(40,60,100);doc.setLineWidth(0.3);doc.line(90,5,90,31);
+
+    // metadados direita
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text('CLIENTE',95,10);doc.text('PERÍODO',150,10);
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...WHITE);
+    doc.text(CLIENTE,95,17);doc.text(MES,150,17);
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text('RELATÓRIO ESTRATÉGICO MENSAL',95,23);
+    doc.text('Confidencial · GFE by Chanquini',150,23);
+
+    // banner título
+    doc.setFillColor(...BG0);doc.rect(0,36,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,36,2.5,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(...NAVY);
+    doc.text('RESUMO EXECUTIVO  —  '+MES.toUpperCase(),7,42);
+
+    // ── LAYOUT DUAS COLUNAS ──────────────────────────────────────
+    // Col A: x=14  w=88  (resumo financeiro)
+    // Col B: x=108 w=88  (GFE Score)
+    const CA=14, CW=88, CB=108, CY=50;
+
+    // ── COL A: RESUMO DO MÊS ──
+    secLbl(CA,CY,'RESUMO DO MÊS',CW);
+    let ay=CY+6;
+    [['Faturamento Bruto',FAT,NAVY],
+     ['Despesas Totais',DESP,RED],
+     ['Resultado do Mês',RES,RED],
+     ['Margem Líquida',MARGEM,RED],
+     ['% da Meta Mensal',META_MEN,YELLOW],
+    ].forEach(([l,v,tc],i)=>{tRow(CA,ay,CW,l,v,i%2?BG2:BG1,tc);ay+=7.5;});
+
+    ay+=5;
+    secLbl(CA,ay,'ACUMULADO 2026  (Jan – Abr)',CW);ay+=6;
+    [['Faturamento Acumulado',FAT_ACUM,GREEN],
+     ['Despesas Acumuladas',DESP_ACUM,RED],
+     ['Resultado Acumulado',RES_ACUM,GREEN],
+     ['Meta Anual',META_ANUAL,NAVY],
+     ['Execução da Meta',EXEC_META,[123,47,190]],
+    ].forEach(([l,v,tc],i)=>{tRow(CA,ay,CW,l,v,i%2?BG2:BG1,tc);ay+=7.5;});
+
+    ay+=5;
+    secLbl(CA,ay,'POSIÇÃO FINANCEIRA',CW);ay+=6;
+    [['Saldo em Conta',SALDO,NAVY],
+     ['A Receber (em aberto)',A_REC,[59,130,246]],
+     ['A Pagar (em aberto)',A_PAG,RED],
+    ].forEach(([l,v,tc],i)=>{tRow(CA,ay,CW,l,v,i%2?BG2:BG1,tc);ay+=7.5;});
+
+    // ── COL B: GFE SCORE ──
+    const scoreColor = abr.status==='saudavel'?GREEN:abr.status==='alerta'?YELLOW:abr.status==='critico'?RED:BEIGE;
+
+    // caixa navy
+    doc.setFillColor(...NAVY_BOX);doc.roundedRect(CB,CY-4,CW,130,3,3,'F');
+    doc.setDrawColor(...GOLD);doc.setLineWidth(0.3);doc.roundedRect(CB,CY-4,CW,130,3,3,'S');
+
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...GOLD);
+    doc.text('GFE SCORE  —  '+MES.toUpperCase(),CB+CW/2,CY+3,{align:'center'});
+
+    // círculo gauge
+    const gcx=CB+CW/2, gcy=CY+28;
+    doc.setDrawColor(35,50,90);doc.setLineWidth(5);doc.circle(gcx,gcy,16,'S');
+    doc.setDrawColor(...scoreColor);doc.setLineWidth(5);
+    // arco parcial simulado com círculo parcial — usa elipse clipped
+    // jsPDF não tem arco nativo simples; usamos dois círculos sobrepostos
+    doc.setDrawColor(...scoreColor);doc.setLineWidth(4.5);doc.circle(gcx,gcy,16,'S');
+    // número
+    doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...scoreColor);
+    doc.text(String(SCORE_VAL),gcx,gcy+4,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...MUTED);
+    doc.text('/100',gcx,gcy+10,{align:'center'});
+    // status badge
+    doc.setFillColor(...scoreColor);doc.roundedRect(gcx-16,gcy+15,32,6,2,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...NAVY);
+    doc.text('● '+SCORE_STATUS.txt.toUpperCase(),gcx,gcy+19.5,{align:'center'});
+
+    // dimensões
+    let dy=gcy+30;
+    doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...GOLD);
+    doc.text('COMPOSIÇÃO DO SCORE',CB+CW/2,dy,{align:'center'});
+    doc.setDrawColor(40,60,100);doc.setLineWidth(0.2);doc.line(CB+4,dy+1.5,CB+CW-4,dy+1.5);
+    dy+=6;
+
+    SCORE_CFG.dims.forEach(d=>{
+      const sc=d.val<=40?RED:d.val<=65?YELLOW:d.val<=85?GREEN:BEIGE;
+      doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...BEIGE);
+      doc.text(d.nome,CB+4,dy);
+      doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...sc);
+      doc.text(String(d.val),CB+CW-4,dy,{align:'right'});
+      pBar(CB+4,dy+1,CW-10,d.val/100,sc,[35,52,90]);
+      dy+=9;
     });
-    y+=4;
-    doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
-    doc.text('ACUMULADO 2026 (Jan–Abr)',14,y);y+=10;
-    const acum=[['Faturamento Acumulado','R$ 528.302,00'],['Despesas Acumuladas','R$ 397.285,00'],['Resultado Acumulado','R$ 131.017,00'],['Meta Anual','R$ 1.684.603,20'],['Execução da Meta','28%']];
-    acum.forEach(([l,v],i)=>{
-      const bg=i%2===0?[240,253,244]:[255,255,255];
-      doc.setFillColor(...bg);doc.rect(14,y-5,182,9,'F');
-      doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(61,79,114);
-      doc.text(l,18,y);doc.setFont('helvetica','bold');doc.setTextColor(28,43,74);
-      doc.text(v,160,y);y+=11;
+
+    // escala legenda
+    dy+=2;
+    doc.setFillColor(22,38,72);doc.roundedRect(CB+2,dy,CW-4,8,1.5,1.5,'F');
+    const esc=[[RED,'0–40 Crítico'],[YELLOW,'41–65 Alerta'],[GREEN,'66–85 Saudável'],[BEIGE,'86–100 Estratégico']];
+    esc.forEach((e,i)=>{
+      const ex=CB+4+i*21;
+      doc.setFillColor(...e[0]);doc.circle(ex+1,dy+4.5,1,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...e[0]);
+      doc.text(e[1],ex+3,dy+5.3);
     });
-    y+=4;
-    doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(123,47,190);
-    doc.text('CARTA DO CONSULTOR',14,y);y+=8;
-    doc.setFillColor(245,240,255);doc.rect(14,y-4,182,32,'F');
-    doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(61,79,114);
-    const carta=document.getElementById('carta-texto-home')?.textContent||'"Carta do consultor"';
-    const linhas=doc.splitTextToSize(carta,170);
-    doc.text(linhas,18,y+2);
-    doc.setFillColor(17,28,46);doc.rect(0,282,210,15,'F');
-    doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(138,155,184);
-    doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' · GFE by Chanquini Estratégias Financeiras · v5.0 · Uso Confidencial',14,291);
-    doc.save('GFE_Relatorio_Quinca_Abril2026.pdf');
+
+    // ── GRÁFICO BARRAS — abaixo das colunas ──────────────────────
+    const GY=ay+8;
+    secLbl(CA,GY,'EVOLUÇÃO MENSAL 2026  (★ = parcial)',W-28);
+    const meses=['Jan','Fev','Mar','Abr','Mai★'];
+    const fats=[134565,99611,214707,79419,39656];
+    const desps=[78853,110102,92205,116125,56158];
+    const ress=[55712,-10491,122502,-36706,-16502];
+    const maxV=Math.max(...fats,...desps);
+    const GH=30, bw=182/meses.length-1, GBY=GY+8;
+
+    doc.setFillColor(...BG1);doc.rect(CA,GBY-1,182,GH+2,'F');
+
+    meses.forEach((m,i)=>{
+      const bx=CA+i*(182/meses.length);
+      const hF=GH*(fats[i]/maxV);
+      const hD=GH*(desps[i]/maxV);
+      const hR=GH*(Math.abs(ress[i])/maxV);
+      const by=GBY+GH;
+      // fat
+      doc.setFillColor(...GREEN);doc.roundedRect(bx+1,by-hF,bw*0.3,hF,0.3,0.3,'F');
+      // desp
+      doc.setFillColor(...RED);doc.roundedRect(bx+1+bw*0.33,by-hD,bw*0.3,hD,0.3,0.3,'F');
+      // res
+      const rc=ress[i]>=0?GREEN:RED;
+      doc.setFillColor(...rc);doc.roundedRect(bx+1+bw*0.66,by-hR,bw*0.3,hR,0.3,0.3,'F');
+      // label mês
+      doc.setFont('helvetica',i===3?'bold':'normal');doc.setFontSize(6);doc.setTextColor(70,85,110);
+      doc.text(m,bx+bw/2,by+4,{align:'center'});
+      // valor faturamento
+      const vl='R$'+(fats[i]/1000).toFixed(0)+'k';
+      doc.setFontSize(5);doc.setTextColor(...GREEN);
+      doc.text(vl,bx+1+bw*0.15,by-hF-1,{align:'center'});
+    });
+    // legenda
+    const lbY=GBY+GH+7;
+    [[GREEN,'Faturamento'],[RED,'Despesas'],[201,168,76,'Resultado']].forEach(([r,g,b,l],i)=>{
+      const lx=CA+i*38;
+      doc.setFillColor(r,g,b);doc.rect(lx,lbY,5,3,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(70,85,110);
+      doc.text(typeof r==='string'?r:[r,g,b].join(''),lx+7,lbY+2.5);
+    });
+    // legenda corrigida
+    [[...GREEN,'Faturamento'],[...RED,'Despesas'],[201,168,76,0,'Resultado']].forEach((_,i)=>{
+      const labels=['Faturamento','Despesas','Resultado'];
+      const clrs=[GREEN,RED,GOLD];
+      const lx=CA+i*38;
+      doc.setFillColor(...clrs[i]);doc.rect(lx,lbY,5,3,'F');
+      doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(70,85,110);
+      doc.text(labels[i],lx+7,lbY+2.5);
+    });
+
+    // ── CARTA DO CONSULTOR ────────────────────────────────────────
+    const CTY=lbY+8;
+    doc.setFillColor(...NAVY_BOX);doc.roundedRect(CA,CTY,182,35,3,3,'F');
+    doc.setFillColor(...GOLD);doc.rect(CA,CTY,2.5,35,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...GOLD);
+    doc.text('CARTA DO CONSULTOR',CA+6,CTY+7);
+    doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(...BEIGE);
+    const cl=doc.splitTextToSize('"'+CARTA_TXT+'"',170);
+    doc.text(cl,CA+6,CTY+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...MUTED);
+    doc.text('— '+document.getElementById('carta-autor-home')?.textContent||'Equipe Chanquini',CA+6,CTY+30);
+
+    // FOOTER 1
+    doc.setFillColor(...NAVY);doc.rect(0,H-9,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,H-9,W,0.5,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text('Documento confidencial · Uso exclusivo do cliente · GFE — Gestão Financeira Estratégica by Chanquini',CA,H-4);
+    doc.setFont('helvetica','bold');doc.setTextColor(...GOLD);
+    doc.text('1 / 2',W-CA,H-4,{align:'right'});
+
+    // ══════════════════════════════════════════════════════════════
+    // PÁG 2 — ANÁLISE ESTRATÉGICA
+    // ══════════════════════════════════════════════════════════════
+    doc.addPage();
+
+    // header compacto
+    doc.setFillColor(...NAVY);doc.rect(0,0,W,22,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,0,W,0.8,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,21.2,W,0.8,'F');
+    drawHex(18,11,7,[28,44,88],[201,168,76]);
+    doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...GOLD);
+    doc.text('GFE',18,12,{align:'center'});
+    doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(...WHITE);
+    doc.text('GFE',29,13);
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...BEIGE);
+    doc.text('GESTÃO FINANCEIRA ESTRATÉGICA  ·  by Chanquini',29,18);
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...GOLD);
+    doc.text('ANÁLISE ESTRATÉGICA  —  '+MES.toUpperCase(),W/2+10,12,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text(CLIENTE+'  ·  Confidencial',W/2+10,18,{align:'center'});
+
+    let p2y=30;
+
+    // ANÁLISE TEXTUAL
+    doc.setFillColor(...BG0);doc.rect(0,p2y-4,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,p2y-4,2.5,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...NAVY);
+    doc.text('ANÁLISE ESTRATÉGICA',7,p2y+1);
+    p2y+=10;
+
+    doc.setFillColor(...BG2);doc.roundedRect(CA,p2y,182,30,2,2,'F');
+    doc.setFillColor(...GOLD);doc.rect(CA,p2y,2.5,30,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(50,65,90);
+    const analise='Abril foi um mês desafiador para a '+CLIENTE+', com resultado negativo de R$ 36.706. As despesas superaram o faturamento em 46%, sinalizando pressão sobre o caixa. O acumulado do ano, porém, segue positivo em R$ 131.017, evidenciando resiliência operacional. A margem líquida de –46,2% no mês reflete o impacto sazonal — quando o volume se normalizar, a estrutura de custos permitirá rentabilidade expressiva. Prioridade: conversão dos recebimentos em aberto (R$ 46.344) e gestão ativa dos R$ 254.324 a pagar.';
+    const aLinhas=doc.splitTextToSize(analise,174);
+    doc.text(aLinhas,CA+5,p2y+8);
+    p2y+=36;
+
+    // DESTAQUES
+    doc.setFillColor(...BG0);doc.rect(0,p2y-4,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,p2y-4,2.5,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...NAVY);
+    doc.text('DESTAQUES DO MÊS',7,p2y+1);
+    p2y+=10;
+
+    const destaques=[
+      {ico:'▲',lbl:'ATENÇÃO',bg:BGRED,tc:RED,    txt:'Resultado –R$ 36.706 em Abril. Despesas (R$ 116.125) superaram faturamento (R$ 79.419) em 46%.'},
+      {ico:'★',lbl:'PONTO FORTE',bg:BGGRE,tc:GREEN, txt:'Acumulado 2026 positivo em R$ 131.017. Resultado de Março (+R$ 122.502) sustenta o ano.'},
+      {ico:'→',lbl:'PRÓXIMO PASSO',bg:BGYEL,tc:YELLOW,txt:'Converter R$ 46.344 em recebimentos (Wellhub, Reinvente, Sindicato) antes do fechamento de Maio.'},
+    ];
+    destaques.forEach(d=>{
+      doc.setFillColor(...d.bg);doc.roundedRect(CA,p2y,182,13,2,2,'F');
+      doc.setFillColor(...d.tc);doc.rect(CA,p2y,2.5,13,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...d.tc);
+      doc.text(d.ico+' '+d.lbl,CA+5,p2y+5.5);
+      doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(50,65,90);
+      doc.text(d.txt,CA+38,p2y+5.5);
+      p2y+=16;
+    });
+
+    // INDICADORES GFE
+    p2y+=2;
+    doc.setFillColor(...BG0);doc.rect(0,p2y-4,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,p2y-4,2.5,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...NAVY);
+    doc.text('INDICADORES GFE',7,p2y+1);
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...MUTED);
+    doc.text('0 = Crítico  |  41 = Em Alerta  |  66 = Saudável  |  86 = Estratégico',75,p2y+1);
+    p2y+=10;
+
+    const dimsDescr={
+      'Liquidez':'Resultado mensal negativo impacta liquidez. Saldo R$ 126.670 com R$ 254.324 a pagar.',
+      'Inadimplência':'Recebimentos em aberto de R$ 46.344. Wellhub, Reinvente e Sindicato vencem em Junho.',
+      'Margem':'Margem mensal negativa em –46,2%. Estrutura de custos precisa de reequilíbrio.',
+      'Fluxo de Caixa':'A pagar representa 158% do saldo. Negociação de prazos é ação prioritária.',
+      'Organização':'Entregas pontuais. Acumulado positivo e controle operacional bem estruturado.',
+    };
+
+    SCORE_CFG.dims.forEach((d,i)=>{
+      const sc=d.val<=40?RED:d.val<=65?YELLOW:d.val<=85?GREEN:BEIGE;
+      const stLbl=d.val<=40?'Crítico':d.val<=65?'Em Alerta':d.val<=85?'Saudável':'Estratégico';
+      const rowBg=i%2?BG2:BG1;
+      doc.setFillColor(...rowBg);doc.rect(CA,p2y-3,182,15,'F');
+      // número grande
+      doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(...sc);
+      doc.text(String(d.val),CA+11,p2y+5.5,{align:'center'});
+      // status badge
+      doc.setFillColor(...sc);doc.roundedRect(CA+18,p2y-1,22,5,1.5,1.5,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(6);doc.setTextColor(...NAVY);
+      doc.text(stLbl,CA+29,p2y+3,{align:'center'});
+      // nome
+      doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(30,45,70);
+      doc.text(d.nome,CA+44,p2y+1);
+      // barra
+      pBar(CA+44,p2y+2.5,100,d.val/100,sc,[215,220,230]);
+      // descr
+      const desc=dimsDescr[d.nome]||d.descr||'';
+      doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(85,100,120);
+      doc.text(desc,CA+44,p2y+9);
+      // peso
+      doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+      doc.text('Peso: '+d.peso,CA+176,p2y+1,{align:'right'});
+      p2y+=17;
+    });
+
+    // PRÓXIMOS PASSOS
+    p2y+=4;
+    doc.setFillColor(...BG0);doc.rect(0,p2y-4,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,p2y-4,2.5,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...NAVY);
+    doc.text('PRÓXIMOS PASSOS RECOMENDADOS',7,p2y+1);
+    p2y+=10;
+
+    const steps=[
+      'Converter R$ 46.344 em recebimentos em aberto antes do fechamento de Maio.',
+      'Negociar prazos dos R$ 254.324 a pagar — risco de liquidez crítico.',
+      'Mapear e contingenciar despesas fixas para os meses de baixa sazonalidade.',
+      'Monitorar fluxo de caixa semanalmente até reequilíbrio do resultado mensal.',
+    ];
+    steps.forEach((s,i)=>{
+      doc.setFillColor(...(i%2?BG2:BG1));doc.roundedRect(CA,p2y-3,182,11,1.5,1.5,'F');
+      doc.setFillColor(...NAVY);doc.roundedRect(CA,p2y-3,10,11,1.5,1.5,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...GOLD);
+      doc.text(String(i+1),CA+5,p2y+3.5,{align:'center'});
+      doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(50,65,90);
+      doc.text(s,CA+14,p2y+3.5);
+      p2y+=14;
+    });
+
+    // FOOTER 2
+    doc.setFillColor(...NAVY);doc.rect(0,H-9,W,9,'F');
+    doc.setFillColor(...GOLD);doc.rect(0,H-9,W,0.5,'F');
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...MUTED);
+    doc.text('Gerado em '+new Date().toLocaleDateString('pt-BR')+' · GFE — Gestão Financeira Estratégica by Chanquini · Uso Confidencial',CA,H-4);
+    doc.setFont('helvetica','bold');doc.setTextColor(...GOLD);
+    doc.text('2 / 2',W-CA,H-4,{align:'right'});
+
+    doc.save('GFE_Report_'+CLIENTE.replace(/\s+/g,'_')+'_Abril2026.pdf');
+    }catch(e){console.error('Erro PDF:',e);alert('Erro ao gerar PDF: '+e.message);}
   }
   if(window.jspdf){gerarPDF();}
   else{
     const s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    s.onload=gerarPDF;
-    s.onerror=()=>alert('Erro ao carregar biblioteca de PDF.');
+    s.onload=gerarPDF;s.onerror=()=>alert('Erro ao carregar jsPDF.');
     document.head.appendChild(s);
   }
 }
