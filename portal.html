@@ -1072,6 +1072,170 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .cal-compact .cd{font-size:10.5px;border-radius:5px}
 .cal-compact .cdh{font-size:8.5px;padding:4px 0}
 
+/* ── GFE SCORE PAGE ──────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Bellefair&display=swap');
+
+.score-hero{
+  background:linear-gradient(155deg,var(--navy) 0%,#0B1628 60%,#0E1E38 100%);
+  border-radius:var(--r);border:1px solid rgba(199,183,170,.18);
+  padding:40px 44px;margin-bottom:14px;
+  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;
+  position:relative;overflow:hidden;box-shadow:var(--sh2)
+}
+.score-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 10% 50%,rgba(199,183,170,.06) 0%,transparent 70%)
+}
+/* hexágono decorativo fundo */
+.score-hero-hex-bg{
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  opacity:.04;pointer-events:none
+}
+
+/* número grande */
+.score-num-wrap{position:relative;z-index:1;text-align:center;min-width:180px}
+.score-num-val{
+  font-family:'Questrial',sans-serif;
+  font-size:100px;line-height:1;
+  color:#C7B7AA;letter-spacing:-4px;
+  transition:all .6s cubic-bezier(.4,0,.2,1)
+}
+.score-num-max{
+  font-family:'Bellefair',serif;
+  font-size:20px;color:rgba(199,183,170,.4);
+  vertical-align:super;letter-spacing:0
+}
+.score-num-lbl{
+  font-family:'Bellefair',serif;
+  font-size:9px;letter-spacing:5px;
+  text-transform:uppercase;color:rgba(199,183,170,.45);
+  margin-top:6px
+}
+.score-status-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:14px;padding:6px 18px;
+  border:1px solid rgba(199,183,170,.25);border-radius:2px;
+  font-family:'Bellefair',serif;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;color:#C7B7AA;
+  transition:var(--tr)
+}
+.score-status-dot{width:7px;height:7px;border-radius:50%}
+
+/* lado direito: barras + escala */
+.score-right{position:relative;z-index:1}
+.score-period{
+  font-family:'Bellefair',serif;font-size:9px;
+  letter-spacing:4px;text-transform:uppercase;
+  color:rgba(199,183,170,.4);margin-bottom:20px
+}
+.score-evol{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Questrial',sans-serif;font-size:12px;
+  color:#C7B7AA;margin-left:12px;
+  background:rgba(199,183,170,.07);
+  padding:2px 10px;border-radius:2px;
+  border:1px solid rgba(199,183,170,.15)
+}
+
+/* dimensões */
+.score-dims{display:flex;flex-direction:column;gap:13px}
+.score-dim{display:flex;flex-direction:column;gap:5px}
+.score-dim-top{display:flex;justify-content:space-between;align-items:center}
+.score-dim-name{
+  font-family:'Questrial',sans-serif;
+  font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;color:rgba(199,183,170,.55)
+}
+.score-dim-val{
+  font-family:'Questrial',sans-serif;
+  font-size:13px;color:#C7B7AA
+}
+.score-dim-delta{
+  font-size:10px;font-weight:600;
+  padding:1px 6px;border-radius:2px;margin-left:6px
+}
+.score-dim-delta.up{color:#22C55E;background:rgba(34,197,94,.1)}
+.score-dim-delta.down{color:#EF4444;background:rgba(239,68,68,.1)}
+.score-dim-delta.eq{color:rgba(199,183,170,.5);background:rgba(199,183,170,.06)}
+.score-bar-track{height:2px;background:rgba(255,255,255,.07);position:relative;border-radius:1px}
+.score-bar-fill{
+  position:absolute;top:0;left:0;height:100%;border-radius:1px;
+  background:linear-gradient(to right,#b8966e,#C7B7AA);
+  transition:width 1.2s cubic-bezier(.4,0,.2,1)
+}
+
+/* card de escala */
+.score-scale-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:22px;
+  margin-bottom:14px;box-shadow:var(--sh)
+}
+.score-scale-title{
+  font-family:'Bellefair',serif;
+  font-size:10px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:16px
+}
+.score-scale-table{width:100%;border-collapse:collapse}
+.score-scale-table th{
+  font-family:'Questrial',sans-serif;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);padding:8px 14px;
+  border-bottom:1px solid var(--border);text-align:left;font-weight:400
+}
+.score-scale-table td{
+  padding:12px 14px;border-bottom:1px solid var(--border);
+  font-size:12.5px;color:var(--text2);vertical-align:middle
+}
+.score-scale-table tr:last-child td{border-bottom:none}
+.score-scale-table tr:hover td{background:var(--card2)}
+.score-scale-ico{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Questrial',sans-serif;font-size:12px;color:var(--text)
+}
+.score-scale-ico .ico{font-size:14px}
+
+/* badge de faixa colorido */
+.scale-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:3px;
+  font-family:'Questrial',sans-serif;font-size:11.5px;font-weight:600
+}
+.scale-badge.critico{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.25)}
+.scale-badge.alerta{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
+.scale-badge.saudavel{background:rgba(34,197,94,.12);color:#22C55E;border:1px solid rgba(34,197,94,.25)}
+.scale-badge.estrategico{background:rgba(199,183,170,.12);color:#C7B7AA;border:1px solid rgba(199,183,170,.25)}
+
+/* histórico de evolução */
+.score-hist-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.score-hist-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:16px;
+  box-shadow:var(--sh);text-align:center;transition:var(--tr)
+}
+.score-hist-card:hover{background:var(--card2);border-color:var(--border2)}
+.score-hist-card.active{border-color:rgba(199,183,170,.4);background:rgba(199,183,170,.05)}
+.score-hist-mes{
+  font-family:'Bellefair',serif;
+  font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:8px
+}
+.score-hist-val{
+  font-family:'Questrial',sans-serif;
+  font-size:28px;color:#C7B7AA;line-height:1;margin-bottom:4px
+}
+.score-hist-lbl{
+  font-size:10px;color:var(--muted);
+  font-family:'Bellefair',serif;letter-spacing:1px
+}
+.score-hist-delta{font-size:10px;font-weight:600;margin-top:4px}
+
+/* gauge SVG */
+.score-gauge-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:8px 0
+}
+
 /* ── SVG HEXAGON ──────────────────────────────────────────────── */
 .hex-svg-border{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.6}
 .hex-svg-fill{fill:rgba(201,168,76,.08)}
@@ -1174,6 +1338,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <a class="ni active" onclick="nav('inicio',this)"><span class="ni-ico">⬡</span>Início<span class="ni-dot" id="nd"></span></a>
       <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">◫</span>Dashboards</a>
       <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">◈</span>Estratégia<span class="ni-badge">NOVO</span></a>
+      <a class="ni" onclick="nav('score',this)"><span class="ni-ico">⬡</span>GFE Score<span class="ni-badge">NOVO</span></a>
       <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✦</span>Cartas do Consultor<span class="ni-badge">NOVO</span></a>
       <a class="ni" onclick="nav('relatorio',this)"><span class="ni-ico">◉</span>Relatório Anual<span class="ni-badge">NOVO</span></a>
       <div class="sb-sec">Gestão</div>
@@ -1391,6 +1556,119 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q2)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
         <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
         <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div>
+      </div>
+    </div>
+
+    <!-- GFE SCORE -->
+    <div id="page-score" class="page">
+      <div class="ph"><h1>GFE Score</h1><p>Saúde financeira em tempo real · Maio 2026</p></div>
+
+      <!-- HERO: NÚMERO GRANDE + BARRAS -->
+      <div class="score-hero">
+        <!-- hexágono decorativo fundo -->
+        <svg class="score-hero-hex-bg" width="320" height="360" viewBox="0 0 100 110" fill="none">
+          <polygon points="50,4 93,27 93,83 50,106 7,83 7,27" fill="none" stroke="#C7B7AA" stroke-width="1" opacity="1"/>
+          <polygon points="50,12 86,32 86,78 50,98 14,78 14,32" fill="none" stroke="#C7B7AA" stroke-width="0.6" opacity="0.6"/>
+          <polygon points="50,22 80,38 80,72 50,88 20,72 20,38" fill="none" stroke="#C7B7AA" stroke-width="0.4" opacity="0.4"/>
+        </svg>
+
+        <!-- NÚMERO -->
+        <div class="score-num-wrap">
+          <!-- gauge circular SVG -->
+          <div class="score-gauge-wrap">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <!-- trilha de fundo -->
+              <circle cx="80" cy="80" r="66" fill="none" stroke="rgba(199,183,170,.1)" stroke-width="6"/>
+              <!-- arco de progresso: 74/100 = 74% de 339.3 (circunferência) = 251 -->
+              <circle cx="80" cy="80" r="66" fill="none"
+                stroke="url(#scoreGrad)" stroke-width="6"
+                stroke-linecap="round"
+                stroke-dasharray="307 415"
+                stroke-dashoffset="78"
+                transform="rotate(-90 80 80)"/>
+              <!-- marcadores de faixa -->
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#b8966e"/>
+                  <stop offset="100%" stop-color="#C7B7AA"/>
+                </linearGradient>
+              </defs>
+              <!-- valor central -->
+              <text x="80" y="72" text-anchor="middle"
+                font-family="Questrial,sans-serif" font-size="38"
+                fill="#C7B7AA" letter-spacing="-2">74</text>
+              <text x="80" y="90" text-anchor="middle"
+                font-family="Bellefair,serif" font-size="9"
+                fill="rgba(199,183,170,.45)" letter-spacing="3">GFE SCORE</text>
+              <text x="80" y="108" text-anchor="middle"
+                font-family="Bellefair,serif" font-size="8"
+                fill="rgba(199,183,170,.3)" letter-spacing="2">/ 100</text>
+            </svg>
+          </div>
+          <div class="score-status-pill">
+            <div class="score-status-dot" style="background:#22C55E;box-shadow:0 0 6px rgba(34,197,94,.6)"></div>
+            Saudável
+          </div>
+        </div>
+
+        <!-- DIMENSÕES -->
+        <div class="score-right">
+          <div class="score-period">
+            Maio 2026 · Último fechamento
+            <span class="score-evol">↑ +5 pts vs Abril</span>
+          </div>
+          <div class="score-dims" id="score-dims">
+            <!-- gerado via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTÓRICO MENSAL -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ct">◎ Evolução do Score — 2026</div>
+        <div class="score-hist-grid" id="score-hist"></div>
+      </div>
+
+      <!-- ESCALA DE PONTUAÇÃO -->
+      <div class="score-scale-card">
+        <div class="score-scale-title">Escala de Pontuação</div>
+        <table class="score-scale-table">
+          <thead>
+            <tr>
+              <th>Score</th>
+              <th>Faixa</th>
+              <th>Significado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="score-scale-ico"><span class="ico">◻</span> Crítico</span></td>
+              <td><span class="scale-badge critico">0 – 40</span></td>
+              <td>Ação imediata necessária</td>
+            </tr>
+            <tr>
+              <td><span class="score-scale-ico"><span class="ico">◎</span> Em Alerta</span></td>
+              <td><span class="scale-badge alerta">41 – 65</span></td>
+              <td>Pontos de melhoria identificados</td>
+            </tr>
+            <tr>
+              <td><span class="score-scale-ico"><span class="ico">⬡</span> Saudável</span></td>
+              <td><span class="scale-badge saudavel">66 – 85</span></td>
+              <td>Gestão equilibrada</td>
+            </tr>
+            <tr>
+              <td><span class="score-scale-ico"><span class="ico">✦</span> Estratégico</span></td>
+              <td><span class="scale-badge estrategico">86 – 100</span></td>
+              <td>Excelência financeira</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- COMPOSIÇÃO DETALHADA -->
+      <div class="card">
+        <div class="ct">✦ Composição do Score — Cada dimensão impacta a pontuação final</div>
+        <div id="score-composicao" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px"></div>
       </div>
     </div>
 
@@ -1615,7 +1893,7 @@ function login(){
     if(id('gb-client-name'))id('gb-client-name').textContent=CFG.cliente.nome+' 👋';
     if(id('pf-nome'))id('pf-nome').textContent=CFG.cliente.nome;
     if(id('pf-seg'))id('pf-seg').textContent=CFG.cliente.segmento;
-    buildDash();buildCal();buildCartas();initCharts();initAnualCharts();
+    buildDash();buildCal();buildCartas();buildScore();initCharts();initAnualCharts();
   }else{
     err.style.display='block';
     document.getElementById('lp').style.borderColor='var(--red)';
@@ -1633,7 +1911,7 @@ function logout(){
 }
 
 // NAV
-const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
+const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',score:'GFE Score',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
@@ -1789,7 +2067,105 @@ function initAnualCharts(){
   });
 }
 
-// APRESENTAÇÃO
+// ══ GFE SCORE ════════════════════════════════════════════════════════
+const SCORE_CFG = {
+  atual: 74,
+  status: 'saudavel', // critico | alerta | saudavel | estrategico
+  periodo: 'Maio 2026',
+  evolucao: '+5',
+  dims: [
+    {nome:'Liquidez',      val:80, prev:76, peso:'25%', descr:'Capacidade de honrar compromissos de curto prazo'},
+    {nome:'Inadimplência', val:68, prev:70, peso:'25%', descr:'Controle de recebimentos e exposição a calotes'},
+    {nome:'Margem',        val:75, prev:74, peso:'20%', descr:'Eficiência operacional e rentabilidade'},
+    {nome:'Fluxo de Caixa',val:72, prev:66, peso:'20%', descr:'Previsibilidade e saúde do fluxo financeiro'},
+    {nome:'Organização',   val:74, prev:73, peso:'10%', descr:'Qualidade e pontualidade das informações entregues'},
+  ],
+  historico: [
+    {mes:'Jan', val:65, status:'alerta'},
+    {mes:'Fev', val:61, status:'alerta'},
+    {mes:'Mar', val:70, status:'saudavel'},
+    {mes:'Abr', val:69, status:'saudavel'},
+    {mes:'Mai', val:74, status:'saudavel', atual:true},
+  ]
+};
+
+const SCORE_LABELS = {
+  critico:    {txt:'Crítico',     cls:'critico',    cor:'#EF4444'},
+  alerta:     {txt:'Em Alerta',   cls:'alerta',     cor:'#F59E0B'},
+  saudavel:   {txt:'Saudável',    cls:'saudavel',   cor:'#22C55E'},
+  estrategico:{txt:'Estratégico', cls:'estrategico',cor:'#C7B7AA'},
+};
+
+function getScoreStatus(v){
+  if(v<=40)return'critico'; if(v<=65)return'alerta'; if(v<=85)return'saudavel'; return'estrategico';
+}
+
+function buildScore(){
+  // --- dimensões na hero ---
+  const dims = document.getElementById('score-dims');
+  if(!dims) return;
+  dims.innerHTML = SCORE_CFG.dims.map(d => {
+    const delta = d.val - d.prev;
+    const deltaClass = delta > 0 ? 'up' : delta < 0 ? 'down' : 'eq';
+    const deltaTxt = delta > 0 ? `↑ +${delta}` : delta < 0 ? `↓ ${delta}` : `= 0`;
+    return `
+    <div class="score-dim">
+      <div class="score-dim-top">
+        <span class="score-dim-name">${d.nome}</span>
+        <span class="score-dim-val">${d.val}<span class="score-dim-delta ${deltaClass}">${deltaTxt}</span></span>
+      </div>
+      <div class="score-bar-track">
+        <div class="score-bar-fill" style="width:${d.val}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // --- histórico ---
+  const hist = document.getElementById('score-hist');
+  if(hist){
+    hist.innerHTML = SCORE_CFG.historico.map(h => {
+      const st = SCORE_LABELS[h.status];
+      const delta = SCORE_CFG.historico.indexOf(h) > 0
+        ? h.val - SCORE_CFG.historico[SCORE_CFG.historico.indexOf(h)-1].val : null;
+      return `
+      <div class="score-hist-card${h.atual?' active':''}">
+        <div class="score-hist-mes">${h.mes} 2026</div>
+        <div class="score-hist-val" style="color:${st.cor}">${h.val}</div>
+        <div class="score-hist-lbl">${st.txt}</div>
+        ${delta!==null?`<div class="score-hist-delta" style="color:${delta>=0?'#22C55E':'#EF4444'}">${delta>=0?'↑ +'+delta:'↓ '+delta}</div>`:'<div class="score-hist-delta" style="color:var(--muted)">—</div>'}
+      </div>`;
+    }).join('');
+  }
+
+  // --- composição detalhada ---
+  const comp = document.getElementById('score-composicao');
+  if(comp){
+    comp.innerHTML = SCORE_CFG.dims.map(d => {
+      const st = getScoreStatus(d.val);
+      const stData = SCORE_LABELS[st];
+      const bar = `<div style="background:var(--border2);border-radius:20px;height:3px;overflow:hidden;margin-top:10px">
+        <div style="height:3px;border-radius:20px;width:${d.val}%;background:linear-gradient(to right,#b8966e,#C7B7AA);transition:width 1s ease"></div></div>`;
+      return `
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;transition:var(--tr)" onmouseenter="this.style.background='var(--card2)'" onmouseleave="this.style.background='var(--card)'">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+          <div>
+            <div style="font-family:'Questrial',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">${d.nome}</div>
+            <div style="font-size:10.5px;color:var(--muted);margin-top:3px;font-style:italic">${d.descr}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-family:'Questrial',sans-serif;font-size:24px;color:#C7B7AA;line-height:1">${d.val}</div>
+            <div style="margin-top:4px"><span class="scale-badge ${stData.cls}" style="font-size:9px;padding:2px 7px">${stData.txt}</span></div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:var(--muted);font-family:'Bellefair',serif;letter-spacing:2px;text-transform:uppercase;margin-top:8px">Peso: ${d.peso}</div>
+        ${bar}
+      </div>`;
+    }).join('');
+  }
+}
+// ══════════════════════════════════════════════════════════════════════
+
+
 const presSlides=[
   {label:'Visão Geral',title:'Quinca Produções',sub:'Fechamento Financeiro — Abril 2026',kpis:[{v:'R$ 79.419',l:'Faturamento Abril'},{v:'R$ 116.125',l:'Despesas Abril'},{v:'28%',l:'Meta Anual'},{v:'61%',l:'Margem Líquida'}]},
   {label:'Acumulado 2026',title:'Resultado Acumulado',sub:'Janeiro a Abril de 2026',kpis:[{v:'R$ 528K',l:'Faturamento Total'},{v:'R$ 397K',l:'Despesas Total'},{v:'R$ 131K',l:'Resultado'},{v:'4 meses',l:'Período'}]},
