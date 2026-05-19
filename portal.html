@@ -9,20 +9,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
-  /* PALETA GFE — navy profundo + ouro */
+  /* PALETA GFE ESCURA (padrão) */
   --navy:#111C2E;--navy2:#172238;--navy3:#1E2D47;--navy4:#243356;
   --q:#7B2FBE;--q2:#9B4FDE;--qdark:#5A1F9A;--qglow:rgba(123,47,190,.18);
   --gold:#C9A84C;--gold2:#E8C96A;--gold3:rgba(201,168,76,.15);
-  --silver:#8A9BB8;--silver2:rgba(138,155,184,.15);
+  --silver:#8A9BB8;--silver2:#1E2E48;
   /* superfícies */
-  --bg:#0E1624;--card:rgba(255,255,255,.04);--card2:rgba(255,255,255,.07);
-  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);
-  --text:#E8EEF8;--text2:#A8B8D8;--muted:#5A6A8A;--muted2:#3A4A6A;
-  /* status */
-  --green:#22C55E;--gbg:rgba(34,197,94,.12);--gborder:rgba(34,197,94,.25);
-  --red:#EF4444;--rbg:rgba(239,68,68,.12);--rborder:rgba(239,68,68,.25);
-  --yellow:#F59E0B;--ybg:rgba(245,158,11,.12);--yborder:rgba(245,158,11,.25);
-  --blue:#3B82F6;--bbg:rgba(59,130,246,.12);
+  --bg:#0E1624;--card:#14213A;--card2:#1A2B46;
+  --border:#1F3050;--border2:#2A3F60;
+  --text:#E8EEF8;--text2:#A8B8D8;--muted:#5A7090;--muted2:#304060;
+  /* status — mesmos em ambos os temas, contraste garantido */
+  --green:#22C55E;--gbg:rgba(34,197,94,.13);--gborder:rgba(34,197,94,.3);
+  --red:#EF4444;--rbg:rgba(239,68,68,.13);--rborder:rgba(239,68,68,.3);
+  --yellow:#F59E0B;--ybg:rgba(245,158,11,.13);--yborder:rgba(245,158,11,.3);
+  --blue:#3B82F6;--bbg:rgba(59,130,246,.13);
+  /* grid/chart */
+  --grid-color:rgba(255,255,255,.05);--chart-txt:#8A9BB8;--meta-line:rgba(255,255,255,.18);
   /* layout */
   --sw:240px;--r:14px;
   --sh:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
@@ -483,7 +485,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   font-family:'Cormorant Garamond',serif;
   font-size:24px;font-weight:300;color:var(--gold2);letter-spacing:-1px
 }
-.prog-trk{background:rgba(255,255,255,.05);border-radius:20px;height:4px;overflow:hidden}
+.prog-trk{background:var(--border2);border-radius:20px;height:4px;overflow:hidden}
 .prog-fill{
   height:4px;border-radius:20px;
   background:linear-gradient(90deg,var(--qdark),var(--q),var(--q2));
@@ -588,7 +590,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .pl-lbl{font-size:12.5px;color:var(--text2);font-weight:500}
 .pl-pcts{font-size:11px;color:var(--muted)}
-.pl-trk{background:rgba(255,255,255,.05);border-radius:20px;height:4px;overflow:hidden}
+.pl-trk{background:var(--border2);border-radius:20px;height:4px;overflow:hidden}
 .pl-fill{height:4px;border-radius:20px;transition:width .8s ease}
 
 /* ── DASH CARDS ──────────────────────────────────────────────── */
@@ -1013,15 +1015,62 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   .av-g,.krow,.ra-kpis{grid-template-columns:1fr 1fr}
   .pg{grid-template-columns:1fr}
   .pres-data{grid-template-columns:1fr 1fr}
+  .period-grid{grid-template-columns:1fr 1fr}
+  .estrat-grid{grid-template-columns:1fr}
 }
 @media(max-width:660px){
   :root{--sw:0px}
   .sb{transform:translateX(-240px)}
-  .dg,.docs,.mg,.krow,.mini-dash,.cartas-grid{grid-template-columns:1fr}
+  .dg,.docs,.mg,.krow,.mini-dash,.cartas-grid,.period-grid,.estrat-grid{grid-template-columns:1fr}
   .ctbs,.pres-data,.ra-kpis{grid-template-columns:1fr 1fr}
   .lw{grid-template-columns:1fr}
   .ll{display:none}
 }
+
+/* ── CARDS KPI PERÍODO ──────────────────────────────────────────────── */
+.period-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.period-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:18px 20px;
+  box-shadow:var(--sh);position:relative;overflow:hidden;transition:var(--tr)
+}
+.period-card:hover{background:var(--card2);border-color:var(--border2)}
+.period-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px
+}
+.period-card.fat::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.period-card.desp::before{background:linear-gradient(90deg,transparent,var(--red),transparent)}
+.period-card.res::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.period-card.prev::before{background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.pc-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:6px}
+.pc-ref{font-size:9.5px;color:var(--muted);margin-bottom:10px;font-style:italic}
+.pc-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:400;letter-spacing:-.5px;margin-bottom:4px
+}
+.pc-val.fat{color:var(--gold2)}
+.pc-val.desp{color:var(--red)}
+.pc-val.res-pos{color:var(--green)}
+.pc-val.res-neg{color:var(--red)}
+.pc-val.prev{color:var(--blue)}
+.pc-delta{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px
+}
+.pc-delta.up{background:var(--gbg);color:var(--green);border:1px solid var(--gborder)}
+.pc-delta.down{background:var(--rbg);color:var(--red);border:1px solid var(--rborder)}
+.pc-delta.neutral{background:var(--bbg);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.pc-sub{font-size:10.5px;color:var(--muted);margin-top:5px}
+.pc-bar-wrap{margin-top:10px}
+.pc-bar-lbl{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-bottom:4px}
+.pc-bar{background:var(--border2);border-radius:20px;height:3px;overflow:hidden}
+.pc-bar-fill{height:3px;border-radius:20px}
+
+/* ── ESTRATÉGIA: LAYOUT SIDE BY SIDE ──────────────────────────────────────────────── */
+.estrat-grid{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-bottom:14px;align-items:start}
+.cal-compact .cg{gap:2px}
+.cal-compact .cd{font-size:10.5px;border-radius:5px}
+.cal-compact .cdh{font-size:8.5px;padding:4px 0}
 
 /* ── SVG HEXAGON ──────────────────────────────────────────────── */
 .hex-svg-border{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.6}
@@ -1175,7 +1224,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="gb-l">
           <div class="gb-g" id="gbg">Bom dia,</div>
           <div class="gb-n" id="gb-client-name">Portal Financeiro GFE</div>
-          <div class="gb-s"><div class="gb-dot"></div><span id="gb-status">Último fechamento disponível</span></div>
+          <div class="gb-s"><div class="gb-dot"></div><span id="gb-status">Último fechamento disponível · Abril 2026</span></div>
         </div>
         <div class="gb-r">
           <div class="gb-t" id="gbt">--:--</div>
@@ -1195,6 +1244,54 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
       </div>
 
+      <!-- KPIs DE PERÍODO — informação real, não genérica -->
+      <div class="period-grid">
+        <div class="period-card fat">
+          <div class="pc-label">Faturamento</div>
+          <div class="pc-ref" id="pc-ref-fat">Acumulado até 15/Mai</div>
+          <div class="pc-val fat" id="pc-val-fat">R$ 38.240</div>
+          <span class="pc-delta neutral" id="pc-delta-fat">◈ Em andamento</span>
+          <div class="pc-bar-wrap">
+            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">27%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-fat" style="width:27%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div>
+          </div>
+          <div class="pc-sub">Meta mensal: R$ 140.383,60</div>
+        </div>
+        <div class="period-card desp">
+          <div class="pc-label">Despesas</div>
+          <div class="pc-ref" id="pc-ref-desp">Previsão até fim de Maio</div>
+          <div class="pc-val desp" id="pc-val-desp">R$ 112.000</div>
+          <span class="pc-delta down" id="pc-delta-desp">↑ Atenção ao limite</span>
+          <div class="pc-bar-wrap">
+            <div class="pc-bar-lbl"><span>% do faturamento esperado</span><span id="pc-pct-desp">80%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-desp" style="width:80%;background:linear-gradient(90deg,var(--red),#F87171)"></div></div>
+          </div>
+          <div class="pc-sub">Limite saudável: 65% do faturamento</div>
+        </div>
+        <div class="period-card res">
+          <div class="pc-label">Resultado Acumulado 2026</div>
+          <div class="pc-ref">Jan → Abr · 4 meses</div>
+          <div class="pc-val res-pos">R$ 131.017</div>
+          <span class="pc-delta up">↑ Positivo</span>
+          <div class="pc-bar-wrap">
+            <div class="pc-bar-lbl"><span>Execução meta anual</span><span>28%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" style="width:28%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
+          </div>
+          <div class="pc-sub">Meta anual: R$ 1.684.603,20</div>
+        </div>
+        <div class="period-card prev">
+          <div class="pc-label">Projeção Maio</div>
+          <div class="pc-ref">Estimativa fim do mês</div>
+          <div class="pc-val prev">R$ 130.000</div>
+          <span class="pc-delta neutral">◎ Abaixo da meta</span>
+          <div class="pc-bar-wrap">
+            <div class="pc-bar-lbl"><span>vs meta mensal</span><span>93%</span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" style="width:93%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
+          </div>
+          <div class="pc-sub">Sazonalidade esperada — acompanhe</div>
+        </div>
+      </div>
+
       <!-- PROGRESS META ANUAL -->
       <div class="prog">
         <div class="prog-h">
@@ -1205,21 +1302,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="prog-sub"><span>R$ 471.234,00 atingidos</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
       </div>
 
-      <!-- GRÁFICOS -->
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px">
-        <div class="card"><div class="ct">◫ Evolução do Faturamento 2026</div><div class="ch-wrap"><canvas id="cFat"></canvas></div></div>
-        <div class="card"><div class="ct">◉ Distribuição</div><div class="ch-wrap"><canvas id="cDist"></canvas></div></div>
+      <!-- GRÁFICO DE EVOLUÇÃO (só o de barras — removido o doughnut) -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ct">◫ Evolução — Faturamento 2026</div>
+        <div class="ch-wrap"><canvas id="cFat"></canvas></div>
       </div>
 
       <div class="card" style="margin-bottom:14px">
         <div class="ct">◈ Receitas · Despesas · Resultado</div>
         <div class="ch-wrap-lg"><canvas id="cEvol"></canvas></div>
-      </div>
-
-      <div class="krow">
-        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Faturamento</div><div class="k-val g">↑ +12%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">↑</div></div>
-        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Despesas</div><div class="k-val g">↓ −3%</div><div class="k-sub">vs mês anterior</div><div class="k-icon">↓</div></div>
-        <div class="kcard"><div class="kcard-accent g"></div><div class="k-lbl">Margem</div><div class="k-val g">↑ +2pp</div><div class="k-sub">vs mês anterior</div><div class="k-icon">◈</div></div>
       </div>
 
       <!-- CARTA DO CONSULTOR -->
@@ -1273,9 +1364,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <!-- ESTRATÉGIA -->
     <div id="page-estrategia" class="page">
       <div class="ph"><h1>Estratégia</h1><p>Insights, calendário e placar de metas</p></div>
-      <div class="card"><div class="ct">✦ Insights do Consultor — Abril 2026</div><div class="ins-list"><div class="ins-item"><div class="ins-n">1</div><div class="ins-txt">Inadimplência estável em 0% — excelente controle de recebimentos</div></div><div class="ins-item"><div class="ins-n">2</div><div class="ins-txt">Despesas operacionais dentro do limite — margem protegida</div></div><div class="ins-item"><div class="ins-n">3</div><div class="ins-txt">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div></div></div>
-      <div class="card"><div class="ct">◎ Calendário Financeiro — Maio 2026</div><div id="cal"></div><div class="cl"><div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Entrega dos documentos (dia 03)</div><div class="cl-i"><div class="cl-d" style="background:var(--gold)"></div>Fechamento disponível (dia 05)</div><div class="cl-i"><div class="cl-d" style="background:var(--navy3);border:1px solid var(--border2)"></div>Reunião de alinhamento (dia 10)</div></div></div>
-      <div class="mg"><div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div><div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q2)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div><div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div><div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div></div>
+
+      <!-- INSIGHTS + CALENDÁRIO LADO A LADO -->
+      <div class="estrat-grid">
+        <div class="card" style="margin-bottom:0">
+          <div class="ct">✦ Insights do Consultor — Abril 2026</div>
+          <div class="ins-list">
+            <div class="ins-item"><div class="ins-n">1</div><div class="ins-txt">Inadimplência estável em 0% — excelente controle de recebimentos</div></div>
+            <div class="ins-item"><div class="ins-n">2</div><div class="ins-txt">Despesas operacionais dentro do limite — margem protegida</div></div>
+            <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt">Projeção de maio indica sazonalidade negativa — recomenda-se reforço no caixa</div></div>
+          </div>
+        </div>
+        <div class="card cal-compact" style="margin-bottom:0">
+          <div class="ct" style="margin-bottom:10px">◎ Calendário — Mai 2026</div>
+          <div id="cal"></div>
+          <div class="cl" style="flex-direction:column;gap:6px;margin-top:10px">
+            <div class="cl-i"><div class="cl-d" style="background:var(--q)"></div>Docs (dia 03)</div>
+            <div class="cl-i"><div class="cl-d" style="background:var(--gold)"></div>Fechamento (dia 05)</div>
+            <div class="cl-i"><div class="cl-d" style="background:var(--border2);border:1px solid var(--border2)"></div>Reunião (dia 10)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mg" style="margin-top:14px">
+        <div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q2)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div>
+      </div>
     </div>
 
     <!-- CARTAS DO CONSULTOR -->
@@ -1538,43 +1654,31 @@ document.addEventListener('click',e=>{if(!e.target.closest('.nb')&&!e.target.clo
 
 // TEMA (claro/escuro)
 let light=false;
+const DARK={
+  '--bg':'#0E1624','--navy':'#111C2E','--navy2':'#172238','--navy3':'#1E2D47','--navy4':'#243356',
+  '--card':'#14213A','--card2':'#1A2B46','--border':'#1F3050','--border2':'#2A3F60',
+  '--text':'#E8EEF8','--text2':'#A8B8D8','--muted':'#5A7090','--muted2':'#304060',
+  '--silver':'#8A9BB8','--silver2':'#1E2E48',
+  '--sh':'0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2)',
+  '--grid-color':'rgba(255,255,255,.05)','--chart-txt':'#8A9BB8','--meta-line':'rgba(255,255,255,.18)',
+};
+const LIGHT={
+  '--bg':'#F0EDE6','--navy':'#1C2B4A','--navy2':'#FAFAF8','--navy3':'#F3F0E8','--navy4':'#EAE6DC',
+  '--card':'#FFFFFF','--card2':'#F6F3EC','--border':'#DDD8CE','--border2':'#C8C2B4',
+  '--text':'#1C2B4A','--text2':'#3D4F72','--muted':'#7A7060','--muted2':'#ADA394',
+  '--silver':'#5A6A8A','--silver2':'#EDEBE4',
+  '--sh':'0 1px 3px rgba(28,43,74,.08),0 4px 16px rgba(28,43,74,.07)',
+  '--grid-color':'rgba(28,43,74,.07)','--chart-txt':'#5A6A8A','--meta-line':'rgba(28,43,74,.2)',
+};
 function toggleTheme(){
   light=!light;
-  if(light){
-    document.documentElement.style.setProperty('--bg','#F2EFE9');
-    document.documentElement.style.setProperty('--navy','#1C2B4A');
-    document.documentElement.style.setProperty('--navy2','#FAF8F5');
-    document.documentElement.style.setProperty('--navy3','#F3EFE8');
-    document.documentElement.style.setProperty('--navy4','#EDE8DF');
-    document.documentElement.style.setProperty('--card','rgba(28,43,74,.04)');
-    document.documentElement.style.setProperty('--card2','rgba(28,43,74,.07)');
-    document.documentElement.style.setProperty('--border','rgba(28,43,74,.1)');
-    document.documentElement.style.setProperty('--border2','rgba(28,43,74,.15)');
-    document.documentElement.style.setProperty('--text','#1C2B4A');
-    document.documentElement.style.setProperty('--text2','#3D4F72');
-    document.documentElement.style.setProperty('--muted','#8A7F6E');
-    document.documentElement.style.setProperty('--muted2','#B4A894');
-    document.documentElement.style.setProperty('--silver','#6B7A99');
-    document.documentElement.style.setProperty('--silver2','rgba(28,43,74,.05)');
-  }else{
-    document.documentElement.style.setProperty('--bg','#0E1624');
-    document.documentElement.style.setProperty('--navy','#111C2E');
-    document.documentElement.style.setProperty('--navy2','#172238');
-    document.documentElement.style.setProperty('--navy3','#1E2D47');
-    document.documentElement.style.setProperty('--navy4','#243356');
-    document.documentElement.style.setProperty('--card','rgba(255,255,255,.04)');
-    document.documentElement.style.setProperty('--card2','rgba(255,255,255,.07)');
-    document.documentElement.style.setProperty('--border','rgba(255,255,255,.08)');
-    document.documentElement.style.setProperty('--border2','rgba(255,255,255,.13)');
-    document.documentElement.style.setProperty('--text','#E8EEF8');
-    document.documentElement.style.setProperty('--text2','#A8B8D8');
-    document.documentElement.style.setProperty('--muted','#5A6A8A');
-    document.documentElement.style.setProperty('--muted2','#3A4A6A');
-    document.documentElement.style.setProperty('--silver','#8A9BB8');
-    document.documentElement.style.setProperty('--silver2','rgba(138,155,184,.15)');
-  }
+  const t=light?LIGHT:DARK;
+  Object.entries(t).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
   document.getElementById('thi').textContent=light?'🌙':'☀';
   document.getElementById('thl').textContent=light?'Modo escuro':'Modo claro';
+  // Regerar gráficos com cores corretas para o novo tema
+  initCharts();
+  if(document.getElementById('page-relatorio').classList.contains('active'))initAnualCharts();
 }
 
 // DASH CARDS
@@ -1625,11 +1729,14 @@ function closeModal(){document.getElementById('modal-carta').classList.remove('o
 let charts={};
 function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 
-function initCharts(){
-  const gridColor='rgba(255,255,255,.04)';
-  const font={family:'DM Sans',size:10,color:'rgba(138,155,184,.7)'};
+function getCSSVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 
-  Chart.defaults.color='rgba(138,155,184,.7)';
+function initCharts(){
+  const gridColor=getCSSVar('--grid-color')||'rgba(255,255,255,.05)';
+  const chartTxt=getCSSVar('--chart-txt')||'#8A9BB8';
+  const metaLine=getCSSVar('--meta-line')||'rgba(255,255,255,.18)';
+  const font={family:'DM Sans',size:10};
+  Chart.defaults.color=chartTxt;
 
   destroyChart('cFat');
   charts['cFat']=new Chart(document.getElementById('cFat'),{
@@ -1637,21 +1744,11 @@ function initCharts(){
     data:{
       labels:dadosMensais.labels,
       datasets:[
-        {label:'Faturamento',data:dadosMensais.fat,borderColor:'rgba(201,168,76,.8)',backgroundColor:'rgba(201,168,76,.06)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'rgba(201,168,76,.9)',borderWidth:1.5},
-        {label:'Meta Mensal',data:[140383,140383,140383,140383],borderColor:'rgba(255,255,255,.15)',borderDash:[6,4],fill:false,tension:0,pointRadius:0,borderWidth:1}
+        {label:'Faturamento',data:dadosMensais.fat,borderColor:'rgba(201,168,76,.85)',backgroundColor:'rgba(201,168,76,.07)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'rgba(201,168,76,.95)',borderWidth:2},
+        {label:'Meta Mensal',data:[140383,140383,140383,140383],borderColor:metaLine,borderDash:[6,4],fill:false,tension:0,pointRadius:0,borderWidth:1.5}
       ]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
-  });
-
-  destroyChart('cDist');
-  charts['cDist']=new Chart(document.getElementById('cDist'),{
-    type:'doughnut',
-    data:{
-      labels:['Receitas','Despesas','Resultado'],
-      datasets:[{data:[528302,397285,131017],backgroundColor:['rgba(34,197,94,.7)','rgba(239,68,68,.7)','rgba(201,168,76,.7)'],borderWidth:0,hoverOffset:5}]
-    },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font,boxWidth:8,padding:10}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12,color:chartTxt}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font,color:chartTxt},grid:{color:gridColor}},x:{ticks:{font,color:chartTxt},grid:{display:false}}}}
   });
 
   destroyChart('cEvol');
@@ -1660,31 +1757,35 @@ function initCharts(){
     data:{
       labels:dadosMensais.labels,
       datasets:[
-        {label:'Receitas',data:dadosMensais.fat,backgroundColor:'rgba(34,197,94,.6)',borderRadius:5,borderSkipped:false},
-        {label:'Despesas',data:dadosMensais.desp,backgroundColor:'rgba(239,68,68,.6)',borderRadius:5,borderSkipped:false},
-        {label:'Resultado',data:dadosMensais.res,backgroundColor:dadosMensais.res.map(v=>v>=0?'rgba(201,168,76,.7)':'rgba(239,68,68,.35)'),borderRadius:5,borderSkipped:false}
+        {label:'Receitas',data:dadosMensais.fat,backgroundColor:'rgba(34,197,94,.65)',borderRadius:5,borderSkipped:false},
+        {label:'Despesas',data:dadosMensais.desp,backgroundColor:'rgba(239,68,68,.65)',borderRadius:5,borderSkipped:false},
+        {label:'Resultado',data:dadosMensais.res,backgroundColor:dadosMensais.res.map(v=>v>=0?'rgba(201,168,76,.75)':'rgba(239,68,68,.35)'),borderRadius:5,borderSkipped:false}
       ]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12,color:chartTxt}}},scales:{y:{ticks:{callback:v=>'R$'+(Math.abs(v)/1000).toFixed(0)+'k',font,color:chartTxt},grid:{color:gridColor}},x:{ticks:{font,color:chartTxt},grid:{display:false}}}}
   });
 }
 
 function initAnualCharts(){
-  const gridColor='rgba(255,255,255,.04)';
+  const gridColor=getCSSVar('--grid-color')||'rgba(255,255,255,.05)';
+  const chartTxt=getCSSVar('--chart-txt')||'#8A9BB8';
   const font={family:'DM Sans',size:10};
 
   destroyChart('cAnualFat');
   charts['cAnualFat']=new Chart(document.getElementById('cAnualFat'),{
     type:'bar',
-    data:{labels:dadosMensais.labels,datasets:[{label:'Faturamento',data:dadosMensais.fat,backgroundColor:'rgba(201,168,76,.7)',borderRadius:6,borderSkipped:false},{label:'Meta',data:[140383,140383,140383,140383],backgroundColor:'rgba(255,255,255,.06)',borderRadius:6,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+    data:{labels:dadosMensais.labels,datasets:[
+      {label:'Faturamento',data:dadosMensais.fat,backgroundColor:'rgba(201,168,76,.7)',borderRadius:6,borderSkipped:false},
+      {label:'Meta',data:[140383,140383,140383,140383],backgroundColor:light?'rgba(28,43,74,.12)':'rgba(255,255,255,.07)',borderRadius:6,borderSkipped:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12,color:chartTxt}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font,color:chartTxt},grid:{color:gridColor}},x:{ticks:{font,color:chartTxt},grid:{display:false}}}}
   });
 
   destroyChart('cAnualRes');
   charts['cAnualRes']=new Chart(document.getElementById('cAnualRes'),{
     type:'bar',
     data:{labels:dadosMensais.labels,datasets:[{label:'Resultado',data:dadosMensais.res,backgroundColor:dadosMensais.res.map(v=>v>=0?'rgba(34,197,94,.7)':'rgba(239,68,68,.7)'),borderRadius:6,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font},grid:{color:gridColor}},x:{ticks:{font},grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font,boxWidth:8,padding:12,color:chartTxt}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font,color:chartTxt},grid:{color:gridColor}},x:{ticks:{font,color:chartTxt},grid:{display:false}}}}
   });
 }
 
