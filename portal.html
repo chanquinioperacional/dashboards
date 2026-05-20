@@ -559,9 +559,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   padding-top:14px;border-top:1px solid var(--border)
 }
 .carta-av{
-  width:30px;height:30px;
-  background:linear-gradient(135deg,var(--q),var(--q2));
-  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px
+  width:38px;height:38px;
+  border-radius:50%;
+  overflow:hidden;
+  flex-shrink:0;
+  border:2px solid var(--gold);
+  box-shadow:0 2px 8px rgba(184,150,110,.25)
+}
+.carta-av img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top
 }
 .carta-an{font-weight:600;color:var(--text);font-size:12.5px}
 .carta-as{font-size:10.5px;color:var(--muted)}
@@ -864,9 +871,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   margin-top:22px;padding-top:16px;border-top:1px solid var(--border)
 }
 .modal-av{
-  width:32px;height:32px;
-  background:linear-gradient(135deg,var(--q),var(--q2));
-  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px
+  width:38px;height:38px;
+  border-radius:50%;overflow:hidden;flex-shrink:0;
+  border:2px solid var(--gold);
+  box-shadow:0 2px 8px rgba(184,150,110,.25)
 }
 .modal-an{font-weight:600;color:var(--text);font-size:12.5px}
 .modal-as{font-size:10.5px;color:var(--muted)}
@@ -1488,12 +1496,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
         <div class="period-card prev">
           <div class="pc-label">A Receber em aberto</div>
-          <div class="pc-ref">Vencimento Jun/26 · 4 contratos</div>
-          <div class="pc-val prev">R$ 42.775</div>
+          <div class="pc-ref">Vencimento até 12/Jun · 5 contratos</div>
+          <div class="pc-val prev">R$ 50.096</div>
           <span class="pc-delta neutral">◎ Vence em Junho</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>Wellhub, Reinvente Assessoria</span><span></span></div>
-            <div class="pc-bar"><div class="pc-bar-fill" style="width:30%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
+            <div class="pc-bar-lbl"><span>Wellhub, Reinvente, Sindicato</span><span></span></div>
+            <div class="pc-bar"><div class="pc-bar-fill" style="width:35%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
           </div>
           <div class="pc-sub">Saldo atual em conta: R$ 160.524</div>
         </div>
@@ -1506,7 +1514,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           <div class="prog-pct">31,4%</div>
         </div>
         <div class="prog-trk"><div class="prog-fill" style="width:31.4%"></div></div>
-        <div class="prog-sub"><span>R$ 528.302 faturados (Jan–Abr)</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
+        <div class="prog-sub"><span>R$ 528.301,66 faturados (Jan–Abr)</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
       </div>
 
       <!-- GRÁFICO DE EVOLUÇÃO (só o de barras — removido o doughnut) -->
@@ -1529,7 +1537,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
         <div class="carta-txt" id="carta-texto-home">"Abril trouxe desafios típicos do período de sazonalidade, mas o controle operacional se manteve sólido. O foco agora é fortalecer o caixa para os meses de menor volume comercial e garantir que os recebimentos em aberto sejam convertidos antes do fechamento de maio. Estamos no caminho certo para retomar o ritmo de crescimento no segundo semestre."</div>
         <div class="carta-ass">
-          <div class="carta-av">✦</div>
+          <div class="carta-av"><img src="https://chanquinioperacional.github.io/dashboards/mari.jpg" alt="Mari Chanquini"/></div>
           <div>
             <div class="carta-an" id="carta-autor-home">Equipe Chanquini</div>
             <div class="carta-as" id="carta-data-home">Estratégias Financeiras · 05/05/2026</div>
@@ -1564,8 +1572,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           <div class="ins-list">
             <div class="ins-item"><div class="ins-n">1</div><div class="ins-txt"><strong>Inadimplência em 0%</strong> — Excelente controle de recebimentos. Todos os contratos de abril foram liquidados no prazo.</div></div>
             <div class="ins-item"><div class="ins-n">2</div><div class="ins-txt"><strong>Despesas acima do faturamento</strong> — Abril fechou com resultado negativo de R$ 36.706. Saídas (R$ 116k) superaram entradas (R$ 79k).</div></div>
-            <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt"><strong>R$ 254.324 a pagar em aberto</strong> — Representa 158% do saldo atual. Negociação de prazos com fornecedores é prioridade.</div></div>
-            <div class="ins-item"><div class="ins-n">4</div><div class="ins-txt"><strong>Sazonalidade em Maio</strong> — Faturamento até 18/05 apenas R$ 6.143 realizados. R$ 46.344 a receber com vencimento em Junho.</div></div>
+            <div class="ins-item"><div class="ins-n">3</div><div class="ins-txt"><strong>R$ 259.630 a pagar em aberto</strong> — Representa 162% do saldo atual. Top: Julio Cesar R$ 140k, Receita Federal R$ 47k. Negociação urgente.</div></div>
+            <div class="ins-item"><div class="ins-n">4</div><div class="ins-txt"><strong>Sazonalidade em Maio</strong> — R$ 43.226 faturados (parcial). R$ 50.096 a receber até 12/06 — Wellhub, Reinvente, Sindicato.</div></div>
             <div class="ins-item"><div class="ins-n">5</div><div class="ins-txt"><strong>Ritmo anualizado: R$ 1,58M</strong> — No ritmo atual, o ano fecha em 94,1% da meta anual (R$ 1,68M). Recuperação possível com bom desempenho no 2º semestre.</div></div>
           </div>
         </div>
@@ -1582,7 +1590,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
       <div class="mg" style="margin-top:14px;display:none">
         <div class="mc2"><div class="mc2-l">Meta Faturamento Mensal</div><div class="mc2-v" style="color:var(--yellow)">84%</div><div class="mc2-s">R$ 117.892 de R$ 140.383,60</div><div class="pl-trk"><div class="pl-fill" style="width:84%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div>
-        <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q2)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
+        <div class="mc2"><div class="mc2-l">Meta Faturamento Anual</div><div class="mc2-v" style="color:var(--q2)">28%</div><div class="mc2-s">R$ 471.234 de R$ 1.684.603,20</div><div class="pl-trk"><div class="pl-fill" style="width:31.4%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
         <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
         <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div>
       </div>
@@ -1606,7 +1614,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="card" style="padding:28px">
           <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">META FATURAMENTO ANUAL</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--q2);line-height:1;letter-spacing:-2px;margin-bottom:6px">31,4%</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">R$ 528.302 de R$ 1.684.603,20</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">R$ 528.301,66 de R$ 1.684.603,20</div>
           <div class="pl-trk"><div class="pl-fill" style="width:31.4%;background:linear-gradient(90deg,var(--qdark),var(--q2))"></div></div>
           <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:8px"><span>Jan → Abr 2026</span><span style="color:var(--q2);font-weight:600">31,4% executado</span></div>
         </div>
@@ -1756,10 +1764,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="ra-title">Relatório Anual 2026</div>
         <div class="ra-sub">Visão consolidada do desempenho financeiro</div>
         <div class="ra-kpis">
-          <div class="ra-kpi"><div class="ra-kv">R$ 528K</div><div class="ra-kl">Faturamento Acumulado</div></div>
-          <div class="ra-kpi"><div class="ra-kv">R$ 397K</div><div class="ra-kl">Despesas Acumuladas</div></div>
-          <div class="ra-kpi"><div class="ra-kv">R$ 131K</div><div class="ra-kl">Resultado Acumulado</div></div>
-          <div class="ra-kpi"><div class="ra-kv">28%</div><div class="ra-kl">Meta Anual Executada</div></div>
+          <div class="ra-kpi"><div class="ra-kv">R$ 528.302</div><div class="ra-kl">Faturamento Acumulado</div></div>
+          <div class="ra-kpi"><div class="ra-kv">R$ 397.285</div><div class="ra-kl">Despesas Acumuladas</div></div>
+          <div class="ra-kpi"><div class="ra-kv">R$ 131.017</div><div class="ra-kl">Resultado Acumulado</div></div>
+          <div class="ra-kpi"><div class="ra-kv">31,4%</div><div class="ra-kl">Meta Anual Executada</div></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
@@ -1768,7 +1776,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       </div>
       <div class="card">
         <div class="ct">◉ Progresso das Metas Anuais</div>
-        <div class="pl-item"><div class="pl-row"><span class="pl-lbl">Faturamento Anual — R$ 471.234 de R$ 1.684.603,20</span><span class="pl-pcts" style="color:var(--q2);font-weight:700">28%</span></div><div class="pl-trk"><div class="pl-fill" style="width:28%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
+        <div class="pl-item"><div class="pl-row"><span class="pl-lbl">Faturamento Anual — R$ 528.301,66 de R$ 1.684.603,20</span><span class="pl-pcts" style="color:var(--q2);font-weight:700">28%</span></div><div class="pl-trk"><div class="pl-fill" style="width:31.4%;background:linear-gradient(90deg,var(--qdark),var(--q))"></div></div></div>
         <div class="pl-item" style="margin-top:14px"><div class="pl-row"><span class="pl-lbl">Margem Líquida — 61% atual vs meta 65%</span><span class="pl-pcts" style="color:var(--yellow);font-weight:700">94% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div>
         <div class="pl-item" style="margin-top:14px"><div class="pl-row"><span class="pl-lbl">Redução de Custos — 2% atual vs meta 5%</span><span class="pl-pcts" style="color:var(--green);font-weight:700">40% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
       </div>
@@ -1837,7 +1845,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-txt" id="modal-txt"></div>
     <div class="modal-ass">
-      <div class="modal-av">✦</div>
+      <div class="modal-av"><img src="https://chanquinioperacional.github.io/dashboards/mari.jpg" alt="Mari Chanquini" style="width:100%;height:100%;object-fit:cover;object-position:center top"/></div>
       <div><div class="modal-an">Equipe Chanquini</div><div class="modal-as">Estratégias Financeiras</div></div>
     </div>
   </div>
@@ -1906,7 +1914,7 @@ const CFG = {
     segmento:"Produção Audiovisual, Eventos e Projetos Criativos"
   },
   dashboards:{
-    "Abril 2026":{url:"https://chanquinioperacional.github.io/dashboards/dashboard_2026_1779315654.html",entrega:"05/05/2026"}
+    "Abril 2026":{url:"https://chanquinioperacional.github.io/dashboards/dashboard_2026_1779315654.html",entrega:"05/04/2026"}
     // "Maio 2026":{url:"LINK",entrega:"05/06/2026"},
   },
   cartas:[
@@ -1920,9 +1928,9 @@ const CFG = {
 
 const dadosMensais={
   labels:['Jan','Fev','Mar','Abr','Mai*'],
-  fat:[134565,99611,214707,79419,25267],
-  desp:[78853,110102,92205,116125,39592],
-  res:[55712,-10491,122502,-36706,-14325]
+  fat:[134565,99611,214707,79419,43226],
+  desp:[78853,110102,92205,116125,62174],
+  res:[55712,-10491,122502,-36706,-18948]
 };
 
 // SPLASH → LOGIN
@@ -2265,9 +2273,9 @@ function buildScore(){
 
 
 const presSlides=[
-  {label:'Visão Geral',title:'Quinca Produções',sub:'Fechamento Financeiro — Abril 2026',kpis:[{v:'R$ 79.419',l:'Faturamento Abril'},{v:'R$ 116.125',l:'Despesas Abril'},{v:'28%',l:'Meta Anual'},{v:'61%',l:'Margem Líquida'}]},
+  {label:'Visão Geral',title:'Quinca Produções',sub:'Fechamento Financeiro — Abril 2026',kpis:[{v:'R$ 79.418,76',l:'Faturamento Abril'},{v:'R$ 116.124,88',l:'Despesas Abril'},{v:'31,4%',l:'Meta Anual'},{v:'-46,2%',l:'Margem Líquida'}]},
   {label:'Acumulado 2026',title:'Resultado Acumulado',sub:'Janeiro a Abril de 2026',kpis:[{v:'R$ 528K',l:'Faturamento Total'},{v:'R$ 397K',l:'Despesas Total'},{v:'R$ 131K',l:'Resultado'},{v:'4 meses',l:'Período'}]},
-  {label:'Metas',title:'Progresso das Metas',sub:'Execução vs Planejado 2026',kpis:[{v:'28%',l:'Meta Anual Fat.'},{v:'94%',l:'Meta Margem'},{v:'40%',l:'Red. Custos'},{v:'R$1,6M',l:'Meta Anual'}]},
+  {label:'Metas',title:'Progresso das Metas',sub:'Execução vs Planejado 2026',kpis:[{v:'31,4%',l:'Meta Anual Fat.'},{v:'94%',l:'Meta Margem'},{v:'40%',l:'Red. Custos'},{v:'R$1,6M',l:'Meta Anual'}]},
   {label:'Próximos Passos',title:'Estratégia Maio 2026',sub:'Recomendações da Chanquini',kpis:[{v:'03/06',l:'Entrega Docs'},{v:'05/06',l:'Fechamento'},{v:'R$140K',l:'Meta Mensal'},{v:'65%',l:'Margem Meta'}]},
 ];
 let presIdx=0;
@@ -2350,18 +2358,18 @@ function exportPDF(){
     const SCORE_VAL = abr.val;
     const SCORE_STATUS = SCORE_LABELS[abr.status]||SCORE_LABELS.saudavel;
     // Financeiro — dashboard Abril 2026
-    const FAT       = 'R$ 79.419,00';
-    const DESP      = 'R$ 116.125,00';
-    const RES       = '– R$ 36.706,00';
+    const FAT       = 'R$ 79.418,76';
+    const DESP      = 'R$ 116.124,88';
+    const RES       = '– R$ 36.706,12';
     const MARGEM    = '– 46,2%';         // margem líquida real de Abril (negativa)
     const META_MEN  = '56,6%';
-    const FAT_ACUM  = 'R$ 528.302,00';
-    const DESP_ACUM = 'R$ 397.285,00';
-    const RES_ACUM  = 'R$ 131.017,00';
+    const FAT_ACUM  = 'R$ 528.301,66';
+    const DESP_ACUM = 'R$ 397.284,50';
+    const RES_ACUM  = 'R$ 131.017,16';
     const META_ANUAL= 'R$ 1.684.603,20';
     const EXEC_META = '31,4%';
     const SALDO     = 'R$ 160.523,91';
-    const A_REC     = 'R$ 42.774,90';
+    const A_REC     = 'R$ 50.095,90';
     const A_PAG     = 'R$ 259.630,05';
     const CARTA_TXT = (document.getElementById('carta-texto-home')?.textContent||'')
       .replace(/^[""]|[""]$/g,'').trim()
@@ -2651,7 +2659,7 @@ function exportPDF(){
     doc.setFillColor(...BG2);doc.roundedRect(CA,p2y,182,30,2,2,'F');
     doc.setFillColor(...GOLD);doc.rect(CA,p2y,2.5,30,'F');
     doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(50,65,90);
-    const analise='Abril foi um mês desafiador para a '+CLIENTE+', com resultado negativo de R$ 36.706. As despesas superaram o faturamento em 46%, sinalizando pressão sobre o caixa. O acumulado do ano, porém, segue positivo em R$ 131.017, evidenciando resiliência operacional. A margem líquida de –46,2% no mês reflete o impacto sazonal — quando o volume se normalizar, a estrutura de custos permitirá rentabilidade expressiva. Prioridade: conversão dos R$ 42.775 a receber (Wellhub, Reinvente) e gestão ativa dos R$ 259.630 a pagar.';
+    const analise='Abril foi um mês desafiador para a '+CLIENTE+', com resultado negativo de R$ 36.706. As despesas superaram o faturamento em 46%, sinalizando pressão sobre o caixa. O acumulado do ano, porém, segue positivo em R$ 131.017,16, evidenciando resiliência operacional. A margem líquida de –46,2% no mês reflete o impacto sazonal — quando o volume se normalizar, a estrutura de custos permitirá rentabilidade expressiva. Prioridade: conversao dos R$ 50.095,90 a receber (Wellhub, Reinvente, Sindicato) e gestao ativa dos R$ 259.630,05 a pagar.';
     const aLinhas=doc.splitTextToSize(analise,174);
     doc.text(aLinhas,CA+5,p2y+8);
     p2y+=36;
@@ -2664,9 +2672,9 @@ function exportPDF(){
     p2y+=10;
 
     const destaques=[
-      {lbl:'ATENCAO',  tc:RED,   bg:BGRED, txt:'Resultado de -R$ 36.706 em Abril. Despesas (R$ 116.125) superaram faturamento (R$ 79.419) em 46%.'},
-      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017. Saldo em conta R$ 160.524. Resultado de Marco sustenta o ano.'},
-      {lbl:'PROXIMO PASSO',tc:YELLOW,bg:BGYEL,txt:'Converter R$ 42.775 a receber (Wellhub, Reinvente) e negociar R$ 259.630 a pagar antes de Junho.'},
+      {lbl:'ATENCAO',  tc:RED,   bg:BGRED, txt:'Resultado de -R$ 36.706,12 em Abril. Despesas (R$ 116.124,88) superaram faturamento (R$ 79.418,76) em 46%.'},
+      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta R$ 160.523,91. Resultado de Marco sustenta o ano.'},
+      {lbl:'PROXIMO PASSO',tc:YELLOW,bg:BGYEL,txt:'Converter R$ 50.095,90 a receber (Wellhub, Reinvente, Sindicato) e negociar R$ 259.630,05 a pagar.'},
     ];
     destaques.forEach(d=>{
       doc.setFillColor(...d.bg);doc.roundedRect(CA,p2y,182,13,2,2,'F');
@@ -2736,7 +2744,7 @@ function exportPDF(){
 
     const steps=[
       'Converter R$ 42.775 a receber (Wellhub, Reinvente) antes do fechamento de Junho.',
-      'Negociar prazos dos R$ 259.630 a pagar - risco de liquidez critico.',
+      'Negociar prazos dos R$ 259.630,05 a pagar - risco de liquidez critico.',
       'Mapear e contingenciar despesas fixas para os meses de baixa sazonalidade.',
     ];
     const stepH=12, stepGap=13;
