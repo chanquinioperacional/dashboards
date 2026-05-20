@@ -48,6 +48,8 @@
   --sb-active-text:#d4b896;
   --sb-border:rgba(199,183,170,.1);
   --sb-sec:rgba(199,183,170,.3);
+  /* carta */
+  --carta-txt:#1a2540;
 
   /* topbar */
   --tb-bg:rgba(245,244,242,.92);
@@ -552,14 +554,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 }
 .carta-txt{
   font-family:'Cormorant Garamond',serif;
-  font-size:15px;color:var(--text2);line-height:2;font-style:italic;margin-bottom:16px
+  font-size:15px;color:var(--carta-txt);line-height:2;font-style:italic;margin-bottom:16px
 }
 .carta-ass{
   display:flex;align-items:center;gap:10px;
   padding-top:14px;border-top:1px solid var(--border)
 }
 .carta-av{
-  width:38px;height:38px;
+  width:48px;height:48px;
   border-radius:50%;
   overflow:hidden;
   flex-shrink:0;
@@ -568,7 +570,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 }
 .carta-av img{
   width:100%;height:100%;
-  object-fit:cover;object-position:center top
+  object-fit:cover;object-position:center 15%
 }
 .carta-an{font-weight:600;color:var(--text);font-size:12.5px}
 .carta-as{font-size:10.5px;color:var(--muted)}
@@ -843,9 +845,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 }
 .modal-overlay.open{display:flex;animation:pgIn .2s ease}
 .modal-box{
-  background:var(--navy2);border-radius:16px;padding:36px;
+  background:var(--card);border-radius:16px;padding:36px;
   max-width:580px;width:100%;
-  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
   border:1px solid var(--border2);
   position:relative;max-height:80vh;overflow-y:auto
 }
@@ -864,14 +866,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 }
 .modal-txt{
   font-family:'Cormorant Garamond',serif;
-  font-size:15px;color:var(--text2);line-height:2;font-style:italic
+  font-size:15px;color:var(--carta-txt);line-height:2;font-style:italic
 }
 .modal-ass{
   display:flex;align-items:center;gap:10px;
   margin-top:22px;padding-top:16px;border-top:1px solid var(--border)
 }
 .modal-av{
-  width:38px;height:38px;
+  width:48px;height:48px;
   border-radius:50%;overflow:hidden;flex-shrink:0;
   border:2px solid var(--gold);
   box-shadow:0 2px 8px rgba(184,150,110,.25)
@@ -1386,11 +1388,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="sb-sec">Principal</div>
       <a class="ni active" onclick="nav('inicio',this)"><span class="ni-ico">⬡</span>Início<span class="ni-dot" id="nd"></span></a>
       <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">◫</span>Dashboards</a>
-      <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">◈</span>Estratégia<span class="ni-badge">NOVO</span></a>
-      <a class="ni" onclick="nav('metas',this)"><span class="ni-ico">◎</span>Metas<span class="ni-badge">NOVO</span></a>
-      <a class="ni" onclick="nav('score',this)"><span class="ni-ico">⬡</span>GFE Score<span class="ni-badge">NOVO</span></a>
-      <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✦</span>Cartas do Consultor<span class="ni-badge">NOVO</span></a>
-      <a class="ni" onclick="nav('relatorio',this)"><span class="ni-ico">◉</span>Relatório Anual<span class="ni-badge">NOVO</span></a>
+      <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">◈</span>Estratégia</a>
+      <a class="ni" onclick="nav('metas',this)"><span class="ni-ico">◎</span>Metas</a>
+      <a class="ni" onclick="nav('score',this)"><span class="ni-ico">⬡</span>GFE Score</a>
+      <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✦</span>Cartas do Consultor</a>
+      <a class="ni" onclick="nav('relatorio',this)"><span class="ni-ico">◉</span>Relatório Anual</a>
       <div class="sb-sec">Gestão</div>
       <a class="ni" onclick="nav('documentos',this)"><span class="ni-ico">◻</span>Documentos</a>
       <a class="ni" onclick="nav('perfil',this)"><span class="ni-ico">◑</span>Perfil da Empresa</a>
@@ -1845,7 +1847,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-txt" id="modal-txt"></div>
     <div class="modal-ass">
-      <div class="modal-av"><img src="https://chanquinioperacional.github.io/dashboards/mari.jpg" alt="Mari Chanquini" style="width:100%;height:100%;object-fit:cover;object-position:center top"/></div>
+      <div class="modal-av"><img src="https://chanquinioperacional.github.io/dashboards/mari.jpg" alt="Mari Chanquini" style="width:100%;height:100%;object-fit:cover;object-position:center 15%"/></div>
       <div><div class="modal-an">Equipe Chanquini</div><div class="modal-as">Estratégias Financeiras</div></div>
     </div>
   </div>
@@ -2037,6 +2039,7 @@ const LIGHT={
   '--tb-bg':'rgba(245,244,242,.95)','--tb-border':'#E2DBD4',
   '--sh':'0 1px 4px rgba(14,26,58,.07),0 4px 16px rgba(14,26,58,.06)',
   '--sh2':'0 8px 32px rgba(14,26,58,.12)',
+  '--carta-txt':'#1a2540',
 };
 const DARK={
   '--bg':'#0B1220','--card':'#111C32','--card2':'#162238',
@@ -2052,6 +2055,7 @@ const DARK={
   '--tb-bg':'rgba(11,18,32,.95)','--tb-border':'#1E2E48',
   '--sh':'0 1px 3px rgba(0,0,0,.35),0 4px 16px rgba(0,0,0,.25)',
   '--sh2':'0 8px 32px rgba(0,0,0,.5)',
+  '--carta-txt':'#B0C0DA',
 };
 function applyTheme(t){Object.entries(t).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));}
 function toggleTheme(){
