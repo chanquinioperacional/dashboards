@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clara Assistance — Dashboard Financeiro 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--navy:#0B2545;--navy2:#1B4F72;--clara:#1B6CA8;--clara2:#0D4A7A;--green:#16a34a;--green-l:#dcfce7;--red:#dc2626;--red-l:#fee2e2;--yellow:#d97706;--yellow-l:#fef3c7;--blue:#2563a8;--blue-l:#dbeafe;--bg:#f0f4f8;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px}
+.header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.h-left{display:flex;align-items:center;gap:14px}
+.logo-box{background:#fff;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:10px}
+.logo-c{background:#1B6CA8;border-radius:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px}
+.logo-sep{width:1px;height:28px;background:#e2e8f0}
+.logo-ch{font-size:11px;font-weight:700;color:#0e1a3a;letter-spacing:.3px;line-height:1.4}
+.logo-ch span{font-weight:400;font-size:9.5px;color:#64748b}
+.h-title h1{font-size:17px;font-weight:700}.h-title p{font-size:10px;opacity:.7;margin-top:2px}
+.badge-header{font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px}
+.b-pos{background:#dcfce7;color:#166534}.b-neg{background:#fee2e2;color:#991b1b}
+.quadrantes{display:flex;gap:0;background:var(--navy);padding:0 24px;border-top:1px solid rgba(255,255,255,.09)}
+.quad-btn{padding:10px 16px;font-size:11px;font-weight:700;color:rgba(255,255,255,.45);cursor:pointer;border:none;border-bottom:3px solid transparent;background:transparent;white-space:nowrap;transition:all .18s;letter-spacing:.3px}
+.quad-btn:hover{color:#fff}.quad-btn.active{color:#fff;border-bottom-color:#1B6CA8}
+.quad-divider{width:1px;background:rgba(255,255,255,.1);margin:8px 0;align-self:stretch}
+.tabs{display:flex;background:rgba(11,37,69,.8);padding:0 24px;overflow-x:auto}
+.tabs::-webkit-scrollbar{height:3px}.tabs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2)}
+.tab-btn{padding:10px 13px;font-size:11px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;border:none;border-bottom:3px solid transparent;background:transparent;white-space:nowrap;transition:all .18s}
+.tab-btn:hover{color:#fff}.tab-btn.active{color:#fff;border-bottom-color:#60a5fa}
+.main{padding:18px 24px}
+.tc{display:none!important}.tc.active{display:block!important}
+.quadrante{display:none!important}.quadrante.qactive{display:block!important}
+.filtro-mes{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:10px 14px;background:var(--card);border-radius:10px;border:1px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.filtro-mes label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.filtro-mes select{padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-family:'Segoe UI',sans-serif;font-size:12px;color:var(--text);background:#fff;cursor:pointer;outline:none}
+.filtro-mes select:focus{border-color:#1B6CA8;box-shadow:0 0 0 2px rgba(27,108,168,.12)}
+.filtro-info{font-size:10px;margin-left:auto;font-style:italic}
+.fa-wrap{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:10px 14px;background:var(--card);border-radius:10px;border:1px solid var(--border);flex-wrap:wrap}
+.fa-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-right:4px}
+.fa-cb{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text);cursor:pointer;padding:3px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--border)}
+.fa-cb input{cursor:pointer;accent-color:#1B6CA8}.fa-cb:hover{background:#dbeafe;border-color:#1B6CA8}
+.kg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kc{background:var(--card);border-radius:10px;padding:14px 15px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:4px solid var(--navy);position:relative;overflow:hidden}
+.kc-green{border-top-color:var(--green)}.kc-red{border-top-color:var(--red)}.kc-yellow{border-top-color:var(--yellow)}.kc-blue{border-top-color:var(--blue)}.kc-clara{border-top-color:#1B6CA8}
+.kl{font-size:9px;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:5px}
+.kv{font-size:19px;font-weight:800;color:var(--text)}.ks{font-size:9px;color:var(--muted);margin-top:3px}.ki{position:absolute;top:12px;right:12px;font-size:18px}
+.sec-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.sec-num{background:var(--navy);color:#fff;border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.sec-title{font-size:14px;font-weight:700;color:var(--navy)}.sec-badge{margin-left:auto;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px}
+.sec-ok{background:var(--green-l);color:#166534}.sec-warn{background:var(--yellow-l);color:#92400e}.sec-crit{background:var(--red-l);color:#991b1b}
+.resumo-box{border-radius:10px;padding:18px;margin-bottom:14px;display:flex;gap:16px;align-items:flex-start}
+.resumo-ok{background:#f0fdf4;border-left:5px solid var(--green)}.resumo-warn{background:#fffbeb;border-left:5px solid var(--yellow)}.resumo-crit{background:#fef2f2;border-left:5px solid var(--red)}
+.resumo-ico{font-size:28px;flex-shrink:0}.resumo-status{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;color:var(--muted)}
+.resumo-txt{font-size:12.5px;line-height:1.6;color:#374151}.resumo-destaque{margin-top:10px;display:flex;gap:8px;align-items:center}
+.resumo-d-label{font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--muted)}.resumo-d-val{font-size:20px;font-weight:800;color:var(--navy)}
+.ceq{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.c3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.cc{background:var(--card);border-radius:10px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:14px}
+.ct{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px}
+.ch{position:relative;height:200px}.ch-sm{position:relative;height:170px}.ch-lg{position:relative;height:250px}
+.tb{background:var(--card);border-radius:10px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:14px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead th{background:var(--navy);color:#fff;padding:8px 11px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+tbody tr{border-bottom:1px solid var(--border)}tbody tr:last-child{border-bottom:none}tbody tr:hover{background:#f8fafc}tbody td{padding:8px 11px}
+.tb-bold{font-weight:700;color:var(--navy)}.tr-total{background:#eef4fb!important;font-weight:700}.tr-total td{font-weight:700;color:var(--navy)}
+.var-pos{color:#16a34a;font-weight:600}.var-neg{color:#dc2626;font-weight:600}.var-warn{color:#d97706;font-weight:600}
+.badge{display:inline-block;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:12px}
+.b-ok{background:var(--green-l);color:#166534}.b-warn{background:var(--yellow-l);color:#92400e}.b-crit{background:var(--red-l);color:#991b1b}.b-info{background:var(--blue-l);color:#1e40af}
+.cat-tag{background:#f1f5f9;color:var(--muted);font-size:9.5px;padding:2px 7px;border-radius:8px}
+.alerta-ok{background:var(--green-l);border-left:4px solid var(--green);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:11.5px;color:#14532d}
+.alerta-warn{background:var(--yellow-l);border-left:4px solid var(--yellow);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:11.5px;color:#78350f}
+.alerta-crit{background:var(--red-l);border-left:4px solid var(--red);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:11.5px;color:#7f1d1d}
+.alert-crit{background:var(--red-l);border-left:5px solid var(--red);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.alert-warn{background:var(--yellow-l);border-left:5px solid var(--yellow);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.alert-mon{background:var(--blue-l);border-left:5px solid var(--blue);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.alert-nivel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.alert-titulo{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}.alert-det{font-size:11.5px;color:#374151}
+.pend-crit{background:#fff5f5}.pend-warn{background:#fffdf0}.pend-info{background:#f0f7ff}
+.estrategia-card{display:flex;gap:14px;background:var(--card);border-radius:10px;padding:15px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid #1B6CA8}
+.est-num{background:#1B6CA8;color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.est-body{flex:1}.est-titulo{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.est-linha{font-size:11.5px;color:#374151;margin-bottom:4px;line-height:1.5}.est-label{font-weight:700;color:var(--navy);text-transform:uppercase;font-size:10px}
+.meta-barra-wrap{background:#e2e8f0;border-radius:20px;height:10px;overflow:hidden;margin:6px 0}
+.meta-barra{height:10px;border-radius:20px;transition:width .5s}.meta-info{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.stabs{display:flex;gap:7px;margin-bottom:14px}
+.st{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:2px solid var(--border);color:var(--muted);background:var(--card);transition:all .18s}
+.st.active.ot{background:#dcfce7;border-color:var(--green);color:var(--green)}.st.active.re{background:#dbeafe;border-color:var(--blue);color:var(--blue)}.st.active.pe{background:#fee2e2;border-color:var(--red);color:var(--red)}
+.footer{text-align:center;padding:12px;font-size:10px;color:var(--muted);border-top:1px solid var(--border)}
+.rec-type-tag{display:inline-block;background:#dbeafe;color:#1e40af;font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;margin-bottom:4px}
+@media(max-width:900px){.kg{grid-template-columns:1fr 1fr}.ceq,.c3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="h-left">
+    <div class="logo-box">
+      <div class="logo-c">CA</div>
+      <div class="logo-sep"></div>
+      <div class="logo-ch">CHANQUINI<br><span>ESTRATÉGIAS FINANCEIRAS</span></div>
+    </div>
+    <div class="h-title"><h1>Clara Assistance — Dashboard Financeiro 2026</h1><p>BPO: Chanquini Estratégias Financeiras · Atualizado em 20/05/2026 · Referência: Maio 2026</p></div>
+  </div>
+  <div><span class="badge-header b-pos">✅ Resultado Positivo</span></div>
+</div>
+<div class="quadrantes">
+  <button class="quad-btn" onclick="showQuadrante(1,this)">📊 Financeiro</button>
+  <div class="quad-divider"></div>
+  <button class="quad-btn" onclick="showQuadrante(2,this)">🎯 Estratégia</button>
+  <div class="quad-divider"></div>
+  <button class="quad-btn" onclick="showQuadrante(3,this)">⚠️ Riscos</button>
+</div>
+
+<div id="quad-1" class="quadrante qactive">
+<div class="tabs">
+  <button class="tab-btn" data-tab="s_res" onclick="showTab('s_res',this,1)">📋 Resumo Executivo</button>
+  <button class="tab-btn" data-tab="s_acum" onclick="showTab('s_acum',this,1)">📅 Fluxo Acumulado</button>
+  <button class="tab-btn" data-tab="s_fech" onclick="showTab('s_fech',this,1)">📊 Fechamento Mensal</button>
+  <button class="tab-btn" data-tab="s_anual" onclick="showTab('s_anual',this,1)">📈 Visão Anual</button>
+  <button class="tab-btn" data-tab="s_cli" onclick="showTab('s_cli',this,1)">👥 Clientes</button>
+</div>
+<div class="main">
+
+<div id="s_res" class="tc">
+  <div class="sec-header"><div class="sec-num">1</div><div class="sec-title">Resumo Executivo — Maio 2026</div><span class="sec-badge sec-warn">⚠️ MÊS NEUTRO</span></div>
+  <div class="resumo-box resumo-warn">
+    <div class="resumo-ico">⚠️</div>
+    <div><div class="resumo-status">MÊS NEUTRO — Maio 2026</div><div class="resumo-txt">Maio fechou positivo com R$ 4.577,13 de resultado. Faturamento de R$ 10.522,00 = 58.5% da meta. Nenhuma antecipação de lucros — caixa acumulando para próximo trimestre.</div>
+    <div class="resumo-destaque"><div class="resumo-d-label">📌 Faturamento:</div><div class="resumo-d-val">R$ 10.522,00</div><span class="cat-tag">Maio 2026</span></div></div>
+  </div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="ki">📊</div><div class="kl">Resultado do Mês</div><div class="kv var-pos">R$ 4.577,13</div><div class="ks">Maio 2026</div></div>
+    <div class="kc kc-green"><div class="ki">🏦</div><div class="kl">Saldo em Caixa</div><div class="kv var-pos">R$ 9.851,96</div><div class="ks">Posição atual</div></div>
+    <div class="kc kc-green"><div class="ki">📥</div><div class="kl">Faturamento Mês</div><div class="kv var-pos">R$ 10.522,00</div><div class="ks">Entradas</div></div>
+    <div class="kc kc-red"><div class="ki">📤</div><div class="kl">Total Despesas</div><div class="kv var-neg">R$ 5.944,87</div><div class="ks">Saídas</div></div>
+  </div>
+  <div class="kg">
+    <div class="kc kc-clara"><div class="ki">🎯</div><div class="kl">% Meta Mensal</div><div class="kv var-neg">58.5%</div><div class="ks">Meta: R$ 18.000,00</div></div>
+    <div class="kc kc-clara"><div class="ki">📈</div><div class="kl">Fat. Acumulado 2026</div><div class="kv var-pos">R$ 101.536,73</div><div class="ks">47.0% da meta anual</div></div>
+    <div class="kc kc-yellow"><div class="ki">💼</div><div class="kl">Dist. Lucros Acum.</div><div class="kv" style="color:var(--yellow)">R$ 49.779,91</div><div class="ks">Jan–Mai 2026</div></div>
+    <div class="kc kc-blue"><div class="ki">📊</div><div class="kl">Resultado Acumulado</div><div class="kv var-pos">R$ 15.620,57</div><div class="ks">Jan–Mai 2026</div></div>
+  </div>
+  <div class="ceq">
+    <div class="cc"><div class="ct">📊 Entradas vs Saídas — 2026</div><div class="ch"><canvas id="cGeral"></canvas></div></div>
+    <div class="cc"><div class="ct">📊 Resultado por Mês</div><div class="ch"><canvas id="cRes"></canvas></div></div>
+  </div>
+  <div class="cc"><div class="ct">📈 Evolução do Saldo em Caixa</div><div class="ch-sm"><canvas id="cSld"></canvas></div></div>
+</div>
+
+<div id="s_acum" class="tc">
+  <div class="sec-header"><div class="sec-num">2</div><div class="sec-title">Fluxo de Caixa Acumulado — 2026</div></div>
+  <div class="fa-wrap">
+    <span class="fa-label">🗓️ Filtrar meses:</span>
+    <div style="display:flex;gap:5px;flex-wrap:wrap" id="fg-pills"><label class="fa-cb"><input type="checkbox" value="1" checked onchange="atualizarAcumulado()"> Janeiro</label><label class="fa-cb"><input type="checkbox" value="2" checked onchange="atualizarAcumulado()"> Fevereiro</label><label class="fa-cb"><input type="checkbox" value="3" checked onchange="atualizarAcumulado()"> Março</label><label class="fa-cb"><input type="checkbox" value="4" checked onchange="atualizarAcumulado()"> Abril</label><label class="fa-cb"><input type="checkbox" value="5" checked onchange="atualizarAcumulado()"> Maio</label><label class="fa-cb"><input type="checkbox" value="6"  onchange="atualizarAcumulado()"> Junho</label><label class="fa-cb"><input type="checkbox" value="7"  onchange="atualizarAcumulado()"> Julho</label><label class="fa-cb"><input type="checkbox" value="8"  onchange="atualizarAcumulado()"> Agosto</label><label class="fa-cb"><input type="checkbox" value="9"  onchange="atualizarAcumulado()"> Setembro</label><label class="fa-cb"><input type="checkbox" value="10"  onchange="atualizarAcumulado()"> Outubro</label><label class="fa-cb"><input type="checkbox" value="11"  onchange="atualizarAcumulado()"> Novembro</label><label class="fa-cb"><input type="checkbox" value="12"  onchange="atualizarAcumulado()"> Dezembro</label></div>
+  </div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="kl">Entradas Selecionadas</div><div class="kv var-pos" id="ac-ent">R$ 101.536,73</div></div>
+    <div class="kc kc-red"><div class="kl">Saídas Selecionadas</div><div class="kv var-neg" id="ac-sai">R$ 85.916,16</div></div>
+    <div class="kc kc-green"><div class="kl">Resultado</div><div class="kv var-pos" id="ac-res">R$ 15.620,57</div></div>
+    <div class="kc kc-green"><div class="kl">Saldo Final</div><div class="kv var-pos" id="ac-sld">R$ 9.851,96</div></div>
+  </div>
+  <div class="tb"><div class="ct">📋 Fluxo de Caixa — Resumo Mensal 2026</div>
+    <table><thead><tr><th>Mês</th><th>Faturamento</th><th>Saídas</th><th>Resultado</th><th>Acumulado</th><th>% Meta</th><th>Saldo</th></tr></thead>
+    <tbody id="ac-tbody"><tr><td class="tb-bold">Jan/26</td><td>R$ 19.364,00</td><td>R$ 14.696,88</td><td class="var-pos">R$ 4.667,12</td><td class="var-pos">R$ 4.667,12</td><td><span class="var-pos">107.6%</span></td></tr><tr><td class="tb-bold">Fev/26</td><td>R$ 33.370,00</td><td>R$ 25.079,28</td><td class="var-pos">R$ 8.290,72</td><td class="var-pos">R$ 12.957,84</td><td><span class="var-pos">185.4%</span></td></tr><tr><td class="tb-bold">Mar/26</td><td>R$ 20.237,30</td><td>R$ 18.596,20</td><td class="var-pos">R$ 1.641,10</td><td class="var-pos">R$ 14.598,94</td><td><span class="var-pos">112.4%</span></td></tr><tr><td class="tb-bold">Abr/26</td><td>R$ 18.043,43</td><td>R$ 21.598,93</td><td class="var-neg">R$ -3.555,50</td><td class="var-pos">R$ 11.043,44</td><td><span class="var-pos">100.2%</span></td></tr><tr><td class="tb-bold">Mai/26</td><td>R$ 10.522,00</td><td>R$ 5.944,87</td><td class="var-pos">R$ 4.577,13</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">58.5%</span></td></tr><tr><td class="tb-bold">Jun/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Jul/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Ago/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Set/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Out/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Nov/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Dez/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr class="tr-total"><td>ACUMULADO REAL</td><td>R$ 101.536,73</td><td>R$ 85.916,16</td><td class="var-pos">R$ 15.620,57</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-pos">47.0%</span></td></tr></tbody></table>
+  </div>
+</div>
+
+<div id="s_fech" class="tc">
+  <div class="sec-header"><div class="sec-num">3</div><div class="sec-title">Fechamento Mensal</div></div>
+  <div class="filtro-mes"><label>📅 Mês:</label><select class="sel-mes" id="sel-fech" onchange="trocarMes('sel-fech')"><option value="1" >Janeiro 2026</option><option value="2" >Fevereiro 2026</option><option value="3" >Março 2026</option><option value="4" >Abril 2026</option><option value="5" selected>Maio 2026</option><option value="6" >Junho 2026 ★</option><option value="7" >Julho 2026 ★</option><option value="8" >Agosto 2026 ★</option><option value="9" >Setembro 2026 ★</option><option value="10" >Outubro 2026 ★</option><option value="11" >Novembro 2026 ★</option><option value="12" >Dezembro 2026 ★</option></select></div>
+  <div class="kg">
+    <div class="kc kc-blue"><div class="ki">🏦</div><div class="kl">Saldo Inicial</div><div class="kv kv-saldo-ini">R$ 5.274,83</div><div class="ks mes-label">Maio 2026</div></div>
+    <div class="kc kc-green"><div class="ki">📥</div><div class="kl">Faturamento</div><div class="kv var-pos" id="kv-fat-f">R$ 10.522,00</div><div class="ks mes-label">Maio 2026</div></div>
+    <div class="kc kc-red"><div class="ki">📤</div><div class="kl">Despesas Totais</div><div class="kv var-neg" id="kv-sai-f">R$ 5.944,87</div><div class="ks mes-label">Maio 2026</div></div>
+    <div class="kc kc-green"><div class="ki">📊</div><div class="kl">Resultado</div><div class="kv var-pos" id="kv-res-f">R$ 4.577,13</div></div>
+  </div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="ki">💰</div><div class="kl">Saldo Final</div><div class="kv var-pos" id="kv-sld-f">R$ 9.851,96</div></div>
+    <div class="kc kc-yellow"><div class="ki">💼</div><div class="kl">Distribuição de Lucros</div><div class="kv" style="color:var(--yellow)" id="kv-gest-f">R$ 0,00</div><div class="ks">Antecipação</div></div>
+    <div class="kc kc-clara"><div class="ki">🎯</div><div class="kl">% Meta Mensal</div><div class="kv var-neg">58.5%</div><div class="ks">Meta: R$ 18.000,00</div></div>
+    <div class="kc kc-clara"><div class="ki">📈</div><div class="kl">Margem Operacional</div><div class="kv var-pos">43.5%</div><div class="ks">Meta: 40.0%</div></div>
+  </div>
+  <div class="ceq">
+    <div class="cc"><div class="ct">📉 Despesas por Categoria</div><div class="ch"><canvas id="cCats"></canvas></div></div>
+    <div class="tb" style="margin-bottom:0">
+      <div class="ct">📊 Top 5 Clientes</div>
+      <table><thead><tr><th>Cliente</th><th>Tipo</th><th>Valor</th></tr></thead><tbody id="t5e"></tbody></table>
+    </div>
+  </div>
+  <div class="tb"><div class="ct">📉 Top 5 Saídas</div><table><thead><tr><th>Descrição</th><th>Categoria</th><th>Valor</th></tr></thead><tbody id="t5s"></tbody></table></div>
+  <div class="alerta-ok">✅ <strong>LIQUIDEZ ESTÁVEL</strong> — Saldo em R$ 9.851,96. Sem risco imediato.</div>
+</div>
+
+<div id="s_anual" class="tc">
+  <div class="sec-header"><div class="sec-num">4</div><div class="sec-title">Visão Anual 2026</div></div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="kl">Fat. Acumulado</div><div class="kv var-pos">R$ 101.536,73</div><div class="ks">47.0% da meta</div></div>
+    <div class="kc kc-red"><div class="kl">Desp. Acumuladas</div><div class="kv var-neg">R$ 85.916,16</div></div>
+    <div class="kc kc-green"><div class="kl">Resultado Acumulado</div><div class="kv var-pos">R$ 15.620,57</div></div>
+    <div class="kc kc-clara"><div class="kl">Ritmo Anualizado</div><div class="kv var-pos">R$ 243.688,15</div></div>
+  </div>
+  <div class="ceq">
+    <div class="cc"><div class="ct">🎯 Progresso Meta Anual</div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>R$ 101.536,73 de R$ 216.000,00</span><span class="badge b-ok">47.0%</span></div>
+      <div class="meta-barra-wrap"><div class="meta-barra" style="width:47.0%;background:#16a34a"></div></div>
+      <div style="margin-top:10px;padding:10px;background:#f8fafc;border-radius:8px;font-size:12px">✅ No ritmo atual (R$ 243.688,15/ano), a empresa ATINGIRÁ a meta anual.</div>
+    </div>
+    <div class="cc"><div class="ct">🍩 Tipos de Receita (Acumulado)</div><div class="ch"><canvas id="cRecTipo"></canvas></div></div>
+  </div>
+  <div class="tb"><div class="ct">📋 Evolução Mensal 2026</div>
+    <table><thead><tr><th>Mês</th><th>Faturamento</th><th>Saídas</th><th>Resultado</th><th>Acumulado</th><th>% Meta</th></tr></thead>
+    <tbody><tr><td class="tb-bold">Jan/26</td><td>R$ 19.364,00</td><td>R$ 14.696,88</td><td class="var-pos">R$ 4.667,12</td><td class="var-pos">R$ 4.667,12</td><td><span class="var-pos">107.6%</span></td></tr><tr><td class="tb-bold">Fev/26</td><td>R$ 33.370,00</td><td>R$ 25.079,28</td><td class="var-pos">R$ 8.290,72</td><td class="var-pos">R$ 12.957,84</td><td><span class="var-pos">185.4%</span></td></tr><tr><td class="tb-bold">Mar/26</td><td>R$ 20.237,30</td><td>R$ 18.596,20</td><td class="var-pos">R$ 1.641,10</td><td class="var-pos">R$ 14.598,94</td><td><span class="var-pos">112.4%</span></td></tr><tr><td class="tb-bold">Abr/26</td><td>R$ 18.043,43</td><td>R$ 21.598,93</td><td class="var-neg">R$ -3.555,50</td><td class="var-pos">R$ 11.043,44</td><td><span class="var-pos">100.2%</span></td></tr><tr><td class="tb-bold">Mai/26</td><td>R$ 10.522,00</td><td>R$ 5.944,87</td><td class="var-pos">R$ 4.577,13</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">58.5%</span></td></tr><tr><td class="tb-bold">Jun/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Jul/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Ago/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Set/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Out/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Nov/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr><td class="tb-bold">Dez/26<small style="color:var(--muted);font-style:italic"> (proj.)</small></td><td>—</td><td>—</td><td class="var-pos">—</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-neg">0.0%</span></td></tr><tr class="tr-total"><td>ACUMULADO REAL</td><td>R$ 101.536,73</td><td>R$ 85.916,16</td><td class="var-pos">R$ 15.620,57</td><td class="var-pos">R$ 15.620,57</td><td><span class="var-pos">47.0%</span></td></tr></tbody></table>
+  </div>
+</div>
+
+<div id="s_cli" class="tc">
+  <div class="sec-header"><div class="sec-num">5</div><div class="sec-title">Carteira de Clientes — Acumulado 2026</div></div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="kl">Fat. Assessoria Pessoal</div><div class="kv var-pos">R$ 76.519,73</div></div>
+    <div class="kc kc-clara"><div class="kl">Fat. Ass. Pessoal+Empresarial</div><div class="kv" style="color:#1B6CA8">R$ 752,00</div></div>
+    <div class="kc kc-yellow"><div class="kl">Fat. Assessoria Pontual</div><div class="kv" style="color:var(--yellow)">R$ 15.365,00</div></div>
+    <div class="kc kc-blue"><div class="kl">Fat. Ass. Empresarial</div><div class="kv">R$ 752,00</div></div>
+  </div>
+  <div class="ceq">
+    <div class="tb" style="margin-bottom:0"><div class="ct">👥 Top Clientes por Receita Acumulada</div>
+      <table><thead><tr><th>Cliente</th><th>Total Faturado</th></tr></thead><tbody><tr><td>André Boaventura Czelusniak</td><td style="font-weight:700;color:#16a34a">R$ 15.000,00</td></tr><tr><td>CASSIO SVIATOWSKI</td><td style="font-weight:700;color:#16a34a">R$ 11.757,00</td></tr><tr><td>Eduardo</td><td style="font-weight:700;color:#16a34a">R$ 7.500,00</td></tr><tr><td>Renata Lustoza</td><td style="font-weight:700;color:#16a34a">R$ 6.326,13</td></tr><tr><td>MARCIA DA COSTA OLIVEIRA</td><td style="font-weight:700;color:#16a34a">R$ 5.400,00</td></tr><tr><td>Mario Luiz Bernert</td><td style="font-weight:700;color:#16a34a">R$ 5.200,00</td></tr><tr><td>MAYARA BERTHOUD</td><td style="font-weight:700;color:#16a34a">R$ 3.200,00</td></tr><tr><td>CARLOS SVIATOWSKI</td><td style="font-weight:700;color:#16a34a">R$ 2.970,00</td></tr></tbody></table>
+    </div>
+    <div class="tb" style="margin-bottom:0"><div class="ct">📊 Receita por Tipo de Assessoria</div>
+      <table><thead><tr><th>Tipo</th><th>Total</th><th>%</th></tr></thead><tbody><tr><td>Assessoria Pessoal</td><td style="font-weight:700;color:#1B6CA8">R$ 57.036,73</td><td>56.2%</td></tr><tr><td>Ass. Pessoal e Emp.</td><td style="font-weight:700;color:#1B6CA8">R$ 19.483,00</td><td>19.2%</td></tr><tr><td>Pontual</td><td style="font-weight:700;color:#1B6CA8">R$ 15.365,00</td><td>15.1%</td></tr><tr><td>Ass. Empresarial</td><td style="font-weight:700;color:#1B6CA8">R$ 752,00</td><td>0.7%</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+
+</div></div>
+
+<div id="quad-2" class="quadrante">
+<div class="tabs">
+  <button class="tab-btn" data-tab="s_meta" onclick="showTab('s_meta',this,2)">🏁 Análise de Meta</button>
+  <button class="tab-btn" data-tab="s_est" onclick="showTab('s_est',this,2)">💡 Estratégias</button>
+  <button class="tab-btn" data-tab="s_kpi" onclick="showTab('s_kpi',this,2)">🎯 KPIs</button>
+  <button class="tab-btn" data-tab="s_prev" onclick="showTab('s_prev',this,2)">🔮 Previsão Junho</button>
+</div>
+<div class="main">
+<div id="s_meta" class="tc">
+  <div class="sec-header"><div class="sec-num">1</div><div class="sec-title">Análise de Meta — 2026</div></div>
+  <div class="kg">
+    <div class="kc kc-clara"><div class="kl">Meta Mensal</div><div class="kv">R$ 18.000,00</div><div class="ks">Realizado: 58.5%</div></div>
+    <div class="kc kc-red"><div class="kl">Gap Mensal</div><div class="kv var-neg">R$ 7.478,00</div><div class="ks">Abaixo da meta</div></div>
+    <div class="kc kc-clara"><div class="kl">Meta Anual</div><div class="kv">R$ 216.000,00</div><div class="ks">Executado: 47.0%</div></div>
+    <div class="kc kc-green"><div class="kl">Ritmo Anualizado</div><div class="kv var-pos">R$ 243.688,15</div></div>
+  </div>
+  <div class="cc"><div class="ct">📊 Meta Mensal — Maio 2026</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>R$ 10.522,00 de R$ 18.000,00</span><span class="badge b-crit">58.5%</span></div>
+    <div class="meta-barra-wrap"><div class="meta-barra" style="width:58.5%;background:#dc2626"></div></div>
+  </div>
+  <div class="cc"><div class="ct">📈 Meta Anual</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>R$ 101.536,73 de R$ 216.000,00</span><span class="badge b-ok">47.0%</span></div>
+    <div class="meta-barra-wrap"><div class="meta-barra" style="width:47.0%;background:#16a34a"></div></div>
+    <div style="margin-top:10px;padding:10px;background:#f8fafc;border-radius:8px;font-size:12px">✅ No ritmo atual (R$ 243.688,15/ano), a empresa ATINGIRÁ a meta anual.</div>
+  </div>
+</div>
+<div id="s_est" class="tc">
+  <div class="sec-header"><div class="sec-num">2</div><div class="sec-title">Estratégias Recomendadas para Junho</div></div>
+  <div class="estrategia-card"><div class="est-num">1</div><div class="est-body"><div class="est-titulo">🎯 Expandir Carteira de Clientes</div><div class="est-linha"><span class="est-label">O QUÊ:</span> Faturamento 58.5% da meta. Assessoria pontual (R$ 15k em fev) prova potencial.</div><div class="est-linha"><span class="est-label">IMPACTO:</span> Abrir 3-5 novos contratos pontuais por trimestre.</div><div class="est-linha"><span class="est-label">QUEM:</span> Clara</div></div></div><div class="estrategia-card"><div class="est-num">2</div><div class="est-body"><div class="est-titulo">💡 Padronizar Planos de Assessoria</div><div class="est-linha"><span class="est-label">O QUÊ:</span> Definir pacotes claros: Pessoal, Empresarial, Pontual com valores fixos.</div><div class="est-linha"><span class="est-label">IMPACTO:</span> Previsibilidade de receita = menos variação mensal.</div><div class="est-linha"><span class="est-label">QUEM:</span> Clara+Chanquini</div></div></div><div class="estrategia-card"><div class="est-num">3</div><div class="est-body"><div class="est-titulo">💸 Controlar Distribuição de Lucros</div><div class="est-linha"><span class="est-label">O QUÊ:</span> Acumulado R$ 49.779,91 = 49.0% do fat. Estabelecer política de retirada.</div><div class="est-linha"><span class="est-label">IMPACTO:</span> Evita descapitalização e garante reserva operacional.</div><div class="est-linha"><span class="est-label">QUEM:</span> Clara+Chanquini</div></div></div><div class="estrategia-card"><div class="est-num">4</div><div class="est-body"><div class="est-titulo">📊 Implementar Pipeline de Vendas</div><div class="est-linha"><span class="est-label">O QUÊ:</span> Mapear clientes em negociação. Priorizar conversões de Pontual para Recorrente.</div><div class="est-linha"><span class="est-label">IMPACTO:</span> Estabiliza o fluxo de receita mensal.</div><div class="est-linha"><span class="est-label">QUEM:</span> Clara</div></div></div><div class="estrategia-card"><div class="est-num">5</div><div class="est-body"><div class="est-titulo">🔄 Classificar Todos os Lançamentos</div><div class="est-linha"><span class="est-label">O QUÊ:</span> Categorizar pagamentos sem classificação para análise precisa.</div><div class="est-linha"><span class="est-label">IMPACTO:</span> Dados precisos = decisões melhores.</div><div class="est-linha"><span class="est-label">QUEM:</span> Clara</div></div></div>
+</div>
+<div id="s_kpi" class="tc">
+  <div class="sec-header"><div class="sec-num">3</div><div class="sec-title">KPIs — Maio 2026</div></div>
+  <div class="tb"><table><thead><tr><th>Indicador</th><th>Valor Atual</th><th>Meta/Ref.</th><th>Var. vs Ant.</th><th>Status</th></tr></thead><tbody><tr><td>💰 Faturamento Bruto</td><td class="var-pos">R$ 10.522,00</td><td>R$ 18.000,00</td><td><span class="var-neg">-41.7%</span></td><td><span class="badge b-crit">🔴 Crítico</span></td></tr><tr><td>📊 Margem Operacional</td><td class="var-pos">43.5%</td><td>40.0%</td><td>—</td><td><span class="badge b-ok">✅ OK</span></td></tr><tr><td>🎯 % Meta Mensal</td><td class="var-neg">58.5%</td><td>100%</td><td><span class="var-neg">-41.7%</span></td><td><span class="badge b-crit">🔴 Crítico</span></td></tr><tr><td>💼 Distribuição de Lucros</td><td class="var-pos">R$ 0,00</td><td>—</td><td>—</td><td><span class="badge b-info">ℹ️ Info</span></td></tr><tr><td>📅 Fat. Acumulado</td><td class="var-pos">R$ 101.536,73</td><td>R$ 216.000,00</td><td>—</td><td><span class="badge b-ok">✅ OK</span></td></tr><tr><td>💵 Saldo em Caixa</td><td class="var-pos">R$ 9.851,96</td><td>Positivo</td><td>—</td><td>✅</td></tr><tr><td>📈 Ritmo Anualizado</td><td class="var-pos">R$ 243.688,15</td><td>R$ 216.000,00</td><td>—</td><td><span class="badge b-ok">✅ OK</span></td></tr><tr><td>💸 Dist. Lucros Acumulado</td><td style="color:#d97706;font-weight:700">R$ 49.779,91</td><td>—</td><td>—</td><td><span class="badge b-warn">⚠️ Monitor</span></td></tr></tbody></table></div>
+</div>
+<div id="s_prev" class="tc">
+  <div class="sec-header"><div class="sec-num">4</div><div class="sec-title">Projeção — Junho 2026</div></div>
+  <div class="stabs">
+    <button class="st re active" data-sc="re" onclick="renderPrevisao('re')">📊 Realista</button>
+    <button class="st ot" data-sc="ot" onclick="renderPrevisao('ot')">✅ Otimista (+15%)</button>
+    <button class="st pe" data-sc="pe" onclick="renderPrevisao('pe')">⚠️ Pessimista (-25%)</button>
+  </div>
+  <div class="kg">
+    <div class="kc kc-green"><div class="kl">Entradas Previstas</div><div class="kv var-pos" id="kv-pe">—</div></div>
+    <div class="kc kc-red"><div class="kl">Saídas Previstas</div><div class="kv var-neg" id="kv-ps">—</div></div>
+    <div class="kc"><div class="kl">Resultado Previsto</div><div class="kv" id="kv-pr">—</div></div>
+    <div class="kc"><div class="kl">Saldo Previsto</div><div class="kv" id="kv-pf">—</div><div class="ks">Saldo atual: R$ 9.851,96</div></div>
+  </div>
+  <div class="cc"><div class="ct">📊 Projeção Entradas vs Saídas</div><div class="ch-lg"><canvas id="cPrev"></canvas></div></div>
+</div>
+</div></div>
+
+<div id="quad-3" class="quadrante">
+<div class="tabs">
+  <button class="tab-btn" data-tab="s_alert" onclick="showTab('s_alert',this,3)">⚠️ Alertas e Riscos</button>
+  <button class="tab-btn" data-tab="s_pend" onclick="showTab('s_pend',this,3)">📌 Pendências</button>
+</div>
+<div class="main">
+<div id="s_alert" class="tc">
+  <div class="sec-header"><div class="sec-num">1</div><div class="sec-title">Alertas e Riscos Identificados</div></div>
+  <div class="alert-warn"><div class="alert-nivel">⚠️ ATENÇÃO</div><div class="alert-titulo">Faturamento 58.5% da meta em Maio 2026.</div><div class="alert-det">Gap de R$ 7.478,00 para atingir a meta mensal.</div></div><div class="alert-mon"><div class="alert-nivel">🔵 MONITORAR</div><div class="alert-titulo">Meta anual 47.0% concluída.</div><div class="alert-det">Ritmo: R$ 243.688,15/ano. Manter consistência de captação.</div></div>
+</div>
+<div id="s_pend" class="tc">
+  <div class="sec-header"><div class="sec-num">2</div><div class="sec-title">Pendências e Responsáveis</div></div>
+  <div class="tb"><table><thead><tr><th style="width:45%">Pendência</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead><tbody><tr class="pend-warn"><td><strong>⚠️ Faturamento abaixo da meta em Maio 2026</strong><br><small>Faturado: R$ 10.522,00 / Meta: R$ 18.000,00.</small></td><td>Clara</td><td>15 dias</td><td><span class="badge b-warn">Pendente</span></td></tr><tr class="pend-info"><td><strong>🔵 Atualização Semanal</strong><br><small>Exportar fluxo de caixa todo início de semana.</small></td><td>Clara</td><td>Toda semana</td><td><span class="badge b-info">Recorrente</span></td></tr><tr class="pend-info"><td><strong>🔵 Classificar lançamentos sem categoria</strong><br><small>Há lançamentos no PAGAMENTOS sem categoria/centro de custo.</small></td><td>Clara</td><td>7 dias</td><td><span class="badge b-info">Pendente</span></td></tr></tbody></table></div>
+</div>
+</div></div>
+
+<div class="footer">Clara Assistance · Dashboard Financeiro 2026 · BPO: Chanquini Estratégias Financeiras · Atualizado em 20/05/2026</div>
+
+<script>
+
+const DM={"1": {"ent": 19364.0, "sai": 14696.88, "res": 4667.12, "saldo_ini": 830.36, "saldo_fim": 5279.62, "gestao": 10088, "cats_l": ["Remuneração Autônomos", "Antecip. Lucros", "Outros Serv.", "Software", "Telefonia", "Aluguel"], "cats_v": [3700, 10088, 275, 67, 130, 370], "top5e": [["CASSIO SVIATOWSKI", "Ass. Pessoal e Emp.", 2847], ["Pix Recebido Eduardo", "Ass. Pessoal", 2500], ["MARCIA DA COSTA OLIVEIRA", "Ass. Pessoal", 3600], ["Jose Augusto Dias Neto", "Ass. Pessoal e Emp.", 2500], ["Mario Luiz Bernert", "Ass. Pessoal", 1250]], "top5s": [["Antecipação de Lucros", "Gestão", 10088], ["Remuneração Autônomos", "Operacional", 3700], ["Aluguel", "Administrativo", 370], ["Outros Serv. Terceiros", "Administrativo", 275], ["Telefonia", "Administrativo", 130]], "projetado": false, "tem_dados": true, "nome": "Janeiro", "label": "Jan"}, "2": {"ent": 33370.0, "sai": 25079.28, "res": 8290.72, "saldo_ini": 5279.62, "saldo_fim": 12850.51, "gestao": 11500, "cats_l": ["Antecip. Lucros", "Remuneração Autônomos", "Aluguel", "Software", "Telefonia", "Outros Serv."], "cats_v": [11500, 4100, 400, 134, 130, 295], "top5e": [["André Boaventura Czelusniak", "Pontual", 15000], ["Pix Recebido Eduardo", "Ass. Pessoal", 2500], ["CARLOS SVIATOWSKI", "Ass. Pessoal e Emp.", 2970], ["Mario Luiz Bernert", "Ass. Pessoal", 1250], ["Ana Florenca Lopes", "Ass. Pessoal", 1000]], "top5s": [["Antecipação de Lucros", "Gestão", 11500], ["Remuneração Autônomos", "Operacional", 4100], ["Aluguel", "Administrativo", 400], ["Telefonia", "Administrativo", 130], ["Software", "Administrativo", 134]], "projetado": false, "tem_dados": true, "nome": "Fevereiro", "label": "Fev"}, "3": {"ent": 20237.3, "sai": 18596.2, "res": 1641.1, "saldo_ini": 12850.51, "saldo_fim": 10605.55, "gestao": 13500, "cats_l": ["Antecip. Lucros", "Remuneração Autônomos", "Reembolso Clientes", "Outros Serv.", "Software", "Telefonia"], "cats_v": [13500, 4800, 2897, 292, 244, 130], "top5e": [["Pix Recebido Eduardo", "Ass. Pessoal", 2500], ["CASSIO SVIATOWSKI", "Ass. Pessoal e Emp.", 2970], ["Renata Lustoza", "Ass. Pessoal", 2000], ["MAYARA BERTHOUD", "Ass. Pessoal", 1600], ["AS INVESTIDORAS LTDA", "Ass. Pessoal", 1595.3]], "top5s": [["Antecipação de Lucros", "Gestão", 13500], ["Remuneração Autônomos", "Operacional", 4800], ["Reembolso Clientes", "Operacional", 2897], ["Software/Licença", "Administrativo", 244], ["DAS MEI", "Administrativo", 86]], "projetado": false, "tem_dados": true, "nome": "Março", "label": "Mar"}, "4": {"ent": 18043.43, "sai": 21598.93, "res": -3555.5, "saldo_ini": 10605.55, "saldo_fim": 5274.83, "gestao": 14691.91, "cats_l": ["Antecip. Lucros", "Remuneração Autônomos", "Brindes e Presentes", "Software", "Telefonia", "Reembolso Clientes"], "cats_v": [14691.91, 5900, 566, 1053, 130, 318], "top5e": [["CASSIO SVIATOWSKI", "Ass. Pessoal e Emp.", 2970], ["Renata Lustoza", "Ass. Pessoal", 4326.13], ["MATHEUS DETZEL BERNERT", "Ass. Pessoal", 1350], ["MAYARA BERTHOUD", "Ass. Pessoal", 1600], ["Mario Luiz Bernert", "Ass. Pessoal", 1350]], "top5s": [["Antecipação de Lucros", "Gestão", 14691.91], ["Remuneração Autônomos", "Operacional", 5900], ["Software/Licença", "Administrativo", 1053], ["Brindes e Presentes", "Operacional", 566], ["Telefonia", "Administrativo", 130]], "projetado": false, "tem_dados": true, "nome": "Abril", "label": "Abr"}, "5": {"ent": 10522.0, "sai": 5944.87, "res": 4577.13, "saldo_ini": 5274.83, "saldo_fim": 9851.96, "gestao": 0, "cats_l": ["Remuneração Autônomos", "Brindes e Presentes", "Telefonia", "Reembolso Clientes", "Software", "MEI"], "cats_v": [5800, 200, 144.87, 139.3, 117, 86.05], "top5e": [["CASSIO SVIATOWSKI", "Ass. Pessoal e Emp.", 2970], ["MARCIA DA COSTA OLIVEIRA", "Ass. Pessoal", 1800], ["MATHEUS DETZEL BERNERT", "Ass. Pessoal", 1350], ["Mario Luiz Bernert", "Ass. Pessoal", 1350], ["Ana Florenca Lopes", "Ass. Pessoal", 1100]], "top5s": [["Remuneração Autônomos", "Operacional", 5800], ["Telefonia", "Administrativo", 261.87], ["DAS MEI", "Administrativo", 86.05], ["Brindes e Presentes", "Operacional", 200], ["Reembolso Cliente", "Operacional", 139.3]], "projetado": false, "tem_dados": true, "nome": "Maio", "label": "Mai"}, "6": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Junho", "label": "Jun"}, "7": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Julho", "label": "Jul"}, "8": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Agosto", "label": "Ago"}, "9": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Setembro", "label": "Set"}, "10": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Outubro", "label": "Out"}, "11": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Novembro", "label": "Nov"}, "12": {"ent": 0, "sai": 0, "res": 0, "saldo_ini": 0, "saldo_fim": 0, "gestao": 0, "cats_l": [], "cats_v": [], "top5e": [], "top5s": [], "projetado": true, "tem_dados": false, "nome": "Dezembro", "label": "Dez"}};
+const MES_ATUAL=5;const META_MES=18000.0;const META_ANUAL=216000.0;
+const LBL_TODOS=["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+const ENT_T=[19364.0, 33370.0, 20237.3, 18043.43, 10522.0, 0, 0, 0, 0, 0, 0, 0];const SAI_T=[14696.88, 25079.28, 18596.2, 21598.93, 5944.87, 0, 0, 0, 0, 0, 0, 0];const RES_T=[4667.12, 8290.72, 1641.1, -3555.5, 4577.13, 0, 0, 0, 0, 0, 0, 0];const SLD_T=[5279.62, 12850.51, 10605.55, 5274.83, 9851.96, 0, 0, 0, 0, 0, 0, 0];
+const MESES_NM={"1": "Janeiro", "2": "Fevereiro", "3": "Março", "4": "Abril", "5": "Maio", "6": "Junho", "7": "Julho", "8": "Agosto", "9": "Setembro", "10": "Outubro", "11": "Novembro", "12": "Dezembro"};
+const PREV={ot_e:23353.45,re_e:20307.35,pe_e:15230.51,sai:17183.23,
+  ot_r:6170.22,re_r:3124.12,pe_r:-1952.72,
+  ot_s:16022.18,re_s:12976.08,pe_s:7899.24};
+
+
+var charts={},cScen='re',mf=MES_ATUAL;
+function fmtR(v){v=parseFloat(v);var s=Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});return(v>=0?'R$ ':'R$ -')+s;}
+function kc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+function mkc(id,type,labels,datasets,extra){
+  kc(id);var ctx=document.getElementById(id);if(!ctx)return;
+  var base={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},boxWidth:12,padding:10}}},
+    scales:(type==='doughnut'||type==='pie')?{}:{y:{ticks:{callback:function(v){return'R$'+(Math.abs(v)/1000).toFixed(0)+'k';},font:{size:9.5}},grid:{color:'#e2e8f0'}},x:{ticks:{font:{size:9.5}},grid:{display:false}}}};
+  if(extra)Object.keys(extra).forEach(function(k){if(k==='plugins')Object.assign(base.plugins,extra.plugins);else base[k]=extra[k];});
+  charts[id]=new Chart(ctx,{type:type,data:{labels:labels,datasets:datasets},options:base});
+}
+function showQuadrante(q,elBtn){
+  document.querySelectorAll('.quadrante').forEach(function(x){x.classList.remove('qactive');});
+  document.querySelectorAll('.quad-btn').forEach(function(x){x.classList.remove('active');});
+  var quad=document.getElementById('quad-'+q);if(!quad)return;
+  quad.classList.add('qactive');if(elBtn)elBtn.classList.add('active');
+  var ft=quad.querySelector('.tab-btn');if(ft){showTab(ft.getAttribute('data-tab'),ft,q);}
+}
+function showTab(id,elBtn,quadNum){
+  var quad=document.getElementById('quad-'+quadNum);if(!quad)return;
+  quad.querySelectorAll('.tc').forEach(function(t){t.classList.remove('active');});
+  quad.querySelectorAll('.tab-btn').forEach(function(t){t.classList.remove('active');});
+  var tabEl=document.getElementById(id);if(tabEl)tabEl.classList.add('active');
+  if(elBtn)elBtn.classList.add('active');
+  if(id==='s_fech')atualizarFech();
+  if(id==='s_acum')atualizarAcumulado();
+  if(id==='s_prev')renderPrevisao(cScen);
+}
+function trocarMes(selId){
+  mf=parseInt(document.getElementById(selId).value);
+  document.querySelectorAll('.sel-mes').forEach(function(s){s.value=mf;});
+  atualizarFech();
+}
+function el(id){return document.getElementById(id);}
+function atualizarFech(){
+  var d=DM[mf];
+  if(el('kv-fat-f'))el('kv-fat-f').textContent=fmtR(d.ent);
+  if(el('kv-sai-f'))el('kv-sai-f').textContent=fmtR(d.sai);
+  if(el('kv-res-f')){el('kv-res-f').textContent=fmtR(d.res);el('kv-res-f').className='kv'+(d.res>=0?' var-pos':' var-neg');}
+  if(el('kv-sld-f')){el('kv-sld-f').textContent=fmtR(d.saldo_fim);el('kv-sld-f').className='kv'+(d.saldo_fim>=0?' var-pos':' var-neg');}
+  if(el('kv-gest-f')){el('kv-gest-f').textContent=fmtR(d.gestao);}
+  document.querySelectorAll('.mes-label').forEach(function(x){x.textContent=MESES_NM[mf]+' 2026'+(d.projetado?' (Projetado)':'');});
+  document.querySelectorAll('.kv-saldo-ini').forEach(function(x){x.textContent=fmtR(d.saldo_ini);});
+  if(d.cats_l&&d.cats_l.length){
+    mkc('cCats','bar',d.cats_l,[{data:d.cats_v,backgroundColor:['#0B2545','#16a34a','#d97706','#1B6CA8','#dc2626','#60a5fa','#94a3b8'],borderWidth:2,label:'Despesas'}],
+      {plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9}}},y:{ticks:{callback:function(v){return'R$'+(v/1000).toFixed(0)+'k';},font:{size:9}}}}});
+  }
+  var t5e='';(d.top5e||[]).forEach(function(r){t5e+='<tr><td>'+r[0]+'</td><td><span class="cat-tag">'+r[1]+'</span></td><td style="font-weight:700;color:#16a34a">'+fmtR(r[2])+'</td></tr>';});
+  if(el('t5e'))el('t5e').innerHTML=t5e||'<tr><td colspan="3" style="text-align:center;color:var(--muted)">Sem dados</td></tr>';
+  var t5s='';(d.top5s||[]).forEach(function(r){t5s+='<tr><td>'+r[0]+'</td><td><span class="cat-tag">'+r[1]+'</span></td><td style="font-weight:700;color:#dc2626">'+fmtR(r[2])+'</td></tr>';});
+  if(el('t5s'))el('t5s').innerHTML=t5s||'<tr><td colspan="3" style="text-align:center;color:var(--muted)">Sem dados</td></tr>';
+}
+function atualizarAcumulado(){
+  var cbs=document.querySelectorAll('.fa-cb input:checked');
+  var meses=Array.from(cbs).map(function(cb){return parseInt(cb.value);}).sort(function(a,b){return a-b;});
+  if(!meses.length)return;
+  var te=0,ts=0,sds=[];
+  meses.forEach(function(m){te+=DM[m].ent;ts+=DM[m].sai;sds.push(DM[m].saldo_fim);});
+  var tr=Math.round((te-ts)*100)/100,ult=sds[sds.length-1];
+  if(el('ac-ent'))el('ac-ent').textContent=fmtR(te);
+  if(el('ac-sai'))el('ac-sai').textContent=fmtR(ts);
+  if(el('ac-res')){el('ac-res').textContent=fmtR(tr);el('ac-res').className='kv'+(tr>=0?' var-pos':' var-neg');}
+  if(el('ac-sld')){el('ac-sld').textContent=fmtR(ult);el('ac-sld').className='kv'+(ult>=0?' var-pos':' var-neg');}
+  var tbody='',acr=0;
+  meses.forEach(function(m){
+    var d=DM[m];acr=Math.round((acr+d.res)*100)/100;
+    var pm=d.ent>0?Math.round(d.ent/META_MES*1000)/10:0;
+    var cr=d.res>=0?'var-pos':'var-neg',ca=acr>=0?'var-pos':'var-neg',cp=pm>=100?'var-pos':pm>=70?'var-warn':'var-neg';
+    var pj=d.projetado?'<small style="color:var(--muted);font-style:italic"> (proj.)</small>':'';
+    tbody+='<tr><td class="tb-bold">'+d.nome+'/26'+pj+'</td>'
+      +'<td>'+(d.ent>0?fmtR(d.ent):'—')+'</td>'+'<td>'+fmtR(d.sai)+'</td>'
+      +'<td class="'+cr+'">'+fmtR(d.res)+'</td>'+'<td class="'+ca+'">'+fmtR(acr)+'</td>'
+      +'<td class="'+cp+'">'+pm+'%</td>'+'<td>'+fmtR(d.saldo_fim)+'</td></tr>';
+  });
+  tbody+='<tr class="tr-total"><td>TOTAL</td><td>'+fmtR(te)+'</td><td>'+fmtR(ts)+'</td>'
+    +'<td class="'+(tr>=0?'var-pos':'var-neg')+'">'+fmtR(tr)+'</td>'
+    +'<td class="'+(tr>=0?'var-pos':'var-neg')+'">'+fmtR(tr)+'</td>'
+    +'<td>—</td><td>'+fmtR(ult)+'</td></tr>';
+  if(el('ac-tbody'))el('ac-tbody').innerHTML=tbody;
+}
+function renderPrevisao(sc){
+  cScen=sc;
+  document.querySelectorAll('.st').forEach(function(b){b.classList.remove('active','ot','re','pe');if(b.getAttribute('data-sc')===sc)b.classList.add('active',sc);});
+  var E=sc==='ot'?PREV.ot_e:sc==='re'?PREV.re_e:PREV.pe_e;
+  var R=sc==='ot'?PREV.ot_r:sc==='re'?PREV.re_r:PREV.pe_r;
+  var F=sc==='ot'?PREV.ot_s:sc==='re'?PREV.re_s:PREV.pe_s;
+  if(el('kv-pe'))el('kv-pe').textContent=fmtR(E);
+  if(el('kv-ps'))el('kv-ps').textContent=fmtR(PREV.sai);
+  if(el('kv-pr')){el('kv-pr').textContent=fmtR(R);el('kv-pr').className='kv'+(R>=0?' var-pos':' var-neg');}
+  if(el('kv-pf')){el('kv-pf').textContent=fmtR(F);el('kv-pf').className='kv'+(F>=0?' var-pos':' var-neg');}
+  mkc('cPrev','bar',['Entradas','Saídas','Resultado'],
+    [{data:[E,PREV.sai,R],backgroundColor:['rgba(22,163,74,.75)','rgba(220,38,38,.75)',R>=0?'rgba(22,163,74,.75)':'rgba(220,38,38,.75)'],borderRadius:6,borderSkipped:false}],
+    {plugins:{legend:{display:false}}});
+}
+function renderGerais(){
+  mkc('cGeral','bar',LBL_TODOS,[
+    {label:'Entradas',data:ENT_T,backgroundColor:'rgba(22,163,74,.75)',borderRadius:4,borderSkipped:false},
+    {label:'Saídas',data:SAI_T,backgroundColor:'rgba(220,38,38,.75)',borderRadius:4,borderSkipped:false}]);
+  mkc('cRes','bar',LBL_TODOS,
+    [{label:'Resultado',data:RES_T,backgroundColor:RES_T.map(function(v){return v>=0?'rgba(22,163,74,.75)':'rgba(220,38,38,.75)';}),borderRadius:5,borderSkipped:false}],
+    {plugins:{legend:{display:false}}});
+  mkc('cSld','line',LBL_TODOS,
+    [{label:'Saldo',data:SLD_T,borderColor:'#0B2545',backgroundColor:'rgba(11,37,69,.08)',fill:true,tension:.4,pointRadius:5,pointBackgroundColor:SLD_T.map(function(v){return v>=0?'#16a34a':'#dc2626';})}]);
+  // Mix receitas acumulado
+  var cats=['Assessoria Pessoal','Ass. Pessoal e Emp.','Pontual','Ass. Empresarial'];
+  var vals=[57036.73+6800, 19483+3722, 15365, 752];
+  mkc('cRecTipo','doughnut',cats,
+    [{data:vals,backgroundColor:['#1B6CA8','#0D4A7A','#d97706','#60a5fa'],borderWidth:2}],
+    {plugins:{legend:{position:'bottom'}}});
+}
+document.addEventListener('DOMContentLoaded',function(){
+  renderGerais();atualizarFech();atualizarAcumulado();renderPrevisao('re');
+  document.getElementById('quad-1').classList.add('qactive');
+  document.querySelector('.quad-btn').classList.add('active');
+  var ft=document.querySelector('#quad-1 .tab-btn');
+  if(ft){showTab(ft.getAttribute('data-tab'),ft,1);}
+});
+
+</script>
+</body>
+</html>
