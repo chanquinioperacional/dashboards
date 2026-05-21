@@ -1494,7 +1494,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Execução meta anual</span><span>31,4%</span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:31%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
           </div>
-          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05/2026: R$ 152.523,91</div>
+          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
         </div>
         <div class="period-card prev">
           <div class="pc-label">A Receber em aberto</div>
@@ -1505,7 +1505,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Wellhub, Reinvente, Sindicato</span><span></span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:35%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
           </div>
-          <div class="pc-sub">Saldo em conta no dia 18/05/2026: R$ 152.523,91</div>
+          <div class="pc-sub">Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
         </div>
       </div>
 
@@ -2194,7 +2194,7 @@ const SCORE_CFG = {
     {mes:'Jan', val:65, status:'alerta'},
     {mes:'Fev', val:61, status:'alerta'},
     {mes:'Mar', val:70, status:'saudavel'},
-    {mes:'Abr', val:59, status:'alerta', atual:true},
+    {mes:'Abr', val:55, status:'alerta', atual:true},
     {mes:'Mai', val:74, status:'saudavel', atual:true},
   ]
 };
@@ -2372,7 +2372,7 @@ function exportPDF(){
     const RES_ACUM  = 'R$ 131.017,16';
     const META_ANUAL= 'R$ 1.684.603,20';
     const EXEC_META = '31.4%';
-    const SALDO     = 'R$ 152.523,91';
+    const SALDO     = 'R$ 106.198,63';
     const A_REC     = 'R$ 50.095,90';
     const A_PAG     = 'R$ 259.630,05';
     const CARTA_TXT = (document.getElementById('carta-texto-home')?.textContent||'')
@@ -2677,7 +2677,7 @@ function exportPDF(){
 
     const destaques=[
       {lbl:'ATENCAO',  tc:RED,   bg:BGRED, txt:'Resultado de -R$ 36.706,12 em Abril. Despesas (R$ 116.124,88) superaram faturamento (R$ 79.418,76) em 46%.'},
-      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05/2026: R$ 152.523,91Resultado de Marco sustenta o ano.'},
+      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05/2026: R$ 106.198,63Resultado de Marco sustenta o ano.'},
       {lbl:'PROXIMO PASSO',tc:YELLOW,bg:BGYEL,txt:'Converter R$ 50.095,90 a receber (Wellhub, Reinvente, Sindicato) e negociar R$ 259.630,05 a pagar.'},
     ];
     destaques.forEach(d=>{
