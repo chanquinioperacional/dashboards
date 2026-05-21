@@ -1282,6 +1282,118 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   justify-content:center;padding:8px 0
 }
 
+/* ── RUNWAY DE CAIXA ──────────────────────────────────────────────── */
+.runway-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:20px;
+  margin-bottom:14px;box-shadow:var(--sh);
+  display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center
+}
+.runway-gauge{position:relative;width:100px;height:100px;flex-shrink:0}
+.runway-gauge svg{width:100px;height:100px}
+.runway-center{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center
+}
+.runway-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;font-weight:300;color:var(--text);line-height:1
+}
+.runway-unit{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.5px;text-transform:uppercase}
+.runway-info{}
+.runway-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:500;color:var(--text);margin-bottom:4px
+}
+.runway-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.runway-zones{display:flex;gap:6px;flex-wrap:wrap}
+.rz{font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid transparent}
+.rz.critico{background:var(--rbg);color:var(--red);border-color:var(--rborder)}
+.rz.atencao{background:var(--ybg);color:var(--yellow);border-color:var(--yborder)}
+.rz.saudavel{background:var(--gbg);color:var(--green);border-color:var(--gborder)}
+.rz.seguro{background:var(--bbg);color:var(--blue);border-color:rgba(29,78,216,.25)}
+.rz.ativo{font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+
+/* ── TIMELINE DE VENCIMENTOS ──────────────────────────────────────────────── */
+.timeline-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:20px;
+  margin-bottom:14px;box-shadow:var(--sh)
+}
+.tl-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px
+}
+.tl-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:600;color:var(--text)
+}
+.tl-legend{display:flex;gap:12px}
+.tl-leg-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--muted)}
+.tl-leg-dot{width:8px;height:8px;border-radius:50%}
+.tl-list{display:flex;flex-direction:column;gap:8px}
+.tl-item{
+  display:grid;grid-template-columns:56px 1fr auto;gap:12px;
+  align-items:center;padding:10px 14px;border-radius:10px;
+  background:var(--silver2);border:1px solid var(--border);
+  transition:var(--tr)
+}
+.tl-item:hover{background:var(--card2);border-color:var(--border2)}
+.tl-item.vencido{background:var(--rbg);border-color:var(--rborder)}
+.tl-item.urgente{background:var(--ybg);border-color:var(--yborder)}
+.tl-item.ok{background:var(--gbg);border-color:var(--gborder)}
+.tl-date{text-align:center}
+.tl-day{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:600;line-height:1
+}
+.tl-item.vencido .tl-day{color:var(--red)}
+.tl-item.urgente .tl-day{color:var(--yellow)}
+.tl-item.ok .tl-day{color:var(--green)}
+.tl-month{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.tl-body{}
+.tl-nome{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:2px}
+.tl-tipo{font-size:10.5px;color:var(--muted)}
+.tl-valor{text-align:right}
+.tl-val-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:600
+}
+.tl-item.vencido .tl-val-num{color:var(--red)}
+.tl-item.urgente .tl-val-num{color:var(--yellow)}
+.tl-item.ok .tl-val-num{color:var(--green)}
+.tl-val-lbl{font-size:9.5px;color:var(--muted)}
+.tl-empty{text-align:center;padding:20px;font-size:12px;color:var(--muted);font-style:italic}
+
+/* ── SCORE HISTÓRICO AUTOMÁTICO ──────────────────────────────────────────────── */
+.score-auto-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.score-auto-card{
+  background:var(--card);border-radius:var(--r);
+  border:1px solid var(--border);padding:14px;
+  text-align:center;box-shadow:var(--sh);
+  transition:var(--tr);position:relative;overflow:hidden
+}
+.score-auto-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px
+}
+.score-auto-card.critico::after{background:var(--red)}
+.score-auto-card.alerta::after{background:var(--yellow)}
+.score-auto-card.saudavel::after{background:var(--green)}
+.score-auto-card.estrategico::after{background:var(--gold)}
+.score-auto-card.ativo{border-color:var(--gold);box-shadow:var(--sh2)}
+.sa-mes{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.sa-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;font-weight:300;line-height:1;margin-bottom:4px
+}
+.sa-val.critico{color:var(--red)}
+.sa-val.alerta{color:var(--yellow)}
+.sa-val.saudavel{color:var(--green)}
+.sa-val.estrategico{color:var(--gold2)}
+.sa-lbl{font-size:10px;color:var(--muted);font-family:'Cormorant Garamond',serif}
+.sa-delta{font-size:10.5px;font-weight:600;margin-top:4px}
+.sa-delta.up{color:var(--green)}.sa-delta.down{color:var(--red)}.sa-delta.eq{color:var(--muted)}
+
 /* ── SVG HEXAGON ──────────────────────────────────────────────── */
 .hex-svg-border{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.6}
 .hex-svg-fill{fill:rgba(201,168,76,.08)}
@@ -1388,6 +1500,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="sb-sec">Principal</div>
       <a class="ni active" onclick="nav('inicio',this)"><span class="ni-ico">⬡</span>Início<span class="ni-dot" id="nd"></span></a>
       <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">◫</span>Dashboards</a>
+      <a class="ni" onclick="nav('painel',this)"><span class="ni-ico">◉</span>Painel Financeiro</a>
       <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">◈</span>Estratégia</a>
       <a class="ni" onclick="nav('metas',this)"><span class="ni-ico">◎</span>Metas</a>
       <a class="ni" onclick="nav('score',this)"><span class="ni-ico">⬡</span>GFE Score</a>
@@ -1455,8 +1568,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div>
           <div class="term-lbl">GFE Score — Status do Mês</div>
           <div class="term-row">
-            <span class="tbadge v" id="term-badge" class="tbadge a">● Em Alerta</span>
-            <span class="term-txt" id="term-txt">Abril 2026 — Em Alerta</span>
+            <span class="tbadge v" id="term-badge">● Saudável</span>
+            <span class="term-txt" id="term-txt">Maio 2026 — No caminho certo</span>
           </div>
         </div>
       </div>
@@ -1465,19 +1578,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="period-grid">
         <div class="period-card fat">
           <div class="pc-label">Faturamento</div>
-          <div class="pc-ref" id="pc-ref-fat">Realizado até 18/05/2026</div>
-          <div class="pc-val fat" id="pc-val-fat">R$ 25.266,82</div>
+          <div class="pc-ref" id="pc-ref-fat">Realizado até 18/Mai</div>
+          <div class="pc-val fat" id="pc-val-fat">R$ 25.267</div>
           <span class="pc-delta neutral" id="pc-delta-fat">◈ Em andamento</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">18.0%</span></div>
+            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">18%</span></div>
             <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-fat" style="width:18%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div>
           </div>
           <div class="pc-sub">Meta mensal: R$ 140.383,60 · R$ 17.959 atrasados</div>
         </div>
         <div class="period-card desp">
           <div class="pc-label">Despesas</div>
-          <div class="pc-ref" id="pc-ref-desp">Pagas até 18/05/2026</div>
-          <div class="pc-val desp" id="pc-val-desp">R$ 39.592,10</div>
+          <div class="pc-ref" id="pc-ref-desp">Pagas até 18/Mai</div>
+          <div class="pc-val desp" id="pc-val-desp">R$ 39.592</div>
           <span class="pc-delta down" id="pc-delta-desp">↑ Atenção ao limite</span>
           <div class="pc-bar-wrap">
             <div class="pc-bar-lbl"><span>% do faturamento esperado</span><span id="pc-pct-desp">28%</span></div>
@@ -1494,7 +1607,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Execução meta anual</span><span>31,4%</span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:31%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
           </div>
-          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
+          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05: R$ 106.199</div>
         </div>
         <div class="period-card prev">
           <div class="pc-label">A Receber em aberto</div>
@@ -1505,7 +1618,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Wellhub, Reinvente, Sindicato</span><span></span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:35%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
           </div>
-          <div class="pc-sub">Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
+          <div class="pc-sub">Saldo em conta no dia 18/05: R$ 106.199</div>
         </div>
       </div>
 
@@ -1513,7 +1626,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="prog">
         <div class="prog-h">
           <div class="prog-ttl">Meta Anual 2026</div>
-          <div class="prog-pct">31.4%</div>
+          <div class="prog-pct">31,4%</div>
         </div>
         <div class="prog-trk"><div class="prog-fill" style="width:31.4%"></div></div>
         <div class="prog-sub"><span>R$ 528.301,66 faturados (Jan–Abr)</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
@@ -1554,6 +1667,84 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           <div class="av-item"><div class="av-ico">🔔</div><div class="av-txt" id="aviso1">Próximo fechamento: entrega dos documentos até dia 03/06</div></div>
           <div class="av-item"><div class="av-ico">✦</div><div class="av-txt" id="aviso2">Fechamento de Abril 2026 disponível no menu Dashboards</div></div>
         </div>
+      </div>
+    </div>
+
+    <!-- PAINEL FINANCEIRO -->
+    <div id="page-painel" class="page">
+      <div class="ph"><h1>Painel Financeiro</h1><p>Reserva de caixa, score histórico e vencimentos</p></div>
+
+      <!-- ── RUNWAY INTERATIVO ── -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ct">◉ Reserva de Caixa — Quantos dias seu dinheiro aguenta</div>
+        <div style="display:grid;grid-template-columns:160px 1fr;gap:28px;align-items:center;padding:8px 0">
+
+          <!-- Gauge -->
+          <div style="position:relative;width:160px;height:160px;flex-shrink:0">
+            <svg viewBox="0 0 160 160" width="160" height="160">
+              <circle cx="80" cy="80" r="64" fill="none" stroke="var(--border2)" stroke-width="10"/>
+              <circle cx="80" cy="80" r="64" fill="none" id="rw-arc-p"
+                stroke="#16A34A" stroke-width="10"
+                stroke-dasharray="402" stroke-dashoffset="100"
+                stroke-linecap="round"
+                transform="rotate(-90 80 80)"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--text);line-height:1" id="rw-days-p">75</div>
+              <div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">dias</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--muted);margin-top:4px" id="rw-meses-p">~2,5 meses</div>
+            </div>
+          </div>
+
+          <!-- Info + Slider -->
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);margin-bottom:6px">
+              Caixa suficiente para <span id="rw-meses-label-p" style="color:var(--green)">~2,5 meses</span>
+            </div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:14px">
+              Saldo disponível <strong id="rw-saldo-label-p">R$ 106.199</strong> ÷ saída diária estimada <strong id="rw-diario-p">R$ 2.072/dia</strong><br>
+              Referência: 18/05/2026 
+            </div>
+
+            <!-- Slider interativo -->
+            <div style="background:var(--silver2);border-radius:10px;padding:14px 16px;margin-bottom:14px;border:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                <span style="font-size:11px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.5px">Simular despesa mensal</span>
+                <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text)" id="rw-slider-val-p">R$ 62.174</span>
+              </div>
+              <div style="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:10px">
+                Arraste para simular diferentes cenários de despesa e ver o impacto na sua reserva de caixa
+              </div>
+              <input type="range" id="rw-slider-p"
+                min="20000" max="106199" step="1000" value="62174"
+                style="width:100%;accent-color:var(--gold);height:4px;cursor:pointer">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px">
+                <span>R$ 20k</span><span style="color:var(--muted);font-style:italic">máx: saldo atual R$ 106.199</span>
+              </div>
+            </div>
+
+            <!-- Zonas -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap" id="rw-zones-p">
+              <span class="rz critico">&lt;30d Crítico</span>
+              <span class="rz atencao">30–60d Atenção</span>
+              <span class="rz saudavel ativo">60–90d Saudável ✓</span>
+              <span class="rz seguro">&gt;90d Seguro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TIMELINE DE VENCIMENTOS ── -->
+      <div class="timeline-card">
+        <div class="tl-header">
+          <div class="tl-title">◎ Vencimentos — Próximos 30 dias</div>
+          <div class="tl-legend">
+            <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--red)"></div>Vencido</div>
+            <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--yellow)"></div>Urgente ≤7d</div>
+            <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--green)"></div>A vencer</div>
+          </div>
+        </div>
+        <div class="tl-list" id="tl-list"></div>
       </div>
     </div>
 
@@ -1916,7 +2107,7 @@ const CFG = {
     segmento:"Produção Audiovisual, Eventos e Projetos Criativos"
   },
   dashboards:{
-    "Abril 2026":{url:"https://chanquinioperacional.github.io/dashboards/dashboard_2026_1779396641.html",entrega:"05/05/2026"}
+    "Abril 2026":{url:"https://chanquinioperacional.github.io/dashboards/dashboard_2026_1779372037.html",entrega:"05/04/2026"}
     // "Maio 2026":{url:"LINK",entrega:"05/06/2026"},
   },
   cartas:[
@@ -1929,10 +2120,10 @@ const CFG = {
 // ══════════════════════════════════════════════════════════════════════
 
 const dadosMensais={
-  labels:["Jan", "Fev", "Mar", "Abr*", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-  fat:[134564.84, 99611.25, 214706.81, 79418.76, 43225.66, 42774.9, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-  desp:[78852.75, 110101.8, 92205.07, 116124.88, 62173.88, 37748.35, 34118.32, 34118.32, 34118.32, 33748.32, 33748.32, 31748.32],
-  res:[55712.09, -10490.55, 122501.74, -36706.12, -18948.22, 5026.55, -34118.32, -34118.32, -34118.32, -33748.32, -33748.32, -31748.32]
+  labels:['Jan','Fev','Mar','Abr','Mai*'],
+  fat:[134565,99611,214707,79419,43226],
+  desp:[78853,110102,92205,116125,62174],
+  res:[55712,-10491,122502,-36706,-18948]
 };
 
 // SPLASH → LOGIN
@@ -1986,7 +2177,7 @@ function login(){
     if(id('gb-client-name'))id('gb-client-name').textContent=CFG.cliente.nome+' 👋';
     if(id('pf-nome'))id('pf-nome').textContent=CFG.cliente.nome;
     if(id('pf-seg'))id('pf-seg').textContent=CFG.cliente.segmento;
-    buildDash();buildCal();buildCartas();buildScore();initCharts();initAnualCharts();
+    buildDash();buildCal();buildCartas();buildScore();buildScoreAuto();buildRunway();buildTimeline();initCharts();initAnualCharts();
   }else{
     err.style.display='block';
     document.getElementById('lp').style.borderColor='var(--red)';
@@ -2004,7 +2195,7 @@ function logout(){
 }
 
 // NAV
-const PNS={inicio:'Início',dashboards:'Dashboards',estrategia:'Estratégia',metas:'Metas',score:'GFE Score',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
+const PNS={inicio:'Início',dashboards:'Dashboards',painel:'Painel Financeiro',estrategia:'Estratégia',metas:'Metas',score:'GFE Score',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
@@ -2177,7 +2368,143 @@ function initAnualCharts(){
   });
 }
 
-// ══ GFE SCORE ════════════════════════════════════════════════════════
+// ══ RUNWAY DE CAIXA ══════════════════════════════════════════════════════
+const RUNWAY_CFG = {
+  saldo: 106199,        // Saldo real em conta (excluindo Caixinha) — dia 18/05
+  despMensal: 62174,    // Despesas mensais Maio (parcial projetado)
+  dataRef: '18/05/2026'
+};
+
+function buildRunway(){
+  const {saldo, despMensal} = RUNWAY_CFG;
+
+  function fmt3(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
+
+  function update(desp){
+    const despDia = desp / 30;
+    const days = Math.round(saldo / despDia);
+    const meses = (days / 30).toFixed(1);
+    const mesesStr = '~' + meses + ' meses';
+
+    // IDs página Painel
+    const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+    set('rw-days-p', days);
+    set('rw-meses-p', mesesStr);
+    set('rw-meses-label-p', mesesStr);
+    set('rw-diario-p', fmt3(despDia) + '/dia');
+    set('rw-slider-val-p', fmt3(desp));
+
+    // Cor e arco do gauge
+    const cor = days < 30 ? '#DC2626' : days < 60 ? '#B45309' : days < 90 ? '#16A34A' : '#1D4ED8';
+    const arc = document.getElementById('rw-arc-p');
+    if(arc){
+      const circ = 402;
+      const pct = Math.min(days / 120, 1);
+      const offset = circ - circ * pct;
+      arc.setAttribute('stroke-dashoffset', offset + circ * 0.25);
+      arc.style.stroke = cor;
+    }
+
+    // Label de cor do meses
+    const lblMeses = document.getElementById('rw-meses-label-p');
+    if(lblMeses) lblMeses.style.color = cor;
+
+    // Zonas ativas
+    const zonesEl = document.getElementById('rw-zones-p');
+    if(zonesEl){
+      zonesEl.querySelectorAll('.rz').forEach(z => z.classList.remove('ativo'));
+      const idx = days < 30 ? 0 : days < 60 ? 1 : days < 90 ? 2 : 3;
+      const zones = zonesEl.querySelectorAll('.rz');
+      if(zones[idx]) zones[idx].classList.add('ativo');
+    }
+  }
+
+  // Inicializa com despesa configurada
+  update(despMensal);
+
+  // Listener do slider
+  const slider = document.getElementById('rw-slider-p');
+  if(slider){
+    slider.addEventListener('input', () => update(parseInt(slider.value)));
+  }
+}
+
+// ══ SCORE GFE HISTÓRICO AUTOMÁTICO ═══════════════════════════════════════
+function buildScoreAuto(){
+  const grid = document.getElementById('score-auto-grid');
+  if(!grid) return;
+  grid.innerHTML = SCORE_CFG.historico.map((h, i) => {
+    const st = SCORE_LABELS[h.status] || SCORE_LABELS.saudavel;
+    const prev = i > 0 ? SCORE_CFG.historico[i-1].val : null;
+    const delta = prev !== null ? h.val - prev : null;
+    const deltaHtml = delta !== null
+      ? `<div class="sa-delta ${delta > 0 ? 'up' : delta < 0 ? 'down' : 'eq'}">${delta > 0 ? '↑ +' : delta < 0 ? '↓ ' : '= '}${delta}</div>`
+      : '<div class="sa-delta eq">—</div>';
+    return `
+    <div class="score-auto-card ${h.status}${h.atual ? ' ativo' : ''}">
+      <div class="sa-mes">${h.mes} 2026${h.atual ? ' ✦' : ''}</div>
+      <div class="sa-val ${h.status}">${h.val}</div>
+      <div class="sa-lbl">${st.txt}</div>
+      ${deltaHtml}
+    </div>`;
+  }).join('');
+}
+
+// ══ TIMELINE DE VENCIMENTOS ═══════════════════════════════════════════════
+// Dados dos vencimentos — atualize todo mês junto com os cards de período
+const VENCIMENTOS = [
+  // {nome, tipo:'pagar'|'receber', valor, dia, mes} — próximos 30 dias
+  {nome:'Wellhub',                tipo:'receber', valor:'R$ 12.351',  dia:5,  mes:'Jun'},
+  {nome:'Reinvente Assessoria',   tipo:'receber', valor:'R$ 18.211',  dia:5,  mes:'Jun'},
+  {nome:'Wellhub',                tipo:'receber', valor:'R$ 6.722',   dia:11, mes:'Jun'},
+  {nome:'Wellhub',                tipo:'receber', valor:'R$ 5.491',   dia:12, mes:'Jun'},
+  {nome:'Julio Cesar (parcela)',  tipo:'pagar',   valor:'R$ 14.000',  dia:20, mes:'Mai'},
+  {nome:'Receita Federal (DAS)',  tipo:'pagar',   valor:'R$ 3.200',   dia:25, mes:'Mai'},
+  {nome:'Compulaser',             tipo:'pagar',   valor:'R$ 2.100',   dia:26, mes:'Mai'},
+];
+
+function buildTimeline(){
+  const list = document.getElementById('tl-list');
+  if(!list) return;
+
+  const hoje = new Date();
+  const itens = VENCIMENTOS.map(v => {
+    const mesNum = {Jan:0,Fev:1,Mar:2,Abr:3,Mai:4,Jun:5,Jul:6,Ago:7,Set:8,Out:9,Nov:10,Dez:11}[v.mes] ?? 4;
+    const dataVenc = new Date(2026, mesNum, v.dia);
+    const diffDias = Math.round((dataVenc - hoje) / (1000*60*60*24));
+    return {...v, diffDias, dataVenc};
+  }).sort((a,b) => a.diffDias - b.diffDias);
+
+  if(!itens.length){
+    list.innerHTML = '<div class="tl-empty">Nenhum vencimento nos próximos 30 dias</div>';
+    return;
+  }
+
+  list.innerHTML = itens.map(v => {
+    const cls = v.diffDias < 0 ? 'vencido' : v.diffDias <= 7 ? 'urgente' : 'ok';
+    const lbl = v.diffDias < 0 ? `${Math.abs(v.diffDias)}d atrasado` : v.diffDias === 0 ? 'Hoje' : `em ${v.diffDias}d`;
+    const tipoCor = v.tipo === 'receber' ? 'color:var(--blue)' : 'color:var(--red)';
+    const tipoLbl = v.tipo === 'receber' ? '↓ A Receber' : '↑ A Pagar';
+    return `
+    <div class="tl-item ${cls}">
+      <div class="tl-date">
+        <div class="tl-day">${String(v.dia).padStart(2,'0')}</div>
+        <div class="tl-month">${v.mes}</div>
+      </div>
+      <div class="tl-body">
+        <div class="tl-nome">${v.nome}</div>
+        <div class="tl-tipo" style="${tipoCor}">${tipoLbl} · ${lbl}</div>
+      </div>
+      <div class="tl-valor">
+        <div class="tl-val-num">${v.valor}</div>
+        <div class="tl-val-lbl">vencimento</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+// ══════════════════════════════════════════════════════════════════════════
+
+
 const SCORE_CFG = {
   atual: 74,
   status: 'saudavel', // critico | alerta | saudavel | estrategico
@@ -2194,7 +2521,7 @@ const SCORE_CFG = {
     {mes:'Jan', val:65, status:'alerta'},
     {mes:'Fev', val:61, status:'alerta'},
     {mes:'Mar', val:70, status:'saudavel'},
-    {mes:'Abr', val:55, status:'alerta', atual:true},
+    {mes:'Abr', val:69, status:'saudavel'},
     {mes:'Mai', val:74, status:'saudavel', atual:true},
   ]
 };
@@ -2364,14 +2691,14 @@ function exportPDF(){
     // Financeiro — dashboard Abril 2026
     const FAT       = 'R$ 79.418,76';
     const DESP      = 'R$ 116.124,88';
-    const RES       = 'R$ -36.706,12';
-    const MARGEM    = '-46.2%';         // margem líquida real de Abril (negativa)
+    const RES       = '– R$ 36.706,12';
+    const MARGEM    = '– 46,2%';         // margem líquida real de Abril (negativa)
     const META_MEN  = '56,6%';
     const FAT_ACUM  = 'R$ 528.301,66';
     const DESP_ACUM = 'R$ 397.284,50';
     const RES_ACUM  = 'R$ 131.017,16';
     const META_ANUAL= 'R$ 1.684.603,20';
-    const EXEC_META = '31.4%';
+    const EXEC_META = '31,4%';
     const SALDO     = 'R$ 106.198,63';
     const A_REC     = 'R$ 50.095,90';
     const A_PAG     = 'R$ 259.630,05';
@@ -2677,7 +3004,7 @@ function exportPDF(){
 
     const destaques=[
       {lbl:'ATENCAO',  tc:RED,   bg:BGRED, txt:'Resultado de -R$ 36.706,12 em Abril. Despesas (R$ 116.124,88) superaram faturamento (R$ 79.418,76) em 46%.'},
-      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05/2026: R$ 106.198,63Resultado de Marco sustenta o ano.'},
+      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05: R$ 106.198,63. Resultado de Marco sustenta o ano.'},
       {lbl:'PROXIMO PASSO',tc:YELLOW,bg:BGYEL,txt:'Converter R$ 50.095,90 a receber (Wellhub, Reinvente, Sindicato) e negociar R$ 259.630,05 a pagar.'},
     ];
     destaques.forEach(d=>{
