@@ -1568,8 +1568,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div>
           <div class="term-lbl">GFE Score — Status do Mês</div>
           <div class="term-row">
-            <span class="tbadge v" id="term-badge">● Saudável</span>
-            <span class="term-txt" id="term-txt">Maio 2026 — No caminho certo</span>
+            <span class="tbadge v" id="term-badge" class="tbadge a">● Em Alerta</span>
+            <span class="term-txt" id="term-txt">Abril 2026 — Em Alerta</span>
           </div>
         </div>
       </div>
@@ -1578,19 +1578,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="period-grid">
         <div class="period-card fat">
           <div class="pc-label">Faturamento</div>
-          <div class="pc-ref" id="pc-ref-fat">Realizado até 18/Mai</div>
-          <div class="pc-val fat" id="pc-val-fat">R$ 25.267</div>
+          <div class="pc-ref" id="pc-ref-fat">Realizado até 18/05/2026</div>
+          <div class="pc-val fat" id="pc-val-fat">R$ 25.266,82</div>
           <span class="pc-delta neutral" id="pc-delta-fat">◈ Em andamento</span>
           <div class="pc-bar-wrap">
-            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">18%</span></div>
+            <div class="pc-bar-lbl"><span>Progresso vs meta mensal</span><span id="pc-pct-fat">18.0%</span></div>
             <div class="pc-bar"><div class="pc-bar-fill" id="pc-fill-fat" style="width:18%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div>
           </div>
           <div class="pc-sub">Meta mensal: R$ 140.383,60 · R$ 17.959 atrasados</div>
         </div>
         <div class="period-card desp">
           <div class="pc-label">Despesas</div>
-          <div class="pc-ref" id="pc-ref-desp">Pagas até 18/Mai</div>
-          <div class="pc-val desp" id="pc-val-desp">R$ 39.592</div>
+          <div class="pc-ref" id="pc-ref-desp">Pagas até 18/05/2026</div>
+          <div class="pc-val desp" id="pc-val-desp">R$ 39.592,10</div>
           <span class="pc-delta down" id="pc-delta-desp">↑ Atenção ao limite</span>
           <div class="pc-bar-wrap">
             <div class="pc-bar-lbl"><span>% do faturamento esperado</span><span id="pc-pct-desp">28%</span></div>
@@ -1607,7 +1607,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Execução meta anual</span><span>31,4%</span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:31%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div>
           </div>
-          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05: R$ 106.199</div>
+          <div class="pc-sub">Meta anual: R$ 1.684.603,20 · Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
         </div>
         <div class="period-card prev">
           <div class="pc-label">A Receber em aberto</div>
@@ -1618,7 +1618,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
             <div class="pc-bar-lbl"><span>Wellhub, Reinvente, Sindicato</span><span></span></div>
             <div class="pc-bar"><div class="pc-bar-fill" style="width:35%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
           </div>
-          <div class="pc-sub">Saldo em conta no dia 18/05: R$ 106.199</div>
+          <div class="pc-sub">Saldo em conta no dia 18/05/2026: R$ 106.198,63</div>
         </div>
       </div>
 
@@ -1626,7 +1626,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="prog">
         <div class="prog-h">
           <div class="prog-ttl">Meta Anual 2026</div>
-          <div class="prog-pct">31,4%</div>
+          <div class="prog-pct">31.4%</div>
         </div>
         <div class="prog-trk"><div class="prog-fill" style="width:31.4%"></div></div>
         <div class="prog-sub"><span>R$ 528.301,66 faturados (Jan–Abr)</span><span>Meta: <strong>R$ 1.684.603,20</strong></span></div>
@@ -2120,10 +2120,10 @@ const CFG = {
 // ══════════════════════════════════════════════════════════════════════
 
 const dadosMensais={
-  labels:['Jan','Fev','Mar','Abr','Mai*'],
-  fat:[134565,99611,214707,79419,43226],
-  desp:[78853,110102,92205,116125,62174],
-  res:[55712,-10491,122502,-36706,-18948]
+  labels:["Jan", "Fev", "Mar", "Abr*", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+  fat:[134564.84, 99611.25, 214706.81, 79418.76, 43225.66, 42774.9, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+  desp:[78852.75, 110101.8, 92205.07, 116124.88, 62173.88, 37748.35, 34118.32, 34118.32, 34118.32, 33748.32, 33748.32, 31748.32],
+  res:[55712.09, -10490.55, 122501.74, -36706.12, -18948.22, 5026.55, -34118.32, -34118.32, -34118.32, -33748.32, -33748.32, -31748.32]
 };
 
 // SPLASH → LOGIN
@@ -2370,8 +2370,8 @@ function initAnualCharts(){
 
 // ══ RUNWAY DE CAIXA ══════════════════════════════════════════════════════
 const RUNWAY_CFG = {
-  saldo: 106199,        // Saldo real em conta (excluindo Caixinha) — dia 18/05
-  despMensal: 62174,    // Despesas mensais Maio (parcial projetado)
+  saldo: 106198.63,
+  despMensal: 116124.88,
   dataRef: '18/05/2026'
 };
 
@@ -2452,16 +2452,7 @@ function buildScoreAuto(){
 
 // ══ TIMELINE DE VENCIMENTOS ═══════════════════════════════════════════════
 // Dados dos vencimentos — atualize todo mês junto com os cards de período
-const VENCIMENTOS = [
-  // {nome, tipo:'pagar'|'receber', valor, dia, mes} — próximos 30 dias
-  {nome:'Wellhub',                tipo:'receber', valor:'R$ 12.351',  dia:5,  mes:'Jun'},
-  {nome:'Reinvente Assessoria',   tipo:'receber', valor:'R$ 18.211',  dia:5,  mes:'Jun'},
-  {nome:'Wellhub',                tipo:'receber', valor:'R$ 6.722',   dia:11, mes:'Jun'},
-  {nome:'Wellhub',                tipo:'receber', valor:'R$ 5.491',   dia:12, mes:'Jun'},
-  {nome:'Julio Cesar (parcela)',  tipo:'pagar',   valor:'R$ 14.000',  dia:20, mes:'Mai'},
-  {nome:'Receita Federal (DAS)',  tipo:'pagar',   valor:'R$ 3.200',   dia:25, mes:'Mai'},
-  {nome:'Compulaser',             tipo:'pagar',   valor:'R$ 2.100',   dia:26, mes:'Mai'},
-];
+const VENCIMENTOS = [{"nome": "Edna Maria Benedito Quintela Cavalcante", "tipo": "pagar", "valor": "R$ 1.000", "dia": 1, "mes": "Jun"}, {"nome": "Julio Cesar Quintela Cavalcante", "tipo": "pagar", "valor": "R$ 1.513", "dia": 1, "mes": "Jun"}, {"nome": "Julio Cesar Quintela Cavalcante", "tipo": "pagar", "valor": "R$ 14.487", "dia": 1, "mes": "Jun"}, {"nome": "GOVERNO DE SÃO PAULO", "tipo": "pagar", "valor": "R$ 487", "dia": 2, "mes": "Jun"}, {"nome": "Julio Cesar Quintela Cavalcante", "tipo": "pagar", "valor": "R$ 4.000", "dia": 5, "mes": "Jun"}, {"nome": "WELLHUB", "tipo": "receber", "valor": "R$ 12.351", "dia": 5, "mes": "Jun"}, {"nome": "REINVENTE ASSESSORIA DIGITAL LTDA", "tipo": "receber", "valor": "R$ 18.211", "dia": 5, "mes": "Jun"}, {"nome": "A.M. SERVIÇOS GRAFICOS LTDA", "tipo": "pagar", "valor": "R$ 2.614", "dia": 8, "mes": "Jun"}, {"nome": "CONTA AZUL", "tipo": "pagar", "valor": "R$ 390", "dia": 10, "mes": "Jun"}, {"nome": "SPOTGIFTS", "tipo": "pagar", "valor": "R$ 529", "dia": 10, "mes": "Jun"}, {"nome": "WELLHUB", "tipo": "receber", "valor": "R$ 6.722", "dia": 11, "mes": "Jun"}, {"nome": "WELLHUB", "tipo": "receber", "valor": "R$ 5.491", "dia": 12, "mes": "Jun"}, {"nome": "CHANQUINI ESTRATÉGIAS FINANCEIRAS LTDA.", "tipo": "pagar", "valor": "R$ 1.590", "dia": 15, "mes": "Jun"}, {"nome": "BT CONSULTORIA CONTABIL LTDA", "tipo": "pagar", "valor": "R$ 400", "dia": 15, "mes": "Jun"}, {"nome": "nan", "tipo": "pagar", "valor": "R$ 2.000", "dia": 15, "mes": "Jun"}, {"nome": "RECEITA FEDERAL", "tipo": "pagar", "valor": "R$ 6.000", "dia": 20, "mes": "Jun"}, {"nome": "INTEGRA ASSISTENCIA MEDICA LTDA", "tipo": "pagar", "valor": "R$ 981", "dia": 20, "mes": "Jun"}, {"nome": "RECEITA FEDERAL", "tipo": "pagar", "valor": "R$ 187", "dia": 20, "mes": "Jun"}, {"nome": "COMPULASER GRAFICA E EDITORA LTDA-EPP", "tipo": "pagar", "valor": "R$ 9.060", "dia": 26, "mes": "Mai"}, {"nome": "ENGENHO DE IMAGENS", "tipo": "pagar", "valor": "R$ 1.200", "dia": 28, "mes": "Mai"}, {"nome": "PORTA COPOS PERSONALIZADOS", "tipo": "pagar", "valor": "R$ 4.245", "dia": 28, "mes": "Mai"}, {"nome": "RECEITA FEDERAL", "tipo": "pagar", "valor": "R$ 403", "dia": 31, "mes": "Mai"}];
 
 function buildTimeline(){
   const list = document.getElementById('tl-list');
@@ -2521,7 +2512,7 @@ const SCORE_CFG = {
     {mes:'Jan', val:65, status:'alerta'},
     {mes:'Fev', val:61, status:'alerta'},
     {mes:'Mar', val:70, status:'saudavel'},
-    {mes:'Abr', val:69, status:'saudavel'},
+    {mes:'Abr', val:55, status:'alerta', atual:true},
     {mes:'Mai', val:74, status:'saudavel', atual:true},
   ]
 };
@@ -2691,14 +2682,14 @@ function exportPDF(){
     // Financeiro — dashboard Abril 2026
     const FAT       = 'R$ 79.418,76';
     const DESP      = 'R$ 116.124,88';
-    const RES       = '– R$ 36.706,12';
-    const MARGEM    = '– 46,2%';         // margem líquida real de Abril (negativa)
+    const RES       = 'R$ -36.706,12';
+    const MARGEM    = '-46.2%';         // margem líquida real de Abril (negativa)
     const META_MEN  = '56,6%';
     const FAT_ACUM  = 'R$ 528.301,66';
     const DESP_ACUM = 'R$ 397.284,50';
     const RES_ACUM  = 'R$ 131.017,16';
     const META_ANUAL= 'R$ 1.684.603,20';
-    const EXEC_META = '31,4%';
+    const EXEC_META = '31.4%';
     const SALDO     = 'R$ 106.198,63';
     const A_REC     = 'R$ 50.095,90';
     const A_PAG     = 'R$ 259.630,05';
@@ -3004,7 +2995,7 @@ function exportPDF(){
 
     const destaques=[
       {lbl:'ATENCAO',  tc:RED,   bg:BGRED, txt:'Resultado de -R$ 36.706,12 em Abril. Despesas (R$ 116.124,88) superaram faturamento (R$ 79.418,76) em 46%.'},
-      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05: R$ 106.198,63. Resultado de Marco sustenta o ano.'},
+      {lbl:'PONTO FORTE',tc:GREEN,bg:BGGRE,txt:'Acumulado 2026 positivo em R$ 131.017,16. Saldo em conta no dia 18/05/2026: R$ 106.198,63Resultado de Marco sustenta o ano.'},
       {lbl:'PROXIMO PASSO',tc:YELLOW,bg:BGYEL,txt:'Converter R$ 50.095,90 a receber (Wellhub, Reinvente, Sindicato) e negociar R$ 259.630,05 a pagar.'},
     ];
     destaques.forEach(d=>{
