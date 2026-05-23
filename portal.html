@@ -1502,10 +1502,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <a class="ni" onclick="nav('dashboards',this)"><span class="ni-ico">◫</span>Dashboards</a>
       <a class="ni" onclick="nav('painel',this)"><span class="ni-ico">◉</span>Painel Financeiro</a>
       <a class="ni" onclick="nav('estrategia',this)"><span class="ni-ico">◈</span>Estratégia</a>
-      <a class="ni" onclick="nav('metas',this)"><span class="ni-ico">◎</span>Metas</a>
       <a class="ni" onclick="nav('score',this)"><span class="ni-ico">⬡</span>GFE Score</a>
-      <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✦</span>Cartas do Consultor</a>
       <a class="ni" onclick="nav('relatorio',this)"><span class="ni-ico">◉</span>Relatório Anual</a>
+      <a class="ni" onclick="nav('cartas',this)"><span class="ni-ico">✦</span>Cartas do Consultor</a>
       <div class="sb-sec">Gestão</div>
       <a class="ni" onclick="nav('documentos',this)"><span class="ni-ico">◻</span>Documentos</a>
       <a class="ni" onclick="nav('perfil',this)"><span class="ni-ico">◑</span>Perfil da Empresa</a>
@@ -1787,12 +1786,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="mc2"><div class="mc2-l">Margem Líquida</div><div class="mc2-v" style="color:var(--green)">94%</div><div class="mc2-s">61% atual · meta 65%</div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
         <div class="mc2"><div class="mc2-l">Redução de Custos</div><div class="mc2-v" style="color:var(--blue)">40%</div><div class="mc2-s">2% atual · meta 5%</div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div></div>
       </div>
-    </div>
 
-    <!-- METAS -->
-    <div id="page-metas" class="page">
-      <div class="ph"><h1>Metas</h1><p>Acompanhamento dos objetivos financeiros 2026</p></div>
-
+      <div style="border-top:1px solid var(--border);margin:24px 0 20px"></div>
+      <div class="ph" style="margin-bottom:18px">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--text);letter-spacing:-.3px">Metas 2026</h2>
+        <p>Acompanhamento dos objetivos financeiros</p>
+      </div>
       <!-- 4 widgets grandes com números em destaque -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
 
@@ -1829,7 +1828,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
 
       </div>
+
     </div>
+
 
     <!-- GFE SCORE -->
     <div id="page-score" class="page">
@@ -1944,12 +1945,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
 
-    <!-- CARTAS DO CONSULTOR -->
-    <div id="page-cartas" class="page">
-      <div class="ph"><h1>Cartas do Consultor</h1><p>Histórico de análises mensais da Chanquini</p></div>
-      <div class="cartas-grid" id="cartas-grid"></div>
-    </div>
-
     <!-- RELATÓRIO ANUAL -->
     <div id="page-relatorio" class="page">
       <div class="ra-hero">
@@ -1973,6 +1968,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <div class="pl-item" style="margin-top:14px"><div class="pl-row"><span class="pl-lbl">Margem Líquida — 61% atual vs meta 65%</span><span class="pl-pcts" style="color:var(--yellow);font-weight:700">94% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:94%;background:linear-gradient(90deg,var(--yellow),var(--gold2))"></div></div></div>
         <div class="pl-item" style="margin-top:14px"><div class="pl-row"><span class="pl-lbl">Redução de Custos — 2% atual vs meta 5%</span><span class="pl-pcts" style="color:var(--green);font-weight:700">40% da meta</span></div><div class="pl-trk"><div class="pl-fill" style="width:40%;background:linear-gradient(90deg,var(--green),#4ADE80)"></div></div></div>
       </div>
+    </div>
+
+    <!-- CARTAS DO CONSULTOR -->
+    <div id="page-cartas" class="page">
+      <div class="ph"><h1>Cartas do Consultor</h1><p>Histórico de análises mensais da Chanquini</p></div>
+      <div class="cartas-grid" id="cartas-grid"></div>
     </div>
 
     <!-- DOCUMENTOS -->
@@ -2195,7 +2196,7 @@ function logout(){
 }
 
 // NAV
-const PNS={inicio:'Início',dashboards:'Dashboards',painel:'Painel Financeiro',estrategia:'Estratégia',metas:'Metas',score:'GFE Score',cartas:'Cartas do Consultor',relatorio:'Relatório Anual',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
+const PNS={inicio:'Início',dashboards:'Dashboards',painel:'Painel Financeiro',estrategia:'Estratégia',score:'GFE Score',relatorio:'Relatório Anual',cartas:'Cartas do Consultor',documentos:'Documentos',perfil:'Perfil da Empresa',contato:'Contato Chanquini'};
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
